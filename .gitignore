@@ -1,0 +1,16 @@
+assets/*
+!assets/.gitignore
+protected/runtime/*
+!protected/runtime/.gitignore
+protected/data/*.db
+themes/classic/views/
+yii/
+themes/
+.idea/
+runtime/
+extensions/
+yii/
+/node_modules
+backup/
+tests/
+vendor/

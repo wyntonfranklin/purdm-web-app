@@ -14,4 +14,9 @@ class AccountController extends Controller
 
         $this->render('create');
     }
+
+    public function actionView($id=""){
+
+        $this->render('view');
+    }
 }

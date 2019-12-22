@@ -5,10 +5,12 @@
 
 .cdp{
     display: none;
+    z-index: 100;
 }
 
 .cdp-options{
     display: none;
+    z-index: 100;
 }
 
 .cdp.active {

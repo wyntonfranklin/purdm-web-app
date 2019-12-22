@@ -27,4 +27,8 @@ class Controller extends CController
             return "active";
         }
     }
+
+    public function customDatePickerWidget(){
+        echo $this->renderPartial('//layouts/custom_date_picker');
+    }
 }

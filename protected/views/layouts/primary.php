@@ -42,9 +42,9 @@
             <div id="content">
                 <?php $this->renderPartial("//layouts/primary_top_bar");?>
                 <?php echo $content;?>
+                <?php $this->renderPartial('//layouts/cdp_popups');?>
             </div>
     </div>
-
     <?php $this->renderPartial('//layouts/transaction_modal');?>
 
     <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery.min.js"></script>

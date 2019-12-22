@@ -115,7 +115,7 @@ class SiteController extends Controller
 	    echo "Help me";
     }
 
-    public function actionFaq(){
-	    echo "This is a faq";
+    public function actionTest(){
+	   var_dump(Queries::getIncomeByMonth());
     }
 }

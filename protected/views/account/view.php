@@ -4,8 +4,9 @@
 
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Account Name</h1>
+        <h1 class="h3 mb-0 text-gray-800">Primary Account(RBC)</h1>
         <div class="d-none d-sm-inline-block">
+            <?php $this->customDatePickerWidget();?>
             <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-dark shadow-sm"><i class="fas fa-cog fa-sm text-white-50"></i> Options</a>
             <a data-toggle="modal" data-target="#transaction-modal"  href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-coins fa-sm text-white-50"></i> Add transaction</a>
         </div>
@@ -48,7 +49,7 @@
                             </div>
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                            <i class="fas fa-money-bill fa-2x text-gray-300"></i>
                         </div>
                     </div>
                 </div>

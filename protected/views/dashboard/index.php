@@ -23,7 +23,7 @@
                             </div>
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-list fa-2x text-gray-300"></i>
+                            <i class="fas fa-chart-pie fa-2x text-gray-300"></i>
                         </div>
                     </div>
                 </div>
@@ -61,7 +61,7 @@
                             </div>
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                            <i class="fas fa-money-bill fa-2x text-gray-300"></i>
                         </div>
                     </div>
                 </div>

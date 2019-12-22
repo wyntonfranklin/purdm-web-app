@@ -24,7 +24,10 @@ var DashboardPage = (function(){
         $.getJSON('/ajax/chart?name=income_expenditure',function(response){
 
         });
-        PDMCharts.loadChart('bar-chart');
+
+        $.getJSON('/ajax/GetIncomeExpenditureChartData',function(response){
+            PDMCharts.loadChart('bar-chart', response.data);
+        });
         PDMCharts.loadPieChart('myPieChart');
 
         $.get('/ajax/GetTransactionsTable',function(data){

@@ -15,10 +15,22 @@ var PDMApp = (function(){
     function removeChartsLoader(id){
         $('#'+id).parent().find('.charts-loader').hide();
     }
+
+    function getCdpSettings(){
+        var settings = JSON.parse($('#cdp-settings').attr('data-settings'));
+        return settings;
+    }
+
+    function cdpOnChangeEventName(){
+        return "wf.datetimepicker.onchange";
+    }
+
     return {
         addLoaders : addLoaders,
         setElContent : setElContent,
-        removeChartsLoader : removeChartsLoader
+        removeChartsLoader : removeChartsLoader,
+        getCdpSettings : getCdpSettings,
+        cdpOnChangeEventName : cdpOnChangeEventName
     }
 
 })();

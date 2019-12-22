@@ -20,7 +20,8 @@ var AccountPage = (function() {
             loadTiles(response.data);
         });
         PDMCharts.loadPieChart('pie-all-cats');
-        PDMCharts.loadChart('incomevsexpense');
+       // PDMCharts.loadChart('incomevsexpense');
+
         $.get('/ajax/GetExpenseListing',function(data){
             lsExpensesLay.empty().append(data);
         });

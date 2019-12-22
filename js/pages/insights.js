@@ -33,6 +33,12 @@ var InsightsPage = (function() {
         });
     }
 
+    $(document).on(PDMApp.cdpOnChangeEventName(),function(){
+        var settings = PDMApp.getCdpSettings();
+        console.log(settings.type)
+       // loadPageData();
+    });
+
     return {
         loadPageData : loadPageData
     }

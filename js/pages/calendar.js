@@ -1,4 +1,4 @@
-var KTCalendarBasic = function() {
+var PDMCalendarBasic = function() {
 
     return {
         //main function to initiate the module
@@ -175,5 +175,5 @@ var KTCalendarBasic = function() {
 
 
 jQuery(document).ready(function() {
-    KTCalendarBasic.init();
+    PDMCalendarBasic.init();
 });

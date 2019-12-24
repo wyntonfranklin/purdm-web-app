@@ -45,3 +45,13 @@
     background: red;
     color: #fff;
 }
+
+.pie-cats {
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+}
+
+.pie-cats li {
+    margin-bottom: 3px;
+}

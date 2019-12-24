@@ -25,12 +25,18 @@ var PDMApp = (function(){
         return "wf.datetimepicker.onchange";
     }
 
+    function showNotification(message){
+        $.notify(message, "info",
+            { position:"top center" });;
+    }
+
     return {
         addLoaders : addLoaders,
         setElContent : setElContent,
         removeChartsLoader : removeChartsLoader,
         getCdpSettings : getCdpSettings,
-        cdpOnChangeEventName : cdpOnChangeEventName
+        cdpOnChangeEventName : cdpOnChangeEventName,
+        showNotification : showNotification
     }
 
 })();

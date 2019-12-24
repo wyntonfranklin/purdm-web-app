@@ -19,11 +19,16 @@ var AccountPage = (function() {
         $.getJSON('/ajax/getaccounttotals',function(response){
             loadTiles(response.data);
         });
-        PDMCharts.loadPieChart('pie-all-cats');
-       // PDMCharts.loadChart('incomevsexpense');
+        $.getJSON('/ajax/GetAllExpenses',function(response){
+            PDMCharts.loadMultiCatPieChart('pie-cats',response.data);
+        });
+
+        $.getJSON('/ajax/GetIncomeExpenditureChartData',function(response){
+            PDMCharts.loadDashboardIEChart('incomevsexpense', response.data);
+        });
 
         $.get('/ajax/GetExpenseListing',function(data){
-            lsExpensesLay.empty().append(data);
+           // lsExpensesLay.empty().append(data);
         });
         $.get('/ajax/GetTransactionsTable',function(data){
             transLay.empty().append(data);

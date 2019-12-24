@@ -28,6 +28,8 @@
     <link href="<?php echo Yii::app()->request->baseUrl; ?>/css/three-dots.min.css" rel="stylesheet">
     <link href="<?php echo Yii::app()->request->baseUrl; ?>/css/dataTables.bootstrap4.min.css" rel="stylesheet">
     <link href="<?php echo Yii::app()->request->baseUrl; ?>/css/bootstrap-datepicker.min.css" rel="stylesheet">
+    <link href="<?php echo Yii::app()->request->baseUrl; ?>/css/jquery-confirm.min.css" rel="stylesheet">
+    <link href="<?php echo Yii::app()->request->baseUrl; ?>/css/select2.min.css" rel="stylesheet">
 
 </head>
 
@@ -58,12 +60,17 @@
     <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/fullcalendar.bundle.js"></script>
     <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/dataTables.bootstrap4.min.js"></script>
+    <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/notify.min.js"></script>
+    <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery-confirm.min.js"></script>
+    <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/select2.min.js"></script>
+    <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery.maskMoney.min.js"></script>
 
 
         <!-- Custom scripts for all pages-->
     <script  type="text/javascript"src="<?php echo Yii::app()->request->baseUrl; ?>/js/sb-admin-2.min.js"></script>
     <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/app.js"></script>
     <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/charts.js"></script>
+    <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/create_transaction.js"></script>
     <!-- Page level plugins -->
 
 </body>

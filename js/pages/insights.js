@@ -19,14 +19,11 @@ var InsightsPage = (function() {
         $.getJSON('/ajax/getaccounttotals',function(response){
             loadTiles(response.data);
         });
-        try{
-            PDMCharts.loadPieChart('pie-all-cats');
-            PDMCharts.loadChart('incomevsexpense');
-        }catch (e) {
-
-        }
-        $.get('/ajax/GetExpenseListing',function(data){
-            lsExpensesLay.empty().append(data);
+        $.getJSON('/ajax/GetIncomeExpenditureChartData',function(response){
+            PDMCharts.loadDashboardIEChart('incomevsexpense', response.data);
+        });
+        $.getJSON('/ajax/GetAllExpenses',function(response){
+            PDMCharts.loadMultiCatPieChart('pie-cats',response.data);
         });
         $.get('/ajax/GetTransactionsTable',function(data){
             transLay.empty().append(data);

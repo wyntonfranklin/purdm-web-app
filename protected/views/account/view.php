@@ -106,35 +106,12 @@
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                     <h6 class="m-0 font-weight-bold text-primary">Expenses by Category</h6>
-                    <div class="dropdown no-arrow">
-                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-                            <div class="dropdown-header">Dropdown Header:</div>
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                        </div>
-                    </div>
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
                     <div class="chart-area">
                         <div class="aj charts-loader"></div>
-                        <canvas id="pie-all-cats"></canvas>
-                    </div>
-                    <div class="mt-4 text-center small">
-                        <span class="mr-2">
-                          <i class="fas fa-circle text-primary"></i> Direct
-                        </span>
-                            <span class="mr-2">
-                          <i class="fas fa-circle text-success"></i> Social
-                        </span>
-                            <span class="mr-2">
-                          <i class="fas fa-circle text-info"></i> Referral
-                        </span>
+                        <canvas id="pie-cats"></canvas>
                     </div>
                 </div>
             </div>
@@ -145,24 +122,14 @@
             <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">All Expenses</h6>
-                    <div class="dropdown no-arrow">
-                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-                            <div class="dropdown-header">Dropdown Header:</div>
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                        </div>
-                    </div>
+                    <h6 class="m-0 font-weight-bold text-primary">Expenses Legend</h6>
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
-                    <div id="list-expenses" class="" style="min-height: 360px;">
-                        <div class="aj"></div>
+                    <div class="" style="height: 320px; overflow: auto;">
+                        <ul class="pie-cats" id="pie-cats-list">
+                            <div class="aj"></div>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -176,25 +143,11 @@
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                     <h6 class="m-0 font-weight-bold text-primary">Income vs Expenditure</h6>
-                    <div class="dropdown no-arrow">
-                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-                            <div class="dropdown-header">Dropdown Header:</div>
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                        </div>
-                    </div>
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
-                    <div class="chart-area">
-                        <div class="aj charts-loader"></div>
-                        <canvas id="incomevsexpense"></canvas>
-                    </div>
+                    <div class="aj charts-loader"></div>
+                    <canvas width="400" height="135" class="chart-area" id="incomevsexpense"></canvas>
                 </div>
             </div>
         </div>

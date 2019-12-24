@@ -3,6 +3,16 @@ var PDMCharts = (function(){
     Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
     Chart.defaults.global.defaultFontColor = '#858796';
 
+    function load_pie_chart_labels(id, colors, labels){
+        var template ='';
+        for(var i=0; i<= labels.length-1; i++){
+            template += '      <span class="mr-2">\n' +
+                '<i style="color:'+colors[i]+'" class="fas fa-circle"></i> '+labels[i]+'\n' +
+                '</span>';
+        }
+        $('#'+id+'-labels').empty().append(template);
+    }
+
     function number_format(number, decimals, dec_point, thousands_sep) {
         // *     example: number_format(1234.56, 2, ',', ' ');
         // *     return: '1 234,56'
@@ -158,8 +168,147 @@ var PDMCharts = (function(){
             },
         });
     }
+
+    function loadDashboardIEChart(id, data){
+        PDMApp.removeChartsLoader(id);
+        var ctx = document.getElementById(id);
+        var myBarChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: data.labels,
+                datasets: [{
+                    label: "Income",
+                    lineTension: 0.3,
+                    backgroundColor: 'rgb(23, 166, 115)',
+                    borderColor: 'rgb(23, 166, 115)',
+                    data: data.income,
+                },
+                {
+                    label: "Expense",
+                    lineTension: 0.3,
+                    backgroundColor: 'rgb(255, 99, 132)',
+                    borderColor: 'rgb(255, 99, 132)',
+                    data: data.expense,
+                }],
+            },
+            options: {
+                tooltips: {
+                    backgroundColor: "rgb(255,255,255)",
+                    bodyFontColor: "#858796",
+                    titleMarginBottom: 10,
+                    titleFontColor: '#6e707e',
+                    titleFontSize: 14,
+                    borderColor: '#dddfeb',
+                    borderWidth: 1,
+                    xPadding: 15,
+                    yPadding: 15,
+                    displayColors: false,
+                    intersect: false,
+                    mode: 'index',
+                    caretPadding: 10,
+                    callbacks: {
+                        label: function(tooltipItem, chart) {
+                            var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
+                            return datasetLabel + ': $' + number_format(tooltipItem.yLabel);
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    function loadTEPieChart(id, data){
+        var colors = ['#4e73df', '#1cc88a', '#36b9cc','#ff3333','#ff748c'];
+        PDMApp.removeChartsLoader(id);
+        var ctx = document.getElementById(id);
+        load_pie_chart_labels(id,colors,data.labels);
+        var myPieChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: data.labels,
+                datasets: [{
+                    data: data.dataset,
+                    backgroundColor: colors,
+                    hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf','#ff3333','#ff748c'],
+                    hoverBorderColor: "rgba(234, 236, 244, 1)",
+                }],
+            },
+            options: {
+                maintainAspectRatio: false,
+                tooltips: {
+                    backgroundColor: "rgb(255,255,255)",
+                    bodyFontColor: "#858796",
+                    borderColor: '#dddfeb',
+                    borderWidth: 1,
+                    xPadding: 15,
+                    yPadding: 15,
+                    displayColors: false,
+                    caretPadding: 10,
+                },
+                legend: {
+                    display: false
+                },
+                cutoutPercentage: 80,
+            },
+        });
+    }
+
+    function loadMultiCatPieChart(id, data ){
+        renderCatListing(id, data);
+        var colors = data.colors;
+        PDMApp.removeChartsLoader(id);
+        var ctx = document.getElementById(id);
+        var myPieChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: data.labels,
+                datasets: [{
+                    data: data.dataset,
+                    backgroundColor: colors,
+                    hoverBackgroundColor: colors,
+                    hoverBorderColor: "rgba(234, 236, 244, 1)",
+                }],
+            },
+            options: {
+                maintainAspectRatio: false,
+                tooltips: {
+                    backgroundColor: "rgb(255,255,255)",
+                    bodyFontColor: "#858796",
+                    borderColor: '#dddfeb',
+                    borderWidth: 1,
+                    xPadding: 15,
+                    yPadding: 15,
+                    displayColors: false,
+                    caretPadding: 10,
+                },
+                legend: {
+                    display: false
+                },
+                cutoutPercentage: 80,
+            },
+        });
+    }
+
+    function renderCatListing(id, data){
+        var $el = $("#" + id + '-list');
+        var labels = data.labels;
+        var colors = data.colors;
+        var dataset = data.dataset;
+        var template ="";
+        for(var i=0; i<= labels.length-1; i++){
+            template +='   <li>\n' +
+                '<i style="color:'+colors[i]+'" class="fas fa-circle"></i>\n' + labels[i] +
+                '&nbsp;&nbsp; &nbsp; <span style="font-weight: bold">$'+dataset[i]
+                +' (30%)</span></li>\n';
+        }
+        $el.empty().append(template);
+    }
+
     return {
         loadChart : loadChart,
-        loadPieChart : loadPieChart
+        loadPieChart : loadPieChart,
+        loadDashboardIEChart : loadDashboardIEChart,
+        loadTEPieChart : loadTEPieChart,
+        loadMultiCatPieChart : loadMultiCatPieChart
     }
 })();

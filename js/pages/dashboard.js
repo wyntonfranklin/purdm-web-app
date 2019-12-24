@@ -26,9 +26,12 @@ var DashboardPage = (function(){
         });
 
         $.getJSON('/ajax/GetIncomeExpenditureChartData',function(response){
-            PDMCharts.loadChart('bar-chart', response.data);
+            PDMCharts.loadDashboardIEChart('bar-chart', response.data);
         });
-        PDMCharts.loadPieChart('myPieChart');
+
+        $.getJSON('/ajax/GetTopExpenses',function(response){
+            PDMCharts.loadTEPieChart('myPieChart',response.data);
+        });
 
         $.get('/ajax/GetTransactionsTable',function(data){
            transLay.empty().append(data);

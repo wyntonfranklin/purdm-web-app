@@ -61,4 +61,48 @@ class Queries
         }
         return $results;
     }
+
+    public static function getExpensesByMonth(){
+        $sql = "SELECT sum(amount) as total,Month(trans_date) as date 
+        FROM transactions WHERE type=\"expense\" group by MONTH(trans_date);";
+        try{
+            $results = Yii::app()->db->createCommand($sql)->queryAll();
+        }catch (Exception $e){
+            return null;
+        }
+        return $results;
+    }
+
+    public static function getTopExpensesByYear(){
+        $sql = "SELECT sum(amount) as total, category from transactions Where type=\"expense\" 
+        group by category order by total desc LIMIT 5;";
+        try{
+            $results = Yii::app()->db->createCommand($sql)->queryAll();
+        }catch (Exception $e){
+            return null;
+        }
+        return $results;
+    }
+
+    public static function getAvgExpense(){
+        $sql ="SELECT avg(amount) FROM wfexpenses.transactions where type=\"expense\"";
+        try{
+            $results = Yii::app()->db->createCommand($sql)->queryScalar();
+        }catch (Exception $e){
+            return 0;
+        }
+        return $results;
+    }
+
+
+    public static function getAllExpensesByYear(){
+        $sql = "SELECT sum(amount) as total, category from transactions Where type=\"expense\" 
+        group by category order by total desc";
+        try{
+            $results = Yii::app()->db->createCommand($sql)->queryAll();
+        }catch (Exception $e){
+            return null;
+        }
+        return $results;
+    }
 }

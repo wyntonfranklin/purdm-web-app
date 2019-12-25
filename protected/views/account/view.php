@@ -8,7 +8,7 @@
         <div class="d-none d-sm-inline-block">
             <?php $this->customDatePickerWidget();?>
             <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-dark shadow-sm"><i class="fas fa-cog fa-sm text-white-50"></i> Options</a>
-            <a data-toggle="modal" data-target="#transaction-modal"  href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-coins fa-sm text-white-50"></i> Add transaction</a>
+            <a id='pdm-add-transaction' href="javascript:void(0);" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-coins fa-sm text-white-50"></i> Add transaction</a>
         </div>
     </div>
 
@@ -78,11 +78,11 @@
         </div>
 
         <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card border-left-secondary shadow h-100 py-2">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Average Expense</div>
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Balance</div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">
                                  <span id="av-tile" class="aj">
 
@@ -90,7 +90,7 @@
                             </div>
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-calculator fa-2x text-gray-300"></i>
+                            <i class="fas fa-wallet fa-2x text-gray-300"></i>
                         </div>
                     </div>
                 </div>

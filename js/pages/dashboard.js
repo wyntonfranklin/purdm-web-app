@@ -7,6 +7,21 @@ var DashboardPage = (function(){
     var transLay = $('#trans-layout');
 
 
+    $(document).on('wf.transaction.created',function(){
+       reloadPage();
+    });
+
+    $(document).on('wf.update.transtable',function(){
+        updateTransTable();
+    });
+
+    function updateTransTable(){
+        $.get('/ajax/GetTransactionsTable',function(data){
+            transLay.empty().append(data);
+        });
+    }
+
+
     function loadTiles(response){
         console.log(response.income);
         PDMApp.setElContent(nwTile,response.worth);
@@ -20,9 +35,6 @@ var DashboardPage = (function(){
         PDMApp.addLoaders();
         $.getJSON('/ajax/gettotals',function(response){
             loadTiles(response.data);
-        });
-        $.getJSON('/ajax/chart?name=income_expenditure',function(response){
-
         });
 
         $.getJSON('/ajax/GetIncomeExpenditureChartData',function(response){

@@ -6,20 +6,28 @@
         <th>Amount</th>
         <th>Description</th>
         <th>Category</th>
+        <th>Account</th>
         <th>Actions</th>
     </tr>
     </thead>
     <tbody>
     <?php foreach($transactions as $transaction):?>
         <tr>
-            <td><?php echo $transaction->trans_date;?></td>
-            <td><?php echo $transaction->amount;?></td>
+            <td>
+                <?php echo $transaction->trans_date;?></td>
+            <td>
+                <?php echo Utils::getTransactionIcon($transaction->type);?>
+                &nbsp;&nbsp;
+                <?php echo Utils::formatMoney($transaction->amount);?></td>
             <td><?php echo $transaction->description;?></td>
             <td><?php echo $transaction->category;?></td>
+            <td>Primary</td>
             <td>
-                <a href="#"><i class="fa fa-cog"></i></a>&nbsp;&nbsp;
-                <a href="#" class="open-trans-modal"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
-                <a href="#"><i class="fa fa-trash"></i></a>
+                <div data-id="<?php echo $transaction->transaction_id;?>">
+                    <a href="#"><i class="fa fa-cog"></i></a>&nbsp;&nbsp;
+                    <a href="javascript:void(0);" class="open-trans-modal"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
+                    <a href="javascript:void(0);" class="trans-delete"><i class="fa fa-trash"></i></a>
+                </div>
             </td>
         </tr>
     <?php endforeach; ?>
@@ -27,6 +35,20 @@
 </table>
 <script>
     $(document).ready(function() {
-        $('#dataTable').DataTable();
+        $('#dataTable').DataTable({
+            "order": []
+        });
+
+        $('#dataTable').on('click','.trans-delete',function(){
+            var el = $(this);
+            var transId = $(this).parent().attr('data-id');
+            var c = confirm('Remove this tranaction');
+            if(c){
+                $.post('/ajax/DeleteTransaction',{id:transId},function(){
+                    el.trigger('wf.update.transtable');
+                });
+            }
+           return false;
+        });
     });
 </script>

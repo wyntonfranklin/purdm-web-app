@@ -7,30 +7,48 @@ var AccountPage = (function() {
     var lsExpensesLay = $('#list-expenses');
     var transLay = $('#trans-layout');
 
+    $(document).on('wf.datetimepicker.onchange',function(){
+        loadPageData();
+    });
+
+    $(document).on('wf.transaction.created',function(){
+        loadPageData();
+    });
+
+    $(document).on('wf.update.transtable',function(){
+        var settings = PDMApp.getCdpSettings();
+        updateTransTable(settings);
+    });
+
+
     function loadTiles(response){
         PDMApp.setElContent(inTile,response.income);
         PDMApp.setElContent(exTile,response.expenses);
         PDMApp.setElContent(svTile,response.savings);
-        PDMApp.setElContent(avTile,response.average);
+        PDMApp.setElContent(avTile,response.balance);
     }
 
     function loadPageData(){
         PDMApp.addLoaders();
-        $.getJSON('/ajax/getaccounttotals',function(response){
+        var settings = PDMApp.getCdpSettings();
+        console.log(settings);
+        $.getJSON('/ajax/getaccounttotals', settings, function(response){
             loadTiles(response.data);
         });
-        $.getJSON('/ajax/GetAllExpenses',function(response){
+        $.getJSON('/ajax/GetAllExpenses', settings, function(response){
             PDMCharts.loadMultiCatPieChart('pie-cats',response.data);
         });
 
-        $.getJSON('/ajax/GetIncomeExpenditureChartData',function(response){
+        $.getJSON('/ajax/GetReportIEChartData',settings,function(response){
             PDMCharts.loadDashboardIEChart('incomevsexpense', response.data);
         });
 
-        $.get('/ajax/GetExpenseListing',function(data){
-           // lsExpensesLay.empty().append(data);
-        });
-        $.get('/ajax/GetTransactionsTable',function(data){
+        updateTransTable(settings);
+
+    }
+
+    function updateTransTable(settings){
+        $.get('/ajax/GetTransactionsTableWithFilters', settings,function(data){
             transLay.empty().append(data);
         });
     }

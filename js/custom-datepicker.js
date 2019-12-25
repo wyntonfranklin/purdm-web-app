@@ -94,6 +94,7 @@ dpleft.on('click',function(){
    }else{
        rangeBackward();
    }
+    triggerOnDateTimePickerChange($(this));
    return false;
 });
 
@@ -103,6 +104,7 @@ dpright.on('click',function(){
     }else{
         rangeForward();
     }
+    triggerOnDateTimePickerChange($(this));
     return false;
 });
 

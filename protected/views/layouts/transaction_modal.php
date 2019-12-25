@@ -47,8 +47,15 @@
                                     <label for="category"><i class="fa fa-tag"></i>&nbsp;
                                         Category <span><a href="#"id="add-trans-cat"><i class="fa fa-plus"></i></a></span>
                                     </label>
-                                    <?php echo CHtml::dropDownList('category','', Categories::model()->getListing(),
-                                        array('class'=>'form-control','id'=>'category','style'=>'height:50px;width:100%'));?>
+                                    <div id="trans-cat-container">
+                                        <?php echo CHtml::dropDownList('category','', Categories::model()->getListing(),
+                                            array(
+                                                'class'=>'form-control',
+                                                'id'=>'category',
+                                                'empty' => '--Select category--',
+                                                'style'=>'height:50px;width:100%'
+                                            ));?>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col">
@@ -75,6 +82,7 @@
                     <div class="form-group">
                         <label for="transType"><i class="fa fa-reply"></i>&nbsp;Repeat</label>
                         <select class="form-control">
+                            <option>Do not repeat</option>
                             <option>Every Year</option>
                             <option>Every Month</option>
                             <option>Every Week</option>
@@ -85,10 +93,11 @@
                         <label for="memo">Memo</label>
                         <textarea name="memo" class="form-control" id="memo" rows="3"></textarea>
                     </div>
+                    <input id="transId" name="transId" value="" type="hidden"/>
                 </form>
             </div>
             <div class="modal-footer">
-                <button id="pdm-transaction-save" type="button" class="btn btn-primary">Save changes</button>
+                <button data-action="save" id="pdm-transaction-save" type="button" class="btn btn-primary">Save changes</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
         </div>

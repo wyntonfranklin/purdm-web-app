@@ -33,14 +33,14 @@
                 <?php endforeach;?>
             </select>
             <div class="months-listing" id="cdp-months-listing">
-                <div class="mn-item">Jan</div>
-                <div class="mn-item">Feb</div>
-                <div class="mn-item">Mar</div>
-                <div class="mn-item">Apr</div>
-                <div class="mn-item">May</div>
-                <div class="mn-item">Jun</div>
-                <div class="mn-item">Jul</div>
-                <div class="mn-item">Aug</div>
+                <div class="mn-item" data-month="1">Jan</div>
+                <div class="mn-item" data-month="1">Feb</div>
+                <div class="mn-item" data-month="1">Mar</div>
+                <div class="mn-item" data-month="1">Apr</div>
+                <div class="mn-item" data-month="1">May</div>
+                <div class="mn-item" data-month="1">Jun</div>
+                <div class="mn-item" data-month="1">Jul</div>
+                <div class="mn-item" data-month="1">Aug</div>
                 <div class="mn-item">Sep</div>
                 <div class="mn-item">Oct</div>
                 <div class="mn-item">Nov</div>

@@ -7,11 +7,12 @@ var PDMCreateAccountModal = (function(){
     var transForm = $('#transaction-form');
     var modalTitle = $('#modalTitle');
     var addCatBtn = $('#add-trans-cat');
+    var transCatContainer = $('#trans-cat-container');
+    var transDatePicker = $('#transDate');
 
+    //$("#amount").maskMoney({thousands: ','});
 
-    $("#amount").maskMoney({thousands: ''});
-
-    $('#transDate').datepicker({
+    transDatePicker.datepicker({
         todayHighlight: true,
         orientation: "bottom left",
         format: 'yyyy-mm-dd',
@@ -27,7 +28,7 @@ var PDMCreateAccountModal = (function(){
     });
 
     $('#content').on('click','.open-trans-modal',function(){
-        openEditTransactionModal();
+        openEditTransactionModal($(this));
         return false;
     });
 
@@ -37,7 +38,11 @@ var PDMCreateAccountModal = (function(){
     });
 
     saveButton.on('click',function(){
-        getFormData();
+        if(getFormAction() == 'save'){
+            saveTransForm();
+        }else if(getFormAction() == 'edit'){
+            updateTransForm();
+        }
         return false;
     });
 
@@ -47,47 +52,104 @@ var PDMCreateAccountModal = (function(){
     });
 
     function openNewTransactionModal(){
+        clearFormData();
+        updateFormAction('save');
         modalTitle.text("Add new Transaction");
+        saveButton.text('Save Transaction');
         transModal.modal('show');
         jQuery(document).off('focusin.modal')
     }
 
-    function openEditTransactionModal(){
+    function openEditTransactionModal(el){
+        updateFormAction('edit');
+        clearFormData();
         modalTitle.text('Edit Transaction');
-        transModal.modal('show');
-        jQuery(document).off('focusin.modal')
+        saveButton.text('Save changes');
+        var transId = el.parent().attr('data-id');
+        console.log(transId);
+        loadTransactionModal(transId,function(){
+            transModal.modal('show');
+            jQuery(document).off('focusin.modal')
+        });
+    }
+
+    function loadTransactionModal(id, callback){
+        $.getJSON('/ajax/TransactionDetails',{id:id},function(results){
+            var transObject= results.data;
+            transForm.find('#amount').val(transObject.amount);
+            transForm.find('#description').val(transObject.description);
+            transDatePicker.datepicker("setDate",transObject.transDate);
+            transForm.find('#category').val(transObject.category).trigger('change');
+            transForm.find('#transType').val(transObject.type);
+            transForm.find('#transId').val(id);
+            if(callback){
+                callback();
+            }
+        })
     }
 
     function closeTransactionModal(){
         transModal.modal('hide');
     }
 
-    function getFormData(){
+    function saveTransForm(){
         var data = transForm.serialize();
         console.log(data);
         saveTransaction(data);
-        clearFormData();
+    }
+
+    function updateTransForm(){
+        var data = transForm.serialize();
+        console.log('update the form');
+        console.log(data);
+        updateTransaction(data);
     }
 
     function clearFormData(){
         transForm
-            .not(':button, :submit, :reset, :hidden')
-            .val('')
-            .prop('checked', false)
-            .prop('selected', false);
+            .find("input[type=text], textarea").val("");
     }
 
     function saveTransaction(data){
         $.post('/ajax/SaveTransaction', data,function(){
             closeTransactionModal();
             PDMApp.showNotification("Transaction successfully saved");
+            clearFormData();
+            saveButton.trigger('wf.transaction.created');
+        })
+    }
+
+    function updateTransaction(data){
+        $.post('/ajax/UpdateTransaction', data,function(){
+            closeTransactionModal();
+            PDMApp.showNotification("Transaction successfully updated");
+            clearFormData();
+            saveButton.trigger('wf.transaction.created');
         })
     }
 
     function saveCategory(cat){
         $.post('/ajax/SaveUserCategory',{usercategory:cat},function(){
-
+            updateCategoryListing();
+            PDMApp.showNotification("Category saved");
         });
+    }
+
+    function updateCategoryListing(){
+        $.get('/ajax/GetUpdateCategoriesList',function(data){
+            transCatContainer.empty().append(data);
+            $('#category').select2({
+                placeholder: 'Select an option',
+            });
+        })
+    }
+
+    function updateFormAction(state){
+        saveButton.attr('data-action',state);
+    }
+
+    function getFormAction(){
+        return saveButton.attr('data-action');
     }
 
     function addCategory(){

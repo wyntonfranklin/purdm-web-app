@@ -55,3 +55,8 @@
 .pie-cats li {
     margin-bottom: 3px;
 }
+
+.card-header-subtitle{
+    font-size: 12px;
+    color:black;
+}

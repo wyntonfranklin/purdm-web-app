@@ -3,11 +3,10 @@
 <div class="container-fluid">
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Report</h1>
+        <h1 class="h3 mb-0 text-gray-800">Insights</h1>
         <div class="d-none d-sm-inline-block">
             <?php $this->customDatePickerWidget();?>
             <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-dark shadow-sm"><i class="fas fa-cog fa-sm text-white-50"></i> Options</a>
-            <a data-toggle="modal" data-target="#transaction-modal"  href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-coins fa-sm text-white-50"></i> Add transaction</a>
         </div>
     </div>
 
@@ -48,7 +47,7 @@
                             </div>
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                            <i class="fas fa-money-bill fa-2x text-gray-300"></i>
                         </div>
                     </div>
                 </div>
@@ -88,7 +87,7 @@
                             </div>
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-calculator fa-2x text-gray-300"></i>
+                            <i class="fas fa-balance-scale fa-2x text-gray-300"></i>
                         </div>
                     </div>
                 </div>
@@ -102,7 +101,9 @@
         <div class="col-xl-6 col-lg-6">
             <div class="card shadow mb-4">
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Expenses by Category</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Expenses by Category
+                        <br><span class="card-header-subtitle"></span>
+                    </h6>
                 </div>
                 <div class="card-body">
                     <div class="chart-area">
@@ -118,7 +119,9 @@
             <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">All Expenses</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">All Expenses
+                        <br><span class="card-header-subtitle"></span>
+                    </h6>
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
@@ -138,13 +141,16 @@
             <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Income vs Expenditure</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">
+                        Income vs Expenditure by Year
+                        <br><span class="card-header-subtitle"></span>
+                    </h6>
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
                     <div class="chart-area">
                         <div class="aj charts-loader"></div>
-                        <canvas width="400" height="135" class="chart-area" id="incomevsexpense"></canvas>
+                        <canvas width="400" height="125" class="chart-area" id="incomevsexpense"></canvas>
                     </div>
                 </div>
             </div>
@@ -155,7 +161,10 @@
         <div class="col-12">
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Transactions</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">
+                        Transactions
+                        <br><span class="card-header-subtitle"></span>
+                    </h6>
                 </div>
                 <div class="card-body">
                     <div id="trans-layout" class="table-responsive" style="min-height: 500px;">

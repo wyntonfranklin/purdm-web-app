@@ -3,11 +3,22 @@ var PDMCharts = (function(){
     Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
     Chart.defaults.global.defaultFontColor = '#858796';
 
+    var myTEPieChart = null;
+    var ieBarChart = null;
+    var mcPieChart = null;
+
+    function clear_canvas(id){
+        var grapharea = document.getElementById(id).getContext("2d");
+        var myChart = new Chart(grapharea);
+        myChart.destroy();
+    }
+
     function load_pie_chart_labels(id, colors, labels){
         var template ='';
         for(var i=0; i<= labels.length-1; i++){
-            template += '      <span class="mr-2">\n' +
-                '<i style="color:'+colors[i]+'" class="fas fa-circle"></i> '+labels[i]+'\n' +
+            template += '<span class="mr-2">\n' +
+                '<i style="color:'+colors[i]+'" class="fas fa-circle"></i> '
+                +firstLetterUpper(labels[i]) +'\n' +
                 '</span>';
         }
         $('#'+id+'-labels').empty().append(template);
@@ -138,6 +149,7 @@ var PDMCharts = (function(){
 // Pie Chart Example
         PDMApp.removeChartsLoader(id);
         var ctx = document.getElementById(id);
+        clear_canvas(id);
         var myPieChart = new Chart(ctx, {
             type: 'doughnut',
             data: {
@@ -172,7 +184,10 @@ var PDMCharts = (function(){
     function loadDashboardIEChart(id, data){
         PDMApp.removeChartsLoader(id);
         var ctx = document.getElementById(id);
-        var myBarChart = new Chart(ctx, {
+        if ( ieBarChart != null ) {
+            ieBarChart.destroy();
+        }
+        ieBarChart = new Chart(ctx, {
             type: 'bar',
             data: {
                 labels: data.labels,
@@ -220,9 +235,12 @@ var PDMCharts = (function(){
     function loadTEPieChart(id, data){
         var colors = ['#4e73df', '#1cc88a', '#36b9cc','#ff3333','#ff748c'];
         PDMApp.removeChartsLoader(id);
+        if(myTEPieChart != null){
+            myTEPieChart.destroy();
+        }
         var ctx = document.getElementById(id);
         load_pie_chart_labels(id,colors,data.labels);
-        var myPieChart = new Chart(ctx, {
+        myTEPieChart = new Chart(ctx, {
             type: 'doughnut',
             data: {
                 labels: data.labels,
@@ -244,6 +262,13 @@ var PDMCharts = (function(){
                     yPadding: 15,
                     displayColors: false,
                     caretPadding: 10,
+                    callbacks: {
+                        label: function(tooltipItem, chart) {
+                            var datasetLabel = data.labels[tooltipItem.index] || '';
+                            return firstLetterUpper(datasetLabel)
+                                + ': $' + number_format(data.dataset[tooltipItem.index],2);
+                        }
+                    }
                 },
                 legend: {
                     display: false
@@ -257,8 +282,11 @@ var PDMCharts = (function(){
         renderCatListing(id, data);
         var colors = data.colors;
         PDMApp.removeChartsLoader(id);
+        if(mcPieChart != null){
+            mcPieChart.destroy();
+        }
         var ctx = document.getElementById(id);
-        var myPieChart = new Chart(ctx, {
+        mcPieChart = new Chart(ctx, {
             type: 'doughnut',
             data: {
                 labels: data.labels,
@@ -280,6 +308,13 @@ var PDMCharts = (function(){
                     yPadding: 15,
                     displayColors: false,
                     caretPadding: 10,
+                    callbacks: {
+                        label: function(tooltipItem, chart) {
+                            var datasetLabel = data.labels[tooltipItem.index] || '';
+                            return firstLetterUpper(datasetLabel)
+                                + ': $' + number_format(data.dataset[tooltipItem.index],2);
+                        }
+                    }
                 },
                 legend: {
                     display: false
@@ -297,11 +332,16 @@ var PDMCharts = (function(){
         var template ="";
         for(var i=0; i<= labels.length-1; i++){
             template +='   <li>\n' +
-                '<i style="color:'+colors[i]+'" class="fas fa-circle"></i>\n' + labels[i] +
-                '&nbsp;&nbsp; &nbsp; <span style="font-weight: bold">$'+dataset[i]
-                +' (30%)</span></li>\n';
+                '<i style="color:'+colors[i]+'" class="fas fa-circle"></i>\n'
+                + firstLetterUpper(labels[i]) +
+                '&nbsp;&nbsp; &nbsp; <span style="font-weight: bold">$'+number_format(dataset[i],2)
+                +' ['+number_format(data.percentages[i],2)+'%]</span></li>\n';
         }
         $el.empty().append(template);
+    }
+
+    function firstLetterUpper(value){
+        return value.charAt(0).toUpperCase() + value.slice(1)
     }
 
     return {
@@ -309,6 +349,7 @@ var PDMCharts = (function(){
         loadPieChart : loadPieChart,
         loadDashboardIEChart : loadDashboardIEChart,
         loadTEPieChart : loadTEPieChart,
-        loadMultiCatPieChart : loadMultiCatPieChart
+        loadMultiCatPieChart : loadMultiCatPieChart,
+        number_format : number_format
     }
 })();

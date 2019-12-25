@@ -34,11 +34,11 @@ class Controller extends CController
 
     public function getPrimaryHexColors(){
         return array(
-            0 => '#0452dd',
-            1 => '#6f437e',
-            2 => '#737cd4',
-            3 => '#a08cea',
-            4 => '#c0e06a',
+            0 => '#0E6BA8',
+            1 => '#F9DC5C',
+            2 => '#ED254E',
+            3 => '#FF08D7',
+            4 => '#F8B500',
             5 => '#0fda23',
             6 => '#c89bbf',
             7 => '#5fb268',

@@ -4,6 +4,8 @@
 class AjaxController extends Controller
 {
 
+    public $months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
     public function outputJson($data){
         header('Content-Type: application/json');
         echo json_encode(["data"=>$data]);
@@ -11,7 +13,7 @@ class AjaxController extends Controller
 
     public function actionGetTotals(){
         $data = [
-          'income' => $this->getIncome(),
+          'income' => $this->getIncomeThisMonth(),
           'expenses' => $this->getExpenses(),
             'worth' => $this->getNetWorth(),
             'savings' => $this->getSavings()
@@ -21,33 +23,97 @@ class AjaxController extends Controller
 
     public function actionGetAccountTotals(){
         $data = [
-            'income' => $this->getIncome(),
-            'expenses' => $this->getExpenses(),
+            'income' => $this->getReportIncome(),
+            'expenses' => $this->getReportExpense(),
+            'balance' => $this->getAccountBalance(),
+            'savings' => $this->getReportSavings(),
+        ];
+        $this->outputJson($data);
+    }
+
+    public function actionGetInsightsTotals(){
+        $data = [
+            'income' => $this->getReportIncome(),
+            'expenses' => $this->getReportExpense(),
             'average' => $this->getAvgExpense(),
-            'savings' => $this->getSavings()
+            'savings' => $this->getReportSavings(),
         ];
         $this->outputJson($data);
     }
 
     private function getAvgExpense()
     {
-        return round(Queries::getAvgExpense());
+        $filter = $this->getReportFilterByYear($_GET);
+        return Utils::formatMoney(Queries::getAvgExpense($filter));
     }
 
-    private function getIncome(){
-        return "$" . Queries::getIncome();
+    private function getReportIncome(){
+        $filter = $this->getReportFilter($_GET);
+        return Utils::formatMoney(Queries::getIncomeByFilter($filter));
+    }
+
+    private function getAccountBalance(){
+        return Utils::formatMoney(Queries::getAccountBalance());
+    }
+
+    private function getReportFilter($settings){
+        $filter= "";
+        if(isset($settings['type'])){
+            $type = $settings['type'];
+            if($type == "month"){
+                $nmonth = date("m", strtotime($settings['month']));
+                $year = $settings['year'];
+                $filter .= 'Month(trans_date)='. $nmonth.' AND Year(trans_date)='.$year;
+            }else if($type=="range"){
+                $filter .= 'trans_date between "'. $settings['startdate']
+                    .'" AND "' . $settings['enddate']. '"';
+            }
+        }
+        return $filter;
+    }
+
+    private function getReportFilterByYear($settings){
+        $filter= "";
+        if(isset($settings['type'])){
+            $type = $settings['type'];
+            if($type == "month"){
+                $year = $settings['year'];
+                $filter .= 'Year(trans_date)='.$year;
+            }else if($type=="range"){
+                $currentYear = date("Y", strtotime($settings['startdate']));
+                $filter .= 'Year(trans_date)='.$currentYear;
+            }
+        }
+        return $filter;
+    }
+
+    private function getIncomeThisMonth(){
+        $month = date('m');
+        return Utils::formatMoney(Queries::getIncomeByGivenMonth($month));
     }
 
     private function getExpenses(){
-        return "$" . Queries::getExpenses();
+        $month = date('m');
+        return Utils::formatMoney(Queries::getExpenses($month));
+    }
+
+    private function getReportExpense(){
+        $filter = $this->getReportFilter($_GET);
+        return Utils::formatMoney(Queries::getExpenseByFilter($filter));
     }
 
     private function getSavings(){
-        return round(Queries::getSavings());
+        $month = date('m');
+        return Utils::formatMoney(Queries::getSavings($month));
+    }
+
+    private function getReportSavings(){
+        $filter = $this->getReportFilter($_GET);
+        return Utils::formatMoney(Queries::getSavingsByFilter($filter));
     }
 
     private function getNetWorth(){
-        return round(Queries::getNetWorth());
+        return Utils::formatMoney(Queries::getNetWorth());
     }
 
     public function actionChart($name){
@@ -58,7 +124,17 @@ class AjaxController extends Controller
 
     public function actionGetTransactionsTable(){
         $criteria = new CDbCriteria();
-        $criteria->order = 'transaction_id DESC';
+        $criteria->limit = 300;
+        $criteria->order = 'trans_date DESC';
+        $transactions = Transaction::model()->findAll($criteria);
+        echo $this->renderPartial('dashboard_transactions',
+            ['transactions'=>$transactions]);
+    }
+
+    public function actionGetTransactionsTableWithFilters(){
+        $criteria = new CDbCriteria();
+        $criteria->condition = $this->getReportFilter($_GET);
+        $criteria->order = 'trans_date DESC';
         $transactions = Transaction::model()->findAll($criteria);
         echo $this->renderPartial('dashboard_transactions',
             ['transactions'=>$transactions]);
@@ -74,6 +150,12 @@ class AjaxController extends Controller
         );
     }
 
+    public function actionGetReportIEChartData(){
+        echo json_encode(
+            ['data' => $this->getReportIncomeExpenditure($_GET)]
+        );
+    }
+
     public function actionGetTopExpenses(){
         echo json_encode([
            'data' => $this->getTopExpenses()
@@ -82,7 +164,7 @@ class AjaxController extends Controller
 
     public function actionGetAllExpenses(){
         echo json_encode([
-            'data' => $this->getAllExpenses()
+            'data' => $this->getAllExpenses($_GET)
         ]);
     }
 
@@ -98,12 +180,23 @@ class AjaxController extends Controller
     public function actionSaveTransaction(){
         $model = new Transaction();
         $model->trans_date = $_POST['transDate'];
-        $model->amount = $_POST['amount'];
+        $model->amount = str_replace( ',', '', $_POST['amount']); // replace thousands comma
         $model->category = $_POST['category'];
         $model->description = $_POST['description'];
         $model->account_id = 1;
         $model->type = $_POST['transType'];
         $model->save();
+    }
+
+    public function actionUpdateTransaction(){
+        $model = Transaction::model()->findByPk($_POST['transId']);
+        $model->trans_date = $_POST['transDate'];
+        $model->amount = str_replace( ',', '', $_POST['amount']); // replace thousands comma
+        $model->category = $_POST['category'];
+        $model->description = $_POST['description'];
+        $model->account_id = 1;
+        $model->type = $_POST['transType'];
+        $model->update();
     }
 
     public function actionSaveUserCategory(){
@@ -113,23 +206,38 @@ class AjaxController extends Controller
         $model->save();
     }
 
+    public function actionDeleteTransaction(){
+        $id = $_POST['id'];
+        Transaction::model()->findByPk($id)->delete();
+        echo 'done';
+    }
+
     private function convertTransactionsToCalendar(){
         $transactions = Transaction::model()->findAll();
         $calendar_dates = [];
         foreach ($transactions as $transaction){
             $calendar_dates[] = [
                 'title' => $transaction->description,
-                'description' => $transaction->amount . "(" . $transaction->category. ")",
+                'description' => Utils::formatMoney($transaction->amount)
+                    . " (" . $transaction->category. ")",
                 'start' => $transaction->trans_date,
-                'className' => "fc-event-solid-info fc-event-light"
+                'className' => $this->getCalendarItemClassName($transaction)
             ];
         }
         return $calendar_dates;
     }
 
+    private function getCalendarItemClassName($transaction){
+        $type = $transaction->type;
+        if( $type == "expense"){
+            return "fc-event-danger";
+        }
+        return "fc-event-success";
+    }
+
 
     private function getIncomeExpenditure(){
-        $labels = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        $labels = $this->months;
         $incomeData = Queries::getIncomeByMonth();
         $income_data = $this->convert_to_months_dataset('date','total', $incomeData);
         $expenseData = Queries::getExpensesByMonth();
@@ -141,9 +249,35 @@ class AjaxController extends Controller
         ];
     }
 
+    private function getReportIncomeExpenditure($settings){
+        $filter = $this->getReportFilterByYear($settings);
+        $labels = $this->months;
+        $incomeData = Queries::getIncomeByMonthWithFilter($filter);
+        $income_data = $this->convert_to_months_dataset('date','total', $incomeData);
+        $expenseData = Queries::getExpensesByMonthWithFilter($filter);
+        $expense_data  = $this->convert_to_months_dataset('date','total', $expenseData);
+        return [
+            'income' => $income_data,
+            'expense' => $expense_data,
+            'labels' => $labels
+        ];
+    }
+
+    public function actionGetUpdateCategoriesList(){
+        echo CHtml::dropDownList('category', '', Categories::model()->getListing(),
+                array('class' => 'form-control',
+                    'id' => 'category', 'empty' => '--Select category--',
+                    'style' => 'height:50px;width:100%'));
+    }
+
+    public function actionTransactionDetails(){
+        $id = $_GET['id'];
+        $model = Transaction::model()->findByPk($id);
+        echo json_encode(['data'=> $model->getAsJSONObject()]);
+    }
+
     public function actionTest(){
-        $results = $this->create_hex_colors(30);
-        file_put_contents('/home/shady/Documents/websites/wfexpenses/colors.php', var_export($results,true));
+        echo Queries::getAccountBalance();
     }
 
     private function getTopExpenses(){
@@ -152,18 +286,20 @@ class AjaxController extends Controller
         $dataset = $this->convert_data_to_pie_dataset('total',$data);
         return [
             'labels' => $labels,
-            'dataset' => $dataset
+            'dataset' => $dataset,
         ];
     }
 
-    private function getAllExpenses(){
-        $data = Queries::getAllExpensesByYear();
+    private function getAllExpenses($settings){
+
+        $data = Queries::getAllExpensesByYear($this->getReportFilter($settings));
         $labels = $this->convert_data_to_pie_dataset('category', $data);
         $dataset = $this->convert_data_to_pie_dataset('total',$data);
         return [
             'labels' => $labels,
             'dataset' => $dataset,
-            'colors' => $this->getHexColors(count($labels))
+            'colors' => $this->getHexColors(count($labels)),
+            'percentages' => $this->convert_data_to_pie_dataset('percentage',$data)
         ];
     }
 

@@ -95,4 +95,14 @@ class Transaction extends CActiveRecord
 	public function getNetWorth(){
 
     }
+
+    public function getAsJsonObject(){
+	    $results = [];
+	    $results['transDate'] = $this->trans_date;
+        $results['amount'] = $this->amount;
+        $results['description'] = $this->description;
+        $results['category'] = $this->category;
+        $results['type'] = $this->type;
+        return $results;
+    }
 }

@@ -7,6 +7,11 @@ var InsightsPage = (function() {
     var lsExpensesLay = $('#list-expenses');
     var transLay = $('#trans-layout');
 
+    $(document).on('wf.datetimepicker.onchange',function(){
+        loadPageData();
+    });
+
+
     function loadTiles(response){
         PDMApp.setElContent(inTile,response.income);
         PDMApp.setElContent(exTile,response.expenses);
@@ -16,25 +21,32 @@ var InsightsPage = (function() {
 
     function loadPageData(){
         PDMApp.addLoaders();
-        $.getJSON('/ajax/getaccounttotals',function(response){
+        var settings = PDMApp.getCdpSettings();
+        setSubtitles(settings);
+        $.getJSON('/ajax/GetInsightsTotals', settings, function(response){
             loadTiles(response.data);
         });
-        $.getJSON('/ajax/GetIncomeExpenditureChartData',function(response){
+        $.getJSON('/ajax/GetReportIEChartData',settings,function(response){
             PDMCharts.loadDashboardIEChart('incomevsexpense', response.data);
         });
-        $.getJSON('/ajax/GetAllExpenses',function(response){
+        $.getJSON('/ajax/GetAllExpenses', settings, function(response){
             PDMCharts.loadMultiCatPieChart('pie-cats',response.data);
         });
-        $.get('/ajax/GetTransactionsTable',function(data){
+        $.get('/ajax/GetTransactionsTableWithFilters', settings,function(data){
             transLay.empty().append(data);
         });
     }
 
-    $(document).on(PDMApp.cdpOnChangeEventName(),function(){
-        var settings = PDMApp.getCdpSettings();
-        console.log(settings.type)
-       // loadPageData();
-    });
+    function setSubtitles(settings){
+        if(settings.type == 'month'){
+            var sub = settings.month + ' ' + settings.year;
+            $('.card-header-subtitle').text(sub);
+        }else if(settings.type =='range'){
+            var sub = settings.startdate + ' - ' + settings.enddate;
+            $('.card-header-subtitle').text(sub);
+        }
+    }
+
 
     return {
         loadPageData : loadPageData

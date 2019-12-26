@@ -33,8 +33,11 @@
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">All Accounts:</h6>
-                <a class="collapse-item" href="<?php echo $this->createUrl('/account/1');?>">Primary Account</a>
-                <a class="collapse-item" href="<?php echo $this->createUrl('/account/1');?>"">Secondary Account</a>
+                <?php  $accounts = Accounts::model()->findAll(); ?>
+                <?php foreach($accounts as $account):?>
+                    <a class="collapse-item" href="<?php echo $this->createUrl('/account/'.$account->id);?>">
+                        <?php echo $account->name;?></a>
+                <?php endforeach;?>
                 <a class="collapse-item" href="<?php echo $this->createUrl('/account/create');?>"><i class="fa fa-plus-circle"></i> &nbsp;New Account</a>
             </div>
         </div>

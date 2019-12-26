@@ -38,8 +38,8 @@ class Controller extends CController
             1 => '#F9DC5C',
             2 => '#ED254E',
             3 => '#FF08D7',
-            4 => '#F8B500',
-            5 => '#0fda23',
+            4 => '#A6CB12',
+            5 => '#FF6337',
             6 => '#c89bbf',
             7 => '#5fb268',
             8 => '#d55b40',
@@ -97,5 +97,10 @@ class Controller extends CController
 
     function rand_hex_color() {
         return '#' . str_pad(dechex(mt_rand(0, 0xFFFFFF)), 6, '0', STR_PAD_LEFT);
+    }
+
+    public function showAccountsMenu(){
+        $accounts = Accounts::model()->findAll();
+
     }
 }

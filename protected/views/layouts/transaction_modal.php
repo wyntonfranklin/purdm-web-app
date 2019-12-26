@@ -32,11 +32,11 @@
                             </div>
                             <div class="col">
                                 <label for="account"><i class="fa fa-folder"></i>&nbsp;Account</label>
-                                <select name="account" class="form-control" id="account">
-                                    <option>Primary</option>
-                                    <option>Savings</option>
-                                    <option>Credit Union</option>
-                                </select>
+                                <?php echo CHtml::dropDownList('account','', Accounts::model()->getListing(),
+                                    array(
+                                        'class'=>'form-control',
+                                        'id'=>'account',
+                                    ));?>
                             </div>
                         </div>
                     </div>

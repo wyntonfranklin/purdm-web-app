@@ -1,20 +1,21 @@
 <?php
 
 /**
- * This is the model class for table "categories".
+ * This is the model class for table "accounts".
  *
- * The followings are the available columns in table 'categories':
+ * The followings are the available columns in table 'accounts':
  * @property integer $id
  * @property string $name
+ * @property string $type
  */
-class Categories extends CActiveRecord
+class Accounts extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'categories';
+		return 'accounts';
 	}
 
 	/**
@@ -25,10 +26,11 @@ class Categories extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('name', 'length', 'max'=>45),
+			array('name', 'length', 'max'=>125),
+			array('type', 'length', 'max'=>45),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, name', 'safe', 'on'=>'search'),
+			array('id, name, type', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -51,6 +53,7 @@ class Categories extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'name' => 'Name',
+			'type' => 'Type',
 		);
 	}
 
@@ -74,6 +77,7 @@ class Categories extends CActiveRecord
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('name',$this->name,true);
+		$criteria->compare('type',$this->type,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -84,22 +88,16 @@ class Categories extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return Categories the static model class
+	 * @return Accounts the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
 	}
 
-	public function getListing(){
-        $data = $this->getAllCategories();
-        return CHtml::listData($data,'name','name');
-    }
-
-    private function getAllCategories(){
-	    $sql = "SELECT id, name FROM wfexpenses.categories UNION (
-        Select id, name from user_categories) order by name asc";
-	    return Categories::model()->findAllBySql($sql);
+    public function getListing(){
+        $data =  self::findAll();
+        return CHtml::listData($data,'id','name');
     }
 
 }

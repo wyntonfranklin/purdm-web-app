@@ -21,6 +21,11 @@ var PDMApp = (function(){
         return settings;
     }
 
+    function getPageSettings(){
+        var settings = JSON.parse($('#page-settings').attr('data-settings'));
+        return settings;
+    }
+
     function cdpOnChangeEventName(){
         return "wf.datetimepicker.onchange";
     }
@@ -36,7 +41,8 @@ var PDMApp = (function(){
         removeChartsLoader : removeChartsLoader,
         getCdpSettings : getCdpSettings,
         cdpOnChangeEventName : cdpOnChangeEventName,
-        showNotification : showNotification
+        showNotification : showNotification,
+        getPageSettings : getPageSettings
     }
 
 })();

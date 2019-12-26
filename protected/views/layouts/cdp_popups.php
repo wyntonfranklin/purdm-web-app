@@ -25,7 +25,7 @@
     </div>
 
     <div id="cdp-month-content" class="cdp">
-        <div class="card" style="padding: 15px; width: 300px; display: block;">
+        <div class="card" style="padding: 15px; width: 275px; display: block;">
             <p style="margin-bottom: 3px;">Pick a month</p>
             <span>Year: </span>&nbsp;&nbsp;<select id="months-picker" style="margin-bottom: 3px; width: 100px; display: inline;">
                 <?php foreach($yearsArray as $year):?>

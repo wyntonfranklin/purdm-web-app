@@ -333,7 +333,7 @@ var PDMCharts = (function(){
         for(var i=0; i<= labels.length-1; i++){
             template +='   <li>\n' +
                 '<i style="color:'+colors[i]+'" class="fas fa-circle"></i>\n'
-                + firstLetterUpper(labels[i]) +
+                + '<a href="/category/'+labels[i]+'">' + firstLetterUpper(labels[i]) + '</a>' +
                 '&nbsp;&nbsp; &nbsp; <span style="font-weight: bold">$'+number_format(dataset[i],2)
                 +' ['+number_format(data.percentages[i],2)+'%]</span></li>\n';
         }

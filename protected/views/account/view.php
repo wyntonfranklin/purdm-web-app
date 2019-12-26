@@ -1,18 +1,48 @@
-<?php ?>
+<?php /** @var $model Accounts */ ?>
 
 <div class="container-fluid">
 
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Primary Account(RBC)</h1>
+        <h1 class="h3 mb-0 text-gray-800"><?php echo $model->name;?></h1>
         <div class="d-none d-sm-inline-block">
             <?php $this->customDatePickerWidget();?>
-            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-dark shadow-sm"><i class="fas fa-cog fa-sm text-white-50"></i> Options</a>
+            <div class="dropdown d-none d-sm-inline-block">
+                <button class="dropdown-toggle btn btn-sm btn-dark shadow-sm" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Options
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="<?php echo $this->createUrl('/account/update');?>">
+                        <i class="fa fa-edit"></i>&nbsp; Edit Account</a>
+                    <a class="dropdown-item" href="#"><i class="fa fa-list"></i>&nbsp; View all Transactions</a>
+                    <a class="dropdown-item" href="#"><i class="fa fa-trash"></i>&nbsp; Delete Account</a>
+                </div>
+            </div>
             <a id='pdm-add-transaction' href="javascript:void(0);" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-coins fa-sm text-white-50"></i> Add transaction</a>
         </div>
     </div>
 
     <div class="row">
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-secondary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Current Balance</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                 <span id="av-tile" class="aj">
+
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-wallet fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <!-- Earnings (Monthly) Card Example -->
         <div class="col-xl-3 col-md-6 mb-4">
@@ -71,26 +101,6 @@
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-piggy-bank fa-2x text-gray-300"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-secondary shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Balance</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                 <span id="av-tile" class="aj">
-
-                                </span>
-                            </div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-wallet fa-2x text-gray-300"></i>
                         </div>
                     </div>
                 </div>

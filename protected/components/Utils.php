@@ -23,4 +23,18 @@ class Utils
             return '<i style="color:green;" class="fa fa-plus"></i>';
         }
     }
+
+    public static function getUserAccounts(){
+
+    }
+
+    public static function queryUserAccounts(){
+        $query = "account_id IN(";
+        $accounts = Accounts::model()->findAll();
+        foreach ($accounts as $account){
+            $query .= $account->id . ",";
+        }
+        $query = rtrim($query,",");
+        return $query . ")";
+    }
 }

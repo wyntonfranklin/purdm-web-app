@@ -7,8 +7,10 @@ class Queries
 
     public static function getNetWorth(){
         $sql = "SELECT (income - expense) as networth FROM (
-            SELECT (SElect sum(amount) From transactions WHERE type = \"income\") as income,
-            (SELECT sum(amount) FROM transactions WHERE type =\"expense\") as expense 
+            SELECT (SElect sum(amount) From transactions WHERE type = \"income\"
+            AND ".Utils::queryUserAccounts().") as income,
+            (SELECT sum(amount) FROM transactions WHERE type =\"expense\"
+             AND ".Utils::queryUserAccounts().") as expense 
             FROM transactions group by income) t;";
         try{
             $results = Yii::app()->db->createCommand($sql)->queryScalar();
@@ -56,8 +58,20 @@ class Queries
         return $results;
     }
 
+    public static function getCategoryExpenseByFilter($filter, $cat){
+        $sql = "SELECT sum(amount) FROM transactions 
+        WHERE type=\"expense\" AND category='".$cat."' AND " . $filter ;
+        try{
+            $results = Yii::app()->db->createCommand($sql)->queryScalar();
+        }catch (Exception $e){
+            return 0;
+        }
+        return $results;
+    }
+
     public static function getIncomeByGivenMonth($month){
-        $sql = "SELECT sum(amount) FROM transactions WHERE type=\"income\" AND Month(trans_date)=".$month;
+        $sql = "SELECT sum(amount) FROM transactions WHERE type=\"income\" 
+        AND ".Utils::queryUserAccounts()." AND Month(trans_date)=".$month;
         try{
             $results = Yii::app()->db->createCommand($sql)->queryScalar();
         }catch (Exception $e){
@@ -67,7 +81,8 @@ class Queries
     }
 
     public static function getExpenses($month){
-        $sql = "SELECT sum(amount) FROM transactions WHERE type=\"expense\" AND Month(trans_date)=".$month;
+        $sql = "SELECT sum(amount) FROM transactions WHERE type=\"expense\" 
+        AND ".Utils::queryUserAccounts()." AND Month(trans_date)=".$month;
         try{
             $results = Yii::app()->db->createCommand($sql)->queryScalar();
         }catch (Exception $e){
@@ -79,9 +94,9 @@ class Queries
     public static function getSavings($month){
         $sql = "SELECT (income - expense) as networth FROM (
             SELECT (SElect sum(amount) From transactions WHERE type = \"income\" 
-            AND MONTH(trans_date) = ".$month.") as income,
+            AND ".Utils::queryUserAccounts()." AND MONTH(trans_date) = ".$month.") as income,
             (SELECT sum(amount) FROM transactions WHERE type =\"expense\" 
-            AND MONTH(trans_date) = ".$month.") as expense 
+            AND ".Utils::queryUserAccounts()." AND MONTH(trans_date) = ".$month.") as expense 
             FROM transactions group by income) t;";
         try{
             $results = Yii::app()->db->createCommand($sql)->queryScalar();
@@ -94,7 +109,8 @@ class Queries
     public static function getIncomeByMonth(){
         $year = Utils::getYear();
         $sql = "SELECT sum(amount) as total,Month(trans_date) as date 
-        FROM transactions WHERE type=\"income\" AND Year(trans_date)=".$year." group by MONTH(trans_date);";
+        FROM transactions WHERE type=\"income\" 
+        AND ".Utils::queryUserAccounts()." AND Year(trans_date)=".$year." group by MONTH(trans_date);";
         try{
             $results = Yii::app()->db->createCommand($sql)->queryAll();
         }catch (Exception $e){
@@ -114,6 +130,17 @@ class Queries
         return $results;
     }
 
+    public static function getCategoryIncomeByMonthWithFilter($filter, $cat){
+        $sql = "SELECT sum(amount) as total,Month(trans_date) as date 
+        FROM transactions WHERE type=\"income\" AND category='".$cat."' AND ".$filter." group by MONTH(trans_date);";
+        try{
+            $results = Yii::app()->db->createCommand($sql)->queryAll();
+        }catch (Exception $e){
+            return null;
+        }
+        return $results;
+    }
+
     public static function getExpensesByMonthWithFilter($filter){
         $sql = "SELECT sum(amount) as total,Month(trans_date) as date 
         FROM transactions WHERE type=\"expense\" AND ".$filter." group by MONTH(trans_date);";
@@ -125,9 +152,21 @@ class Queries
         return $results;
     }
 
+    public static function getCategoryExpensesByMonthWithFilter($filter,$cat){
+        $sql = "SELECT sum(amount) as total,Month(trans_date) as date 
+        FROM transactions WHERE type=\"expense\" AND category='".$cat."' AND ".$filter." group by MONTH(trans_date);";
+        try{
+            $results = Yii::app()->db->createCommand($sql)->queryAll();
+        }catch (Exception $e){
+            return null;
+        }
+        return $results;
+    }
+
     public static function getExpensesByMonth(){
         $sql = "SELECT sum(amount) as total,Month(trans_date) as date 
-        FROM transactions WHERE type=\"expense\" group by MONTH(trans_date);";
+        FROM transactions WHERE type=\"expense\" AND ".Utils::queryUserAccounts()." 
+        group by MONTH(trans_date);";
         try{
             $results = Yii::app()->db->createCommand($sql)->queryAll();
         }catch (Exception $e){
@@ -138,7 +177,7 @@ class Queries
 
     public static function getTopExpensesByYear(){
         $sql = "SELECT sum(amount) as total, category from transactions Where type=\"expense\" 
-        group by category order by total desc LIMIT 5;";
+        AND ".Utils::queryUserAccounts()." group by category order by total desc LIMIT 5;";
         try{
             $results = Yii::app()->db->createCommand($sql)->queryAll();
         }catch (Exception $e){
@@ -149,6 +188,17 @@ class Queries
 
     public static function getAvgExpense($filter){
         $sql ="SELECT avg(amount) FROM wfexpenses.transactions where type=\"expense\" AND ". $filter;
+        try{
+            $results = Yii::app()->db->createCommand($sql)->queryScalar();
+        }catch (Exception $e){
+            return 0;
+        }
+        return $results;
+    }
+
+    public static function getCategoryAvgExpense($filter,$cat){
+        $sql ="SELECT avg(amount) FROM wfexpenses.transactions 
+        where type=\"expense\" AND category='".$cat."' AND ". $filter;
         try{
             $results = Yii::app()->db->createCommand($sql)->queryScalar();
         }catch (Exception $e){

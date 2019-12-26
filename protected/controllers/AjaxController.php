@@ -41,10 +41,31 @@ class AjaxController extends Controller
         $this->outputJson($data);
     }
 
+    public function actionGetCategoryTotals(){
+        $data = [
+            'expenses' => $this->getCategoryExpense(),
+            'average' => $this->getAvgCategoryExpense(),
+        ];
+        $this->outputJson($data);
+    }
+
+    private function getCategoryExpense(){
+        $filter = $this->getReportFilter($_GET);
+        return Utils::formatMoney(Queries::getCategoryExpenseByFilter($filter, $_GET['category']));
+    }
+
     private function getAvgExpense()
     {
         $filter = $this->getReportFilterByYear($_GET);
         return Utils::formatMoney(Queries::getAvgExpense($filter));
+    }
+
+    private function getAvgCategoryExpense()
+    {
+        $filter = $this->getReportFilterByYear($_GET);
+        return Utils::formatMoney(
+            Queries::getCategoryAvgExpense($filter,$_GET['category'])
+        );
     }
 
     private function getReportIncome(){
@@ -53,6 +74,7 @@ class AjaxController extends Controller
     }
 
     private function getAccountBalance(){
+        $filter = $this->getReportFilter($_GET);
         return Utils::formatMoney(Queries::getAccountBalance());
     }
 
@@ -124,6 +146,7 @@ class AjaxController extends Controller
 
     public function actionGetTransactionsTable(){
         $criteria = new CDbCriteria();
+        $criteria->addCondition(Utils::queryUserAccounts());
         $criteria->limit = 300;
         $criteria->order = 'trans_date DESC';
         $transactions = Transaction::model()->findAll($criteria);
@@ -134,6 +157,16 @@ class AjaxController extends Controller
     public function actionGetTransactionsTableWithFilters(){
         $criteria = new CDbCriteria();
         $criteria->condition = $this->getReportFilter($_GET);
+        $criteria->order = 'trans_date DESC';
+        $transactions = Transaction::model()->findAll($criteria);
+        echo $this->renderPartial('dashboard_transactions',
+            ['transactions'=>$transactions]);
+    }
+
+    public function actionGetCategoryTransactionsTableWithFilters(){
+        $criteria = new CDbCriteria();
+        $criteria->addCondition('category="'.$_GET['category'].'"');
+        $criteria->addCondition($this->getReportFilter($_GET));
         $criteria->order = 'trans_date DESC';
         $transactions = Transaction::model()->findAll($criteria);
         echo $this->renderPartial('dashboard_transactions',
@@ -153,6 +186,12 @@ class AjaxController extends Controller
     public function actionGetReportIEChartData(){
         echo json_encode(
             ['data' => $this->getReportIncomeExpenditure($_GET)]
+        );
+    }
+
+    public function actionGetCategoryIEChartData(){
+        echo json_encode(
+            ['data' => $this->getCategoryIncomeExpenditure($_GET)]
         );
     }
 
@@ -263,6 +302,21 @@ class AjaxController extends Controller
         ];
     }
 
+    private function getCategoryIncomeExpenditure($settings){
+        $filter = $this->getReportFilterByYear($settings);
+        $category = $settings['category'];
+        $labels = $this->months;
+        $incomeData = Queries::getCategoryIncomeByMonthWithFilter($filter, $category);
+        $income_data = $this->convert_to_months_dataset('date','total', $incomeData);
+        $expenseData = Queries::getCategoryExpensesByMonthWithFilter($filter, $category);
+        $expense_data  = $this->convert_to_months_dataset('date','total', $expenseData);
+        return [
+            'income' => $income_data,
+            'expense' => $expense_data,
+            'labels' => $labels
+        ];
+    }
+
     public function actionGetUpdateCategoriesList(){
         echo CHtml::dropDownList('category', '', Categories::model()->getListing(),
                 array('class' => 'form-control',
@@ -277,7 +331,7 @@ class AjaxController extends Controller
     }
 
     public function actionTest(){
-        echo Queries::getAccountBalance();
+        echo Utils::queryUserAccount();
     }
 
     private function getTopExpenses(){
@@ -306,20 +360,23 @@ class AjaxController extends Controller
     private function convert_to_months_dataset($key, $value, $source){
         $income_data = [];
         $match = false;
-        for($i=0; $i<= 11; $i++){
-            $match = false;
-            foreach($source as $query){
-                if($query[$key] == ($i+1)){
-                    $income_data[] = $query[$value];
-                    $match = true;
-                    break;
+        if($source && is_array($source)){
+            for($i=0; $i<= 11; $i++){
+                $match = false;
+                foreach($source as $query){
+                    if($query[$key] == ($i+1)){
+                        $income_data[] = $query[$value];
+                        $match = true;
+                        break;
+                    }
+                }
+                if(!$match){
+                    $income_data[] = 0;
                 }
             }
-            if(!$match){
-                $income_data[] = 0;
-            }
+            return $income_data;
         }
-        return $income_data;
+        return [];
     }
 
     private function convert_data_to_pie_dataset($name, $source){

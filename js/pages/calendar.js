@@ -1,8 +1,13 @@
 var PDMCalendarBasic = function() {
 
+    var calendar = null;
+
     return {
         //main function to initiate the module
         init: function(data) {
+            if(calendar != null){
+                calendar.destroy();
+            }
             var todayDate = moment().startOf('day');
             var YM = todayDate.format('YYYY-MM');
             var YESTERDAY = todayDate.clone().subtract(1, 'day').format('YYYY-MM-DD');
@@ -10,7 +15,7 @@ var PDMCalendarBasic = function() {
             var TOMORROW = todayDate.clone().add(1, 'day').format('YYYY-MM-DD');
 
             var calendarEl = document.getElementById('kt_calendar');
-            var calendar = new FullCalendar.Calendar(calendarEl, {
+            calendar = new FullCalendar.Calendar(calendarEl, {
                 plugins: [ 'interaction', 'dayGrid', 'timeGrid', 'list' ],
                 header: {
                     left: 'prev,next today',
@@ -78,7 +83,29 @@ var PDMCalendarBasic = function() {
 
 
 jQuery(document).ready(function() {
-    $.getJSON('/ajax/GetCalendarTransactions',function(response){
-        PDMCalendarBasic.init(response.data)
+
+    var menuActive = '<i style="color:blue;" class="fa fa-check"></i>&nbsp';
+
+    $('#accounts-filter-menu').on('click','.acc-menu',function(){
+        var el = $(this);
+        removeCheckBoxes();
+        var account = el.attr('data-account');
+        el.prepend(menuActive);
+        console.log(account);
+        loadCalendar();
+        return false;
     });
+
+    function removeCheckBoxes(){
+        $('.acc-menu i').remove();
+    }
+
+    function loadCalendar(){
+        $.getJSON('/ajax/GetCalendarTransactions',function(response){
+            PDMCalendarBasic.init(response.data)
+        });
+    }
+
+    loadCalendar();
+
 });

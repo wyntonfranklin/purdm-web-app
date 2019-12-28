@@ -28,7 +28,7 @@
                     </div>
                 </div>
                 <!-- Card Body -->
-                <div class="card-body">
+                <div class="card-body" style="">
                     <form action="<?php echo $this->createUrl('/account/create');?>" method="post">
                         <div class="form-group">
                             <div class="form-label">
@@ -38,17 +38,11 @@
                         </div>
                         <div class="form-group">
                             <div class="form-label">
-                                <label>Account Type</label>
-                                <input name="accountType" type="text" id="accountType" class="form-control" placeholder="Account name" required="required">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="form-label">
                                 <label>Current Balance</label>
                                 <input name="accountFunds" type="text" id="accountFunds" class="form-control" placeholder="Current Balance">
                             </div>
                         </div>
-                        <input class="btn btn-primary btn-block"  value="Save Account" type="submit"/>
+                        <input class="btn btn-primary btn-block"  value="Create Account" type="submit"/>
                     </form>
                 </div>
             </div>

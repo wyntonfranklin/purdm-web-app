@@ -32,6 +32,13 @@ class Controller extends CController
         echo $this->renderPartial('//layouts/custom_date_picker');
     }
 
+    public function accountSelectorWidget(){
+        $criteria = new CDbCriteria();
+        $criteria->addCondition(Utils::queryUserAccounts('id'));
+        $accounts = Accounts::model()->findAll($criteria);
+        echo $this->renderPartial('//layouts/account_selector',['accounts'=>$accounts]);
+    }
+
     public function getPrimaryHexColors(){
         return array(
             0 => '#0E6BA8',

@@ -12,10 +12,12 @@
                     Options
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="<?php echo $this->createUrl('/account/update');?>">
+                    <a class="dropdown-item" href="<?php echo $model->getUpdateViewUrl();?>">
                         <i class="fa fa-edit"></i>&nbsp; Edit Account</a>
-                    <a class="dropdown-item" href="#"><i class="fa fa-list"></i>&nbsp; View all Transactions</a>
-                    <a class="dropdown-item" href="#"><i class="fa fa-trash"></i>&nbsp; Delete Account</a>
+                    <a class="dropdown-item" href="<?php echo $model->getTransactionsViewUrl();?>">
+                        <i class="fa fa-list"></i>&nbsp; View all Transactions</a>
+                    <a class="dropdown-item" href="<?php echo $model->getReconcileViewUrl();?>"><i class="fa fa-balance-scale"></i>&nbsp; Reconcile Account</a>
+                    <a class="dropdown-item" href="<?php echo $model->getCloseViewUrl();?>"><i class="fa fa-trash"></i>&nbsp; Delete Account</a>
                 </div>
             </div>
             <a id='pdm-add-transaction' href="javascript:void(0);" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-coins fa-sm text-white-50"></i> Add transaction</a>
@@ -166,8 +168,17 @@
     <div class="row">
         <div class="col-12">
             <div class="card shadow mb-4">
-                <div class="card-header py-3">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                     <h6 class="m-0 font-weight-bold text-primary">Transactions</h6>
+                    <div class="dropdown no-arrow">
+                        <a class="dropdown-toggle" href="javascript:void(0);" role="button" id="transdropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="transdropdownMenuLink">
+                            <div class="dropdown-header">Options:</div>
+                            <a class="dropdown-item" href="<?php echo $model->getTransactionsViewUrl();?>">View all transactions</a>
+                        </div>
+                    </div>
                 </div>
                 <div class="card-body">
                     <div id="trans-layout" class="table-responsive" style="min-height: 500px;">
@@ -179,6 +190,7 @@
     </div>
 
 </div>
+<?php echo Utils::pageSettings(['accountId'=>$model->id]);?>
 <?php
 Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl."/js/pages/account.js",
     CClientScript::POS_END);?>

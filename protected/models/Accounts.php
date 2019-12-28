@@ -100,4 +100,24 @@ class Accounts extends CActiveRecord
         return CHtml::listData($data,'id','name');
     }
 
+    public function getTransactionsViewUrl(){
+	    return Yii::app()->createUrl('/account/transactions',['id'=>$this->id]);
+    }
+
+    public function getAccountViewUrl(){
+        return Yii::app()->createUrl('/account/' .$this->id);
+    }
+
+    public function getReconcileViewUrl(){
+        return Yii::app()->createUrl('/account/reconciliation',['id'=>$this->id]);
+    }
+
+    public function getCloseViewUrl(){
+        return Yii::app()->createUrl('/account/close',['id'=>$this->id]);
+    }
+
+    public function getUpdateViewUrl(){
+        return Yii::app()->createUrl('/account/update',['id'=>$this->id]);
+    }
+
 }

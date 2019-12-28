@@ -103,6 +103,11 @@ class Transaction extends CActiveRecord
         $results['description'] = $this->description;
         $results['category'] = $this->category;
         $results['type'] = $this->type;
+        $results["account"] = $this->account_id;
         return $results;
+    }
+
+    public function getId(){
+	    return $this->transaction_id;
     }
 }

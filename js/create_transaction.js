@@ -56,8 +56,16 @@ var PDMCreateAccountModal = (function(){
         updateFormAction('save');
         modalTitle.text("Add new Transaction");
         saveButton.text('Save Transaction');
+        updateAccountDropdownbyLocation();
         transModal.modal('show');
         jQuery(document).off('focusin.modal')
+    }
+
+    function updateAccountDropdownbyLocation(){
+        var ps = PDMApp.getPageSettings();
+        if(ps.accountId){
+            transForm.find('#account').val(ps.accountId);
+        }
     }
 
     function openEditTransactionModal(el){
@@ -82,6 +90,7 @@ var PDMCreateAccountModal = (function(){
             transForm.find('#category').val(transObject.category).trigger('change');
             transForm.find('#transType').val(transObject.type);
             transForm.find('#transId').val(id);
+            transForm.find('#account').val(transObject.account);
             if(callback){
                 callback();
             }

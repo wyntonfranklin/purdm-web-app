@@ -4,14 +4,18 @@
 class Queries
 {
 
+    public static $netWorthSql = " SELECT( Ifnull(income, 0) - 
+    Ifnull(expense, 0)) + (Ifnull(rAdd,0) - Ifnull(rMinus,0)) 
+    AS networth FROM (SELECT (SELECT Sum(amount) FROM transactions 
+    WHERE type = \"income\" __filters__) AS income, 
+    (SELECT Sum(amount) FROM transactions WHERE type = \"expense\" 
+    __filters__) AS expense, ( SELECT Sum(amount) FROM 
+    transactions WHERE type = \"reconcile\" AND category=\"add\" __filters__) AS rAdd, (SELECT Sum(amount) FROM transactions 
+    WHERE type = \"reconcile\" AND category=\"minus\" __filters__) AS rMinus FROM transactions GROUP BY income) t ";
 
     public static function getNetWorth(){
-        $sql = "SELECT (income - expense) as networth FROM (
-            SELECT (SElect sum(amount) From transactions WHERE type = \"income\"
-            AND ".Utils::queryUserAccounts().") as income,
-            (SELECT sum(amount) FROM transactions WHERE type =\"expense\"
-             AND ".Utils::queryUserAccounts().") as expense 
-            FROM transactions group by income) t;";
+        $filter = Utils::queryUserAccounts();
+        $sql = self::mergeSqlWithFilters(self::$netWorthSql,$filter);
         try{
             $results = Yii::app()->db->createCommand($sql)->queryScalar();
         }catch (Exception $e){
@@ -92,7 +96,7 @@ class Queries
     }
 
     public static function getSavings($month){
-        $sql = "SELECT (income - expense) as networth FROM (
+        $sql = "SELECT (IFNULL(income,0) - IFNULL(expense,0)) as networth FROM (
             SELECT (SElect sum(amount) From transactions WHERE type = \"income\" 
             AND ".Utils::queryUserAccounts()." AND MONTH(trans_date) = ".$month.") as income,
             (SELECT sum(amount) FROM transactions WHERE type =\"expense\" 
@@ -223,7 +227,7 @@ class Queries
 
     public static function getSavingsByFilter($filter)
     {
-        $sql = "SELECT (income - expense) as networth FROM (
+        $sql = "SELECT (IFNULL(income,0) - IFNULL(expense,0)) as networth FROM (
             SELECT (SElect sum(amount) From transactions WHERE type = \"income\" 
             AND ".$filter.") as income,
             (SELECT sum(amount) FROM transactions WHERE type =\"expense\" 
@@ -241,18 +245,23 @@ class Queries
         return $results;
     }
 
-    public static function getAccountBalance()
+    public static function getAccountBalance($filter)
     {
-        $sql = "SELECT (income - expense) as networth FROM (
-            SELECT (SElect sum(amount) From transactions WHERE type = \"income\") as income,
-            (SELECT sum(amount) FROM transactions WHERE type =\"expense\") as expense 
-            FROM transactions group by income) t;";
+        $sql = self::mergeSqlWithFilters(self::$netWorthSql,$filter);
         try{
             $results = Yii::app()->db->createCommand($sql)->queryScalar();
         }catch (Exception $e){
             return 0;
         }
         return $results;
+    }
+
+    public static function mergeSqlWithFilters($sql, $filters, $tag="__filters__", $condition='AND'){
+        if(!empty($filters)){
+            return str_replace($tag, $condition .' '. $filters, $sql);
+        }else{
+            return str_replace($tag,$filters, $sql);
+        }
     }
 
 }

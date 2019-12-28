@@ -103,7 +103,7 @@
 
 
 </div>
-<input type="hidden" id='page-settings' data-settings='{"category" :"<?php echo $model->name;?>"}' />
+<?php echo Utils::pageSettings(['category'=>$model->name]);?>
 
 <?php
 Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl."/js/pages/category.js",

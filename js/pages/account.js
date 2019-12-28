@@ -31,6 +31,7 @@ var AccountPage = (function() {
     function loadPageData(){
         PDMApp.addLoaders();
         var settings = PDMApp.getCdpSettings();
+        $.extend(settings, PDMApp.getPageSettings());
         console.log(settings);
         $.getJSON('/ajax/getaccounttotals', settings, function(response){
             loadTiles(response.data);

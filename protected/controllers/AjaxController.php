@@ -74,8 +74,8 @@ class AjaxController extends Controller
     }
 
     private function getAccountBalance(){
-        $filter = $this->getReportFilter($_GET);
-        return Utils::formatMoney(Queries::getAccountBalance());
+        $filter = $this->getReportFilterByAccount($_GET);
+        return Utils::formatMoney(Queries::getAccountBalance($filter));
     }
 
     private function getReportFilter($settings){
@@ -91,6 +91,11 @@ class AjaxController extends Controller
                     .'" AND "' . $settings['enddate']. '"';
             }
         }
+        if(isset($settings['accountId']) && !empty($settings['accountId'])){
+            $filter .= ' AND account_id=' . $settings['accountId'];
+        }else{
+            $filter .= ' AND ' . Utils::queryUserAccounts();
+        }
         return $filter;
     }
 
@@ -105,6 +110,21 @@ class AjaxController extends Controller
                 $currentYear = date("Y", strtotime($settings['startdate']));
                 $filter .= 'Year(trans_date)='.$currentYear;
             }
+        }
+        if(isset($settings['accountId']) && !empty($settings['accountId'])){
+            $filter .= ' AND account_id=' . $settings['accountId'];
+        }else{
+            $filter .= ' AND ' . Utils::queryUserAccounts();
+        }
+        return $filter;
+    }
+
+    private function getReportFilterByAccount($settings){
+        $filter= "";
+        if(isset($settings['accountId'])){
+            $filter .= 'account_id=' . $settings['accountId'];
+        }else{
+            $filter .= '' . Utils::queryUserAccounts();
         }
         return $filter;
     }
@@ -146,7 +166,19 @@ class AjaxController extends Controller
 
     public function actionGetTransactionsTable(){
         $criteria = new CDbCriteria();
+        $criteria->addCondition('type="income" or type="expense"');
         $criteria->addCondition(Utils::queryUserAccounts());
+        $criteria->limit = 300;
+        $criteria->order = 'trans_date DESC';
+        $transactions = Transaction::model()->findAll($criteria);
+        echo $this->renderPartial('dashboard_transactions',
+            ['transactions'=>$transactions]);
+    }
+
+    public function actionGetTransactionsTableByAccount(){
+        $criteria = new CDbCriteria();
+        $criteria->addCondition('type="income" or type="expense"');
+        $criteria->addCondition('account_id='.$_GET['accountId']);
         $criteria->limit = 300;
         $criteria->order = 'trans_date DESC';
         $transactions = Transaction::model()->findAll($criteria);
@@ -156,7 +188,8 @@ class AjaxController extends Controller
 
     public function actionGetTransactionsTableWithFilters(){
         $criteria = new CDbCriteria();
-        $criteria->condition = $this->getReportFilter($_GET);
+        $criteria->addCondition('type="income" or type="expense"');
+        $criteria->addCondition($this->getReportFilter($_GET));
         $criteria->order = 'trans_date DESC';
         $transactions = Transaction::model()->findAll($criteria);
         echo $this->renderPartial('dashboard_transactions',
@@ -222,7 +255,7 @@ class AjaxController extends Controller
         $model->amount = str_replace( ',', '', $_POST['amount']); // replace thousands comma
         $model->category = $_POST['category'];
         $model->description = $_POST['description'];
-        $model->account_id = 1;
+        $model->account_id = $_POST['account'];
         $model->type = $_POST['transType'];
         $model->save();
     }
@@ -233,7 +266,7 @@ class AjaxController extends Controller
         $model->amount = str_replace( ',', '', $_POST['amount']); // replace thousands comma
         $model->category = $_POST['category'];
         $model->description = $_POST['description'];
-        $model->account_id = 1;
+        $model->account_id = $_POST['account'];
         $model->type = $_POST['transType'];
         $model->update();
     }
@@ -252,7 +285,9 @@ class AjaxController extends Controller
     }
 
     private function convertTransactionsToCalendar(){
-        $transactions = Transaction::model()->findAll();
+        $criteria = new CDbCriteria();
+        $criteria->addCondition('type="income" or type="expense"');
+        $transactions = Transaction::model()->findAll($criteria);
         $calendar_dates = [];
         foreach ($transactions as $transaction){
             $calendar_dates[] = [
@@ -330,9 +365,42 @@ class AjaxController extends Controller
         echo json_encode(['data'=> $model->getAsJSONObject()]);
     }
 
+    public function actionGetReconciliations(){
+        $settings = $_GET;
+        $accountId = $settings['accountId'];
+        $criteria = new CDbCriteria();
+        $criteria->addCondition('account_id='.$accountId);
+        $criteria->addCondition('type="reconcile"');
+        $transactions = Transaction::model()->findAll($criteria);
+        echo $this->renderPartial('reconciliation_layout',
+            ['transactions'=>$transactions]);
+    }
+
+    public function actionAddReconciliation(){
+        $model = new Transaction();
+        $model->trans_date = date('Y-m-d');
+        $model->amount = str_replace( ',', '', $_POST['amount']); // replace thousands comma
+        $model->category = $_POST['type'];
+        $model->description = $_POST['reason'];
+        $model->account_id = $_POST['account'];
+        $model->type = "reconcile";
+        $model->save();
+    }
+
+    public function actionRemoveReconciliation(){
+        Transaction::model()->findByPk($_POST['id'])->delete();
+    }
+
+    public function actionGetAccountBalance(){
+        echo $this->getAccountBalance();
+    }
+
+
     public function actionTest(){
         echo Utils::queryUserAccount();
     }
+
+    /** Private function */
 
     private function getTopExpenses(){
         $data = Queries::getTopExpensesByYear();

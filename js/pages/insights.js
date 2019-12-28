@@ -11,6 +11,10 @@ var InsightsPage = (function() {
         loadPageData();
     });
 
+    $(document).on('pdm.account.changed',function(){
+        loadPageData();
+    });
+
 
     function loadTiles(response){
         PDMApp.setElContent(inTile,response.income);
@@ -22,6 +26,8 @@ var InsightsPage = (function() {
     function loadPageData(){
         PDMApp.addLoaders();
         var settings = PDMApp.getCdpSettings();
+        $.extend(settings, PDMApp.getPageSettings());
+        console.log(settings);
         setSubtitles(settings);
         $.getJSON('/ajax/GetInsightsTotals', settings, function(response){
             loadTiles(response.data);

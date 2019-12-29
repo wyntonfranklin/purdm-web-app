@@ -10,9 +10,11 @@ var cdpDescription = $('#cdp-description');
 var monthsPicker = $('#months-picker');
 var cdpMonthsWidget = $('#cdp-months-listing');
 var cdpSettings = $('#cdp-settings');
-var months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+var months = ["01","02","03","04","05","06","07","08","09","10","11","12"];
+var monthLabels = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 var startDateEl = $('#cdp-start-date');
 var endDateEl = $('#cdp-end-date');
+//var currentMonth = null;
 
 $(document).ready(function(){
     loadDefaultSettings();
@@ -22,6 +24,7 @@ $(document).ready(function(){
 cdpMonthsWidget.find('.mn-item').on('click',function() {
     $('.mn-item').removeClass('active');
     $(this).addClass('active');
+    //currentMonth = $(this).attr('data-month');
     return false;
 });
 
@@ -47,7 +50,7 @@ endDateEl.datepicker({
 
 $('#cdp-update-months').on('click',function(){
     var year = monthsPicker.val();
-    var month = cdpMonthsWidget.find('.mn-item.active').text();
+    var month = cdpMonthsWidget.find('.mn-item.active').attr('data-month');
     setCdpSettings('month',month);
     setCdpSettings('year',year);
     setCdpSettings('type',"month");
@@ -241,10 +244,11 @@ function updateCdpDescription(first, second){
     var settings = getCdpSettings();
     if(settings.type =='month'){
         if(second){
-            cdpDescription.text(first + " " + second);
+            cdpDescription.text(monthLabels[first-1] + " " + second);
         }else{
-            cdpDescription.text(first + " " + settings.year);
+            cdpDescription.text(monthLabels[first-1] + " " + settings.year);
         }
+        console.log(first);
     }else if(settings.type == 'range'){
         cdpDescription.text(first + " - " + second);
     }
@@ -277,7 +281,7 @@ function loadDefaultMonths(settings){
     monthsPicker.val(settings.year);
     $('.mn-item').removeClass('active');
     $(".months-listing .mn-item").each(function(){
-        var val = $(this).text();
+        var val = $(this).attr('data-month');
         if(val == settings.month){
             $(this).addClass('active');
         }

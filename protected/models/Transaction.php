@@ -110,4 +110,12 @@ class Transaction extends CActiveRecord
     public function getId(){
 	    return $this->transaction_id;
     }
+
+    public function getAccountName(){
+	    return Accounts::model()->findByPk($this->account_id)->name;
+    }
+
+    public function getShortDate(){
+        return  date("d, M", strtotime($this->trans_date));
+    }
 }

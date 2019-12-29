@@ -1,10 +1,6 @@
-var TransactionPage = (function() {
+var SearchPage = (function() {
 
     var transLay = $('#trans-layout');
-
-    $(document).on('pdm.update.transtable',function(){
-        loadPageData();
-    });
 
     function loadPageData(){
         var settings = PDMApp.getPageSettings();
@@ -13,7 +9,7 @@ var TransactionPage = (function() {
 
 
     function updateTransTable(settings){
-        $.get('/ajax/GetTransactionsTableByAccount', settings,function(data){
+        $.get('/ajax/GetTransactionsTableByQuery', settings,function(data){
             transLay.empty().append(data);
         });
     }
@@ -24,4 +20,4 @@ var TransactionPage = (function() {
 
 })();
 
-TransactionPage.loadPageData();
+SearchPage.loadPageData();

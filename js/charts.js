@@ -187,49 +187,54 @@ var PDMCharts = (function(){
         if ( ieBarChart != null ) {
             ieBarChart.destroy();
         }
-        ieBarChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: data.labels,
-                datasets: [{
-                    label: "Income",
-                    lineTension: 0.3,
-                    backgroundColor: 'rgb(23, 166, 115)',
-                    borderColor: 'rgb(23, 166, 115)',
-                    data: data.income,
+        if(Object.keys(data.expense).length > 0 || Object.keys(data.income).length > 0){
+            ieBarChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: data.labels,
+                    datasets: [{
+                        label: "Income",
+                        lineTension: 0.3,
+                        backgroundColor: 'rgb(23, 166, 115)',
+                        borderColor: 'rgb(23, 166, 115)',
+                        data: data.income,
+                    },
+                        {
+                            label: "Expense",
+                            lineTension: 0.3,
+                            backgroundColor: 'rgb(255, 99, 132)',
+                            borderColor: 'rgb(255, 99, 132)',
+                            data: data.expense,
+                        }],
                 },
-                {
-                    label: "Expense",
-                    lineTension: 0.3,
-                    backgroundColor: 'rgb(255, 99, 132)',
-                    borderColor: 'rgb(255, 99, 132)',
-                    data: data.expense,
-                }],
-            },
-            options: {
-                tooltips: {
-                    backgroundColor: "rgb(255,255,255)",
-                    bodyFontColor: "#858796",
-                    titleMarginBottom: 10,
-                    titleFontColor: '#6e707e',
-                    titleFontSize: 14,
-                    borderColor: '#dddfeb',
-                    borderWidth: 1,
-                    xPadding: 15,
-                    yPadding: 15,
-                    displayColors: false,
-                    intersect: false,
-                    mode: 'index',
-                    caretPadding: 10,
-                    callbacks: {
-                        label: function(tooltipItem, chart) {
-                            var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
-                            return datasetLabel + ': $' + number_format(tooltipItem.yLabel);
+                options: {
+                    tooltips: {
+                        backgroundColor: "rgb(255,255,255)",
+                        bodyFontColor: "#858796",
+                        titleMarginBottom: 10,
+                        titleFontColor: '#6e707e',
+                        titleFontSize: 14,
+                        borderColor: '#dddfeb',
+                        borderWidth: 1,
+                        xPadding: 15,
+                        yPadding: 15,
+                        displayColors: false,
+                        intersect: false,
+                        mode: 'index',
+                        caretPadding: 10,
+                        callbacks: {
+                            label: function(tooltipItem, chart) {
+                                var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
+                                return datasetLabel + ': $' + number_format(tooltipItem.yLabel);
+                            }
                         }
                     }
                 }
-            }
-        });
+            });
+        }else{
+            var context = ctx.getContext('2d');
+            context.fillText("No content to display", 100,100);
+        }
     }
 
     function loadTEPieChart(id, data){
@@ -239,43 +244,48 @@ var PDMCharts = (function(){
             myTEPieChart.destroy();
         }
         var ctx = document.getElementById(id);
-        load_pie_chart_labels(id,colors,data.labels);
-        myTEPieChart = new Chart(ctx, {
-            type: 'doughnut',
-            data: {
-                labels: data.labels,
-                datasets: [{
-                    data: data.dataset,
-                    backgroundColor: colors,
-                    hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf','#ff3333','#ff748c'],
-                    hoverBorderColor: "rgba(234, 236, 244, 1)",
-                }],
-            },
-            options: {
-                maintainAspectRatio: false,
-                tooltips: {
-                    backgroundColor: "rgb(255,255,255)",
-                    bodyFontColor: "#858796",
-                    borderColor: '#dddfeb',
-                    borderWidth: 1,
-                    xPadding: 15,
-                    yPadding: 15,
-                    displayColors: false,
-                    caretPadding: 10,
-                    callbacks: {
-                        label: function(tooltipItem, chart) {
-                            var datasetLabel = data.labels[tooltipItem.index] || '';
-                            return firstLetterUpper(datasetLabel)
-                                + ': $' + number_format(data.dataset[tooltipItem.index],2);
+        if(Object.keys(data.dataset).length > 0){
+            load_pie_chart_labels(id,colors,data.labels);
+            myTEPieChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: data.labels,
+                    datasets: [{
+                        data: data.dataset,
+                        backgroundColor: colors,
+                        hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf','#ff3333','#ff748c'],
+                        hoverBorderColor: "rgba(234, 236, 244, 1)",
+                    }],
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    tooltips: {
+                        backgroundColor: "rgb(255,255,255)",
+                        bodyFontColor: "#858796",
+                        borderColor: '#dddfeb',
+                        borderWidth: 1,
+                        xPadding: 15,
+                        yPadding: 15,
+                        displayColors: false,
+                        caretPadding: 10,
+                        callbacks: {
+                            label: function(tooltipItem, chart) {
+                                var datasetLabel = data.labels[tooltipItem.index] || '';
+                                return firstLetterUpper(datasetLabel)
+                                    + ': $' + number_format(data.dataset[tooltipItem.index],2);
+                            }
                         }
-                    }
+                    },
+                    legend: {
+                        display: false
+                    },
+                    cutoutPercentage: 80,
                 },
-                legend: {
-                    display: false
-                },
-                cutoutPercentage: 80,
-            },
-        });
+            });
+        }else{
+            var context = ctx.getContext('2d');
+            context.fillText("No content to display", 50,100);
+        }
     }
 
     function loadMultiCatPieChart(id, data ){
@@ -286,58 +296,86 @@ var PDMCharts = (function(){
             mcPieChart.destroy();
         }
         var ctx = document.getElementById(id);
-        mcPieChart = new Chart(ctx, {
-            type: 'doughnut',
-            data: {
-                labels: data.labels,
-                datasets: [{
-                    data: data.dataset,
-                    backgroundColor: colors,
-                    hoverBackgroundColor: colors,
-                    hoverBorderColor: "rgba(234, 236, 244, 1)",
-                }],
-            },
-            options: {
-                maintainAspectRatio: false,
-                tooltips: {
-                    backgroundColor: "rgb(255,255,255)",
-                    bodyFontColor: "#858796",
-                    borderColor: '#dddfeb',
-                    borderWidth: 1,
-                    xPadding: 15,
-                    yPadding: 15,
-                    displayColors: false,
-                    caretPadding: 10,
-                    callbacks: {
-                        label: function(tooltipItem, chart) {
-                            var datasetLabel = data.labels[tooltipItem.index] || '';
-                            return firstLetterUpper(datasetLabel)
-                                + ': $' + number_format(data.dataset[tooltipItem.index],2);
+        if(Object.keys(data.dataset).length > 0){
+            mcPieChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: data.labels,
+                    datasets: [{
+                        data: data.dataset,
+                        backgroundColor: colors,
+                        hoverBackgroundColor: colors,
+                        hoverBorderColor: "rgba(234, 236, 244, 1)",
+                    }],
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    tooltips: {
+                        backgroundColor: "rgb(255,255,255)",
+                        bodyFontColor: "#858796",
+                        borderColor: '#dddfeb',
+                        borderWidth: 1,
+                        xPadding: 15,
+                        yPadding: 15,
+                        displayColors: false,
+                        caretPadding: 10,
+                        callbacks: {
+                            label: function(tooltipItem, chart) {
+                                var datasetLabel = data.labels[tooltipItem.index] || '';
+                                return firstLetterUpper(datasetLabel)
+                                    + ': $' + number_format(data.dataset[tooltipItem.index],2);
+                            }
                         }
-                    }
+                    },
+                    legend: {
+                        display: false
+                    },
+                    cutoutPercentage: 80,
                 },
-                legend: {
-                    display: false
-                },
-                cutoutPercentage: 80,
-            },
-        });
+            });
+        }else{
+            var context = ctx.getContext('2d');
+            context.fillText("No content to display", 50,100);
+        }
     }
 
     function renderCatListing(id, data){
+        var dpSettings = PDMApp.getCdpSettings();
+        var settings = PDMApp.getPageSettings();
+        dpSettings['accountId'] = (settings.accountId !=null) ? settings.accountId : "";
+        var baseUrl = "/category/view?id=";
+        var query = createCategoryUrl(dpSettings);
         var $el = $("#" + id + '-list');
         var labels = data.labels;
         var colors = data.colors;
         var dataset = data.dataset;
         var template ="";
-        for(var i=0; i<= labels.length-1; i++){
-            template +='   <li>\n' +
-                '<i style="color:'+colors[i]+'" class="fas fa-circle"></i>\n'
-                + '<a href="/category/'+labels[i]+'">' + firstLetterUpper(labels[i]) + '</a>' +
-                '&nbsp;&nbsp; &nbsp; <span style="font-weight: bold">$'+number_format(dataset[i],2)
-                +' ['+number_format(data.percentages[i],2)+'%]</span></li>\n';
+        if(Object.keys(data.dataset).length > 0){
+            for(var i=0; i<= labels.length-1; i++){
+                template +='   <li>\n' +
+                    '<i style="color:'+colors[i]+'" class="fas fa-circle"></i>\n'
+                    + '<a href="'+joinUrl(baseUrl,labels[i], query)+'">' + firstLetterUpper(labels[i]) + '</a>' +
+                    '&nbsp;&nbsp; &nbsp; <span style="font-weight: bold">$'+number_format(dataset[i],2)
+                    +' ['+number_format(data.percentages[i],2)+'%]</span></li>\n';
+            }
+            $el.empty().append(template);
+        }else{
+            $el.empty().append("<li>No content to display</li>");
         }
-        $el.empty().append(template);
+    }
+
+    function joinUrl(base, id, query){
+        return base + id + query;
+    }
+
+    function createCategoryUrl(settings){
+        var output = "";
+        for (var key in settings) {
+            if (settings.hasOwnProperty(key)) {
+                output += "&" + key + "=" + settings[key];
+            }
+        }
+        return output;
     }
 
     function firstLetterUpper(value){

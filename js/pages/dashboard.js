@@ -11,7 +11,7 @@ var DashboardPage = (function(){
        reloadPage();
     });
 
-    $(document).on('wf.update.transtable',function(){
+    $(document).on('pdm.update.transtable',function(){
         updateTransTable();
     });
 

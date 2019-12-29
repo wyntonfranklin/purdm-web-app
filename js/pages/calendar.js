@@ -86,22 +86,22 @@ jQuery(document).ready(function() {
 
     var menuActive = '<i style="color:blue;" class="fa fa-check"></i>&nbsp';
 
-    $('#accounts-filter-menu').on('click','.acc-menu',function(){
-        var el = $(this);
-        removeCheckBoxes();
-        var account = el.attr('data-account');
-        el.prepend(menuActive);
-        console.log(account);
-        loadCalendar();
-        return false;
-    });
 
     function removeCheckBoxes(){
         $('.acc-menu i').remove();
     }
 
+    $(document).on('pdm.account.changed',function(){
+       loadCalendar();
+    });
+
+    $(document).on('wf.transaction.created',function(){
+        loadCalendar();
+    });
+
     function loadCalendar(){
-        $.getJSON('/ajax/GetCalendarTransactions',function(response){
+        var settings = PDMApp.getPageSettings();
+        $.getJSON('/ajax/GetCalendarTransactions',settings,function(response){
             PDMCalendarBasic.init(response.data)
         });
     }

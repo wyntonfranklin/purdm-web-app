@@ -190,7 +190,15 @@
     </div>
 
 </div>
-<?php echo Utils::pageSettings(['accountId'=>$model->id]);?>
+<?php echo Utils::pageSettings([
+    'category'=>$model->name,
+    'startdate' => (isset($_GET['startdate'])) ? $_GET['startdate'] : "",
+    'enddate' => (isset($_GET['enddate'])) ? $_GET['enddate'] : "",
+    'month' => (isset($_GET['month'])) ? $_GET['month'] : Utils::getNumMonth(),
+    'year' => (isset($_GET['year'])) ? $_GET['year'] : Utils::getYear(),
+    'type' => (isset($_GET['type'])) ? $_GET['type'] : "",
+    'accountId' => $model->id,
+]);?>
 <?php
 Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl."/js/pages/account.js",
     CClientScript::POS_END);?>

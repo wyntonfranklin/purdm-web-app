@@ -15,10 +15,19 @@ var AccountPage = (function() {
         loadPageData();
     });
 
-    $(document).on('wf.update.transtable',function(){
+    $(document).on('pdm.update.transtable',function(){
         var settings = PDMApp.getCdpSettings();
         updateTransTable(settings);
     });
+
+    function overwriteCDPSettings(){
+        var pageSettings = PDMApp.getPageSettings();
+        if(pageSettings.type != null && pageSettings.type != ""){
+            console.log('overwriting cdp setings');
+            PDMApp.overwriteCDPSettings(pageSettings);
+        }
+    }
+
 
 
     function loadTiles(response){
@@ -31,7 +40,7 @@ var AccountPage = (function() {
     function loadPageData(){
         PDMApp.addLoaders();
         var settings = PDMApp.getCdpSettings();
-        $.extend(settings, PDMApp.getPageSettings());
+        $.extend(PDMApp.getPageSettings(),settings);
         console.log(settings);
         $.getJSON('/ajax/getaccounttotals', settings, function(response){
             loadTiles(response.data);
@@ -55,8 +64,9 @@ var AccountPage = (function() {
     }
 
     return {
-        loadPageData : loadPageData
+        loadPageData : loadPageData,
+        overwriteCDPSettings : overwriteCDPSettings
     }
 })();
-
+AccountPage.overwriteCDPSettings();
 AccountPage.loadPageData();

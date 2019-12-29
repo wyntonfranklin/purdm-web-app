@@ -213,7 +213,7 @@ class Queries
 
 
     public static function getAllExpensesByYear($filter){
-        $sql = "SELECT total, category, (total/(SELECT SUM(amount) FROM transactions)) *100 as percentage FROM 
+        $sql = "SELECT total, category, (total/(SELECT SUM(amount) FROM transactions WHERE type=\"expense\" AND ".$filter.") *100) as percentage FROM 
         ( SELECT sum(amount) as total, category, @total_tax as dividen from transactions Where type=\"expense\" 
         AND ".$filter." group by category order by total desc
         ) t";

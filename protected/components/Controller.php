@@ -33,9 +33,7 @@ class Controller extends CController
     }
 
     public function accountSelectorWidget(){
-        $criteria = new CDbCriteria();
-        $criteria->addCondition(Utils::queryUserAccounts('id'));
-        $accounts = Accounts::model()->findAll($criteria);
+        $accounts = Accounts::model()->getUserAccounts();
         echo $this->renderPartial('//layouts/account_selector',['accounts'=>$accounts]);
     }
 

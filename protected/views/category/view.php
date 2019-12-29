@@ -1,12 +1,15 @@
-<?php ?>
+<?php /** @var $model Categories | UserCategories */ ?>
 
 <div class="container-fluid">
 
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Category / <?php echo ucfirst($model->name);?></h1>
+        <h1 class="h3 mb-0 text-gray-800">
+            <a id="cat-back-btn" href="javascript:void(0);"><i class="fa fa-arrow-left"></i></a>
+            &nbsp;Category / <?php echo ucfirst($model->name);?></h1>
         <div class="d-none d-sm-inline-block">
             <?php $this->customDatePickerWidget();?>
+            <?php $this->accountSelectorWidget(); ?>
             <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-dark shadow-sm"><i class="fas fa-cog fa-sm text-white-50"></i> Options</a>
         </div>
      </div>
@@ -103,7 +106,15 @@
 
 
 </div>
-<?php echo Utils::pageSettings(['category'=>$model->name]);?>
+<?php echo Utils::pageSettings([
+    'category'=>$model->name,
+    'startdate' => (isset($_GET['startdate'])) ? $_GET['startdate'] : "",
+    'enddate' => (isset($_GET['enddate'])) ? $_GET['enddate'] : "",
+    'month' => (isset($_GET['month'])) ? $_GET['month'] : Utils::getNumMonth(),
+    'year' => (isset($_GET['year'])) ? $_GET['year'] : Utils::getYear(),
+    'type' => (isset($_GET['type'])) ? $_GET['type'] : "month",
+    'accountId' => (isset($_GET['accountId'])) ? $_GET['accountId'] : "",
+]);?>
 
 <?php
 Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl."/js/pages/category.js",

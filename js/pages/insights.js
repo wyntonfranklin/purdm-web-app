@@ -15,6 +15,21 @@ var InsightsPage = (function() {
         loadPageData();
     });
 
+    $(document).on('pdm.update.transtable',function(){
+        var settings = PDMApp.getCdpSettings();
+        $.get('/ajax/GetTransactionsTableWithFilters', settings,function(data){
+            transLay.empty().append(data);
+        });
+    });
+
+    function overwriteCDPSettings(){
+        var pageSettings = PDMApp.getPageSettings();
+        if(pageSettings.type != null && pageSettings.type != ""){
+            console.log('overwriting cdp setings');
+            PDMApp.overwriteCDPSettings(pageSettings);
+        }
+    }
+
 
     function loadTiles(response){
         PDMApp.setElContent(inTile,response.income);
@@ -26,7 +41,7 @@ var InsightsPage = (function() {
     function loadPageData(){
         PDMApp.addLoaders();
         var settings = PDMApp.getCdpSettings();
-        $.extend(settings, PDMApp.getPageSettings());
+        $.extend(PDMApp.getPageSettings(), settings);
         console.log(settings);
         setSubtitles(settings);
         $.getJSON('/ajax/GetInsightsTotals', settings, function(response){
@@ -44,8 +59,9 @@ var InsightsPage = (function() {
     }
 
     function setSubtitles(settings){
+        var labels = PDMApp.monthLabels();
         if(settings.type == 'month'){
-            var sub = settings.month + ' ' + settings.year;
+            var sub = labels[settings.month-1] + ' ' + settings.year;
             $('.card-header-subtitle').text(sub);
         }else if(settings.type =='range'){
             var sub = settings.startdate + ' - ' + settings.enddate;
@@ -55,9 +71,11 @@ var InsightsPage = (function() {
 
 
     return {
-        loadPageData : loadPageData
+        loadPageData : loadPageData,
+        overwriteCDPSettings : overwriteCDPSettings
     }
 
 })();
 
+InsightsPage.overwriteCDPSettings();
 InsightsPage.loadPageData();

@@ -83,7 +83,7 @@ class AjaxController extends Controller
         if(isset($settings['type'])){
             $type = $settings['type'];
             if($type == "month"){
-                $nmonth = date("m", strtotime($settings['month']));
+                $nmonth = $settings['month'];
                 $year = $settings['year'];
                 $filter .= 'Month(trans_date)='. $nmonth.' AND Year(trans_date)='.$year;
             }else if($type=="range"){
@@ -164,6 +164,24 @@ class AjaxController extends Controller
         }
     }
 
+    public function actionGetTransactionsTableByQuery(){
+        $query = isset($_GET['query']) ? $_GET['query'] : null;
+        $criteria = new CDbCriteria();
+        $criteria->addCondition('type="income" or type="expense"');
+        if($query){
+            $criteria->compare('category',$query,true,'AND');
+            $criteria->compare('description',$query, true,'OR');
+            $criteria->compare('amount',$query, false,'OR');
+        }
+        $criteria->addCondition(Utils::queryUserAccounts());
+        Utils::logger($criteria->condition);
+        $criteria->limit = 300;
+        $criteria->order = 'trans_date DESC';
+        $transactions = Transaction::model()->findAll($criteria);
+        echo $this->renderPartial('dashboard_transactions',
+            ['transactions'=>$transactions]);
+    }
+
     public function actionGetTransactionsTable(){
         $criteria = new CDbCriteria();
         $criteria->addCondition('type="income" or type="expense"');
@@ -241,7 +259,8 @@ class AjaxController extends Controller
     }
 
     public function actionGetCalendarTransactions(){
-        $dates = $this->convertTransactionsToCalendar();
+        $accountId = isset($_GET['accountId']) ? $_GET['accountId'] : "";
+        $dates = $this->convertTransactionsToCalendar($accountId);
         echo json_encode(
             [
                 'data'=>$dates
@@ -284,9 +303,14 @@ class AjaxController extends Controller
         echo 'done';
     }
 
-    private function convertTransactionsToCalendar(){
+    private function convertTransactionsToCalendar($accountId){
         $criteria = new CDbCriteria();
         $criteria->addCondition('type="income" or type="expense"');
+        if(empty($accountId)){
+            $criteria->addCondition(Utils::queryUserAccounts());
+        }else{
+            $criteria->addCondition('account_id='.$accountId);
+        }
         $transactions = Transaction::model()->findAll($criteria);
         $calendar_dates = [];
         foreach ($transactions as $transaction){
@@ -397,7 +421,7 @@ class AjaxController extends Controller
 
 
     public function actionTest(){
-        echo Utils::queryUserAccount();
+        echo date("m", strtotime('Feb'));
     }
 
     /** Private function */

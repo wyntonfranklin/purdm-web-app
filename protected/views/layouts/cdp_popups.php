@@ -2,8 +2,8 @@
     $cdp_defaults = json_encode([
        'startdate' => date('Y-m-d'),
        "enddate" => date('Y-m-d'),
-       "month" => "Dec",
-       "year" => "2019",
+       "month" => Utils::getNumMonth(),
+       "year" => Utils::getYear(),
        "type" => "month"
     ]);
     $currentYear = date('Y');
@@ -33,18 +33,18 @@
                 <?php endforeach;?>
             </select>
             <div class="months-listing" id="cdp-months-listing">
-                <div class="mn-item" data-month="1">Jan</div>
-                <div class="mn-item" data-month="1">Feb</div>
-                <div class="mn-item" data-month="1">Mar</div>
-                <div class="mn-item" data-month="1">Apr</div>
-                <div class="mn-item" data-month="1">May</div>
-                <div class="mn-item" data-month="1">Jun</div>
-                <div class="mn-item" data-month="1">Jul</div>
-                <div class="mn-item" data-month="1">Aug</div>
-                <div class="mn-item">Sep</div>
-                <div class="mn-item">Oct</div>
-                <div class="mn-item">Nov</div>
-                <div class="mn-item">Dec</div>
+                <div class="mn-item" data-month="01">Jan</div>
+                <div class="mn-item" data-month="02">Feb</div>
+                <div class="mn-item" data-month="03">Mar</div>
+                <div class="mn-item" data-month="04">Apr</div>
+                <div class="mn-item" data-month="05">May</div>
+                <div class="mn-item" data-month="06">Jun</div>
+                <div class="mn-item" data-month="07">Jul</div>
+                <div class="mn-item" data-month="08">Aug</div>
+                <div class="mn-item" data-month="09">Sep</div>
+                <div class="mn-item" data-month="10">Oct</div>
+                <div class="mn-item" data-month="11">Nov</div>
+                <div class="mn-item" data-month="12">Dec</div>
             </div>
             <button id="cdp-update-months" class="btn btn-sm btn-danger">Update Page</button>
         </div>

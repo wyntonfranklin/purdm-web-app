@@ -1,21 +1,22 @@
 <?php
 
 /**
- * This is the model class for table "accounts".
+ * This is the model class for table "users".
  *
- * The followings are the available columns in table 'accounts':
+ * The followings are the available columns in table 'users':
  * @property integer $id
- * @property string $name
- * @property string $type
+ * @property string $username
+ * @property string $email
+ * @property string $createdAt
  */
-class Accounts extends CActiveRecord
+class Users extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'accounts';
+		return 'users';
 	}
 
 	/**
@@ -26,11 +27,11 @@ class Accounts extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('name', 'length', 'max'=>125),
-			array('type', 'length', 'max'=>45),
+			array('username, email', 'length', 'max'=>45),
+			array('createdAt', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, name, type', 'safe', 'on'=>'search'),
+			array('id, username, email, createdAt', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -52,8 +53,9 @@ class Accounts extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'name' => 'Name',
-			'type' => 'Type',
+			'username' => 'Username',
+			'email' => 'Email',
+			'createdAt' => 'Created At',
 		);
 	}
 
@@ -76,8 +78,9 @@ class Accounts extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('name',$this->name,true);
-		$criteria->compare('type',$this->type,true);
+		$criteria->compare('username',$this->username,true);
+		$criteria->compare('email',$this->email,true);
+		$criteria->compare('createdAt',$this->createdAt,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -88,40 +91,10 @@ class Accounts extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return Accounts the static model class
+	 * @return Users the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
 	}
-
-    public function getListing(){
-        $data =  self::getUserAccounts();
-        return CHtml::listData($data,'id','name');
-    }
-
-    public function getTransactionsViewUrl(){
-	    return Yii::app()->createUrl('/account/transactions',['id'=>$this->id]);
-    }
-
-    public function getAccountViewUrl(){
-        return Yii::app()->createUrl('/account/' .$this->id);
-    }
-
-    public function getReconcileViewUrl(){
-        return Yii::app()->createUrl('/account/reconciliation',['id'=>$this->id]);
-    }
-
-    public function getCloseViewUrl(){
-        return Yii::app()->createUrl('/account/close',['id'=>$this->id]);
-    }
-
-    public function getUpdateViewUrl(){
-        return Yii::app()->createUrl('/account/update',['id'=>$this->id]);
-    }
-
-    public function getUserAccounts(){
-	    return self::findAllByAttributes(['user_id'=>Utils::getCurrentUserId()]);
-    }
-
 }

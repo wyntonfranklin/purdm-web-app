@@ -22,8 +22,11 @@ var PDMApp = (function(){
     }
 
     function getPageSettings(){
-        var settings = JSON.parse($('#page-settings').attr('data-settings'));
-        return settings;
+        var el = $('#page-settings');
+        if(el.length){
+            return JSON.parse(el.attr('data-settings'))
+        }
+        return { };
     }
 
     function updatePageSettings(name,value){
@@ -32,8 +35,16 @@ var PDMApp = (function(){
         $('#page-settings').attr('data-settings',JSON.stringify(settings));
     }
 
+    function overwriteCDPSettings(settings){
+        $('#cdp-settings').attr('data-settings',JSON.stringify(settings));
+    }
+
     function cdpOnChangeEventName(){
         return "wf.datetimepicker.onchange";
+    }
+
+    function updateAccountSelector(id){
+        $('#pdm-accounts-selector').val(id);
     }
 
     function showNotification(message){
@@ -41,6 +52,9 @@ var PDMApp = (function(){
             { position:"top center" });;
     }
 
+    function monthLabels(){
+        return ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+    }
     return {
         addLoaders : addLoaders,
         setElContent : setElContent,
@@ -49,7 +63,10 @@ var PDMApp = (function(){
         cdpOnChangeEventName : cdpOnChangeEventName,
         showNotification : showNotification,
         getPageSettings : getPageSettings,
-        updatePageSettings : updatePageSettings
+        updatePageSettings : updatePageSettings,
+        overwriteCDPSettings : overwriteCDPSettings,
+        updateAccountSelector : updateAccountSelector,
+        monthLabels : monthLabels
     }
 
 })();

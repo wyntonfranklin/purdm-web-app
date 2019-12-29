@@ -9,11 +9,11 @@
     </button>
 
     <!-- Topbar Search -->
-    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+    <form action="<?php echo $this->createUrl('/search/');?>" class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
         <div class="input-group">
-            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for transactions..." aria-label="Search" aria-describedby="basic-addon2">
+            <input name="query" type="text" class="form-control bg-light border-0 small" placeholder="Search for transactions..." aria-label="Search" aria-describedby="basic-addon2">
             <div class="input-group-append">
-                <button class="btn btn-primary" type="button">
+                <button class="btn btn-primary" type="submit">
                     <i class="fas fa-search fa-sm"></i>
                 </button>
             </div>
@@ -153,7 +153,7 @@
         <!-- Nav Item - User Information -->
         <li class="nav-item dropdown no-arrow">
             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Wynton Franklin</span>
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo Utils::getUserName();?></span>
                 <img class="img-profile rounded-circle" src="<?php echo Yii::app()->request->baseUrl; ?>/images/user-profile.png">
             </a>
             <!-- Dropdown - User Information -->

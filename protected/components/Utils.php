@@ -12,6 +12,10 @@ class Utils
         return date('M');
     }
 
+    public static function getNumMonth(){
+        return date('m');
+    }
+
     public static function getYear(){
         return date('Y');
     }
@@ -38,7 +42,7 @@ class Utils
 
     public static function queryUserAccounts($col='account_id'){
         $query = "$col IN(";
-        $accounts = Accounts::model()->findAll();
+        $accounts = Accounts::model()->getUserAccounts();
         foreach ($accounts as $account){
             $query .= $account->id . ",";
         }
@@ -50,5 +54,17 @@ class Utils
         $formattedSettings = json_encode($settings);
         $o = "<input type='hidden' id='page-settings' data-settings='$formattedSettings' />";
         return $o;
+    }
+
+    public static function logger($message, $tag='console'){
+        Yii::log($message, CLogger::LEVEL_ERROR, $tag);
+    }
+
+    public static function getCurrentUserId(){
+        return '2';
+    }
+
+    public static function getUserName(){
+        return Users::model()->findByPk(self::getCurrentUserId())->username;
     }
 }

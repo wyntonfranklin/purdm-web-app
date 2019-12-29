@@ -14,17 +14,17 @@
     <?php foreach($transactions as $transaction):?>
         <tr>
             <td>
-                <?php echo $transaction->trans_date;?></td>
+                <?php echo $transaction->getShortDate();?></td>
             <td>
                 <?php echo Utils::getTransactionIcon($transaction->type);?>
                 &nbsp;&nbsp;
                 <?php echo Utils::formatMoney($transaction->amount);?></td>
-            <td><?php echo $transaction->description;?></td>
+            <td style="min-width: 200px;"><?php echo $transaction->description;?></td>
             <td><?php echo $transaction->category;?></td>
-            <td>Primary</td>
+            <td><?php echo $transaction->getAccountName();?></td>
             <td>
                 <div data-id="<?php echo $transaction->transaction_id;?>">
-                    <a href="#"><i class="fa fa-cog"></i></a>&nbsp;&nbsp;
+                    <a href="#"><i class="fa fa-eye"></i></a>&nbsp;&nbsp;
                     <a href="javascript:void(0);" class="open-trans-modal"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
                     <a href="javascript:void(0);" class="trans-delete"><i class="fa fa-trash"></i></a>
                 </div>
@@ -45,7 +45,7 @@
             var c = confirm('Remove this tranaction');
             if(c){
                 $.post('/ajax/DeleteTransaction',{id:transId},function(){
-                    el.trigger('wf.update.transtable');
+                    el.trigger('pdm.update.transtable');
                 });
             }
            return false;

@@ -276,7 +276,32 @@ class AjaxController extends Controller
         $model->description = $_POST['description'];
         $model->account_id = $_POST['account'];
         $model->type = $_POST['transType'];
-        $model->save();
+        $frequency = isset($_POST['frequency']) ? $_POST['frequency'] : null;
+        if($model->save()){
+            if($frequency){
+                $this->createRepeatTransaction($model, $frequency);
+            }
+        }
+    }
+
+    public function createRepeatTransaction($transaction, $freq){
+        $model = RepeatTransaction::model()->findByAttributes(['transaction_id'=>$transaction->id]);
+        if($model == null ){
+            $model = new RepeatTransaction();
+            $model->created_date = $transaction->trans_date;
+            $model->transaction_id = $transaction->id;
+        }
+        if($model->isNewRecord){
+            $model->frequency = $freq;
+            $model->setUpComingDateFromFrequency();
+            $model->save();
+        }else{
+            if($model->frequency != $freq){
+                $model->frequency = $freq;
+                //$model->setCurrentUpComingDate();
+            }
+            $model->update();
+        }
     }
 
     public function actionUpdateTransaction(){
@@ -287,7 +312,10 @@ class AjaxController extends Controller
         $model->description = $_POST['description'];
         $model->account_id = $_POST['account'];
         $model->type = $_POST['transType'];
-        $model->update();
+        $frequency = isset($_POST['frequency']) ? $_POST['frequency'] : null;
+        if($model->update()){
+            $this->createRepeatTransaction($model, $frequency);
+        }
     }
 
     public function actionSaveUserCategory(){

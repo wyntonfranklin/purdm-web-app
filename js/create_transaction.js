@@ -91,6 +91,7 @@ var PDMCreateAccountModal = (function(){
             transForm.find('#transType').val(transObject.type);
             transForm.find('#transId').val(id);
             transForm.find('#account').val(transObject.account);
+            transForm.find('#frequency').val(transObject.frequency);
             if(callback){
                 callback();
             }

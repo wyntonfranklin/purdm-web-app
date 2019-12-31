@@ -6,15 +6,15 @@ class SettingsController extends Controller
     public $layout='//layouts/primary';
 
     public function actionIndex(){
-        $this->redirect('/settings/notifications');
+        $this->redirect('/settings/general');
     }
 
     public function actionNotifications(){
         $this->render('notifications');
     }
 
-    public function actionAccount(){
-        $this->render('account');
+    public function actionGeneral(){
+        $this->render('general');
     }
 
     public function actionProfile(){
@@ -31,6 +31,11 @@ class SettingsController extends Controller
 
     public function actionHelp(){
         $this->render('help');
+    }
+
+    public function actionRepeat(){
+        $transactions = RepeatTransaction::model()->findAll();
+        $this->render('repeat_transactions',['transactions'=>$transactions]);
     }
 
     public function settingsMenuActive( $menu )

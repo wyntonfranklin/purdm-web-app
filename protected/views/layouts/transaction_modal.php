@@ -80,13 +80,13 @@
                     </div>
                     <hr>
                     <div class="form-group">
-                        <label for="transType"><i class="fa fa-reply"></i>&nbsp;Repeat</label>
-                        <select class="form-control">
-                            <option>Do not repeat</option>
-                            <option>Every Year</option>
-                            <option>Every Month</option>
-                            <option>Every Week</option>
-                            <option>Every Day</option>
+                        <label><i class="fa fa-reply"></i>&nbsp;Repeat</label>
+                        <select id="frequency" name="frequency" class="form-control">
+                            <option value="">Do not repeat</option>
+                            <option value="year">Every Year</option>
+                            <option value="month">Every Month</option>
+                            <option value="week">Every Week</option>
+                            <option value="day">Every Day</option>
                         </select>
                     </div>
                     <div class="form-group">

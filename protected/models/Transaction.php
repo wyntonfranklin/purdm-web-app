@@ -104,7 +104,17 @@ class Transaction extends CActiveRecord
         $results['category'] = $this->category;
         $results['type'] = $this->type;
         $results["account"] = $this->account_id;
+        $results['frequency'] = $this->getFrequency();
         return $results;
+    }
+
+    public function getFrequency(){
+	    $model = RepeatTransaction::model()->findByAttributes(['transaction_id'=>$this->id]);
+	    if($model == null ){
+	        return "";
+        }else{
+	        return $model->frequency;
+        }
     }
 
     public function getId(){

@@ -53,7 +53,7 @@
                                                 'class'=>'form-control',
                                                 'id'=>'category',
                                                 'empty' => '--Select category--',
-                                                'style'=>'height:50px;width:100%'
+                                                'style'=>'height:50px;width:100%',
                                             ));?>
                                     </div>
                                 </div>

@@ -60,3 +60,8 @@
     font-size: 12px;
     color:black;
 }
+
+.error {
+    font-size: 12px !important;
+    color: darkred;
+}

@@ -72,6 +72,4 @@
     </div>
 </div>
 
-<?php
-Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl."/js/custom-datepicker.js",
-    CClientScript::POS_END);?>
+<?Php Utils::registerJs('custom-datepicker');?>

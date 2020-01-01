@@ -34,7 +34,4 @@
 </div>
 <?php echo Utils::pageSettings(['accountId'=>""]);?>
 
-<?php
-Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl."/js/pages/calendar.js",
-    CClientScript::POS_END);
-
+<?php Utils::registerPageJs('calendar'); ?>

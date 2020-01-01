@@ -16,20 +16,7 @@
 
     <title><?php echo $this->pageTitle;?></title>
 
-    <!-- Custom fonts for this template-->
-    <link href="<?php echo Yii::app()->request->baseUrl; ?>/css/all.min.css" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-
-    <!-- Custom styles for this template-->
-    <link href="<?php echo Yii::app()->request->baseUrl; ?>/css/sb-admin-2.min.css" rel="stylesheet">
-    <link href="<?php echo Yii::app()->request->baseUrl; ?>/css/primary.css" rel="stylesheet">
-    <link href="<?php echo Yii::app()->request->baseUrl; ?>/css/main.css" rel="stylesheet">
-    <link href="<?php echo Yii::app()->request->baseUrl; ?>/css/fullcalendar.bundle.css" rel="stylesheet">
-    <link href="<?php echo Yii::app()->request->baseUrl; ?>/css/three-dots.min.css" rel="stylesheet">
-    <link href="<?php echo Yii::app()->request->baseUrl; ?>/css/dataTables.bootstrap4.min.css" rel="stylesheet">
-    <link href="<?php echo Yii::app()->request->baseUrl; ?>/css/bootstrap-datepicker.min.css" rel="stylesheet">
-    <link href="<?php echo Yii::app()->request->baseUrl; ?>/css/jquery-confirm.min.css" rel="stylesheet">
-    <link href="<?php echo Yii::app()->request->baseUrl; ?>/css/select2.min.css" rel="stylesheet">
+    <?php Utils::renderCssAssets();?>
 
 </head>
 
@@ -49,31 +36,13 @@
     </div>
     <?php $this->renderPartial('//layouts/transaction_modal');?>
 
-    <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery.min.js"></script>
-    <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/bootstrap.bundle.min.js"></script>
-    <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/Chart.min.js"></script>
+    <input id="alert-success" value="<?php echo Yii::app()->user->getFlash('success'); ?>" type="hidden" autocomplete="off"/>
+    <input id="alert-error" value="<?php echo Yii::app()->user->getFlash('error'); ?>" type="hidden" autocomplete="off"/>
+    <input id="alert-info" value="<?php echo Yii::app()->user->getFlash('info'); ?>" type="hidden" autocomplete="off"/>
 
-    <!-- Core plugin JavaScript-->
-    <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery.easing.min.js"></script>
-    <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/bootstrap-datepicker.min.js"></script>
-    <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/moment.min.js"></script>
-    <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/fullcalendar.bundle.js"></script>
-    <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/dataTables.bootstrap4.min.js"></script>
-    <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/notify.min.js"></script>
-    <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery-confirm.min.js"></script>
-    <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/select2.min.js"></script>
-    <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery.maskMoney.min.js"></script>
+    <?php Utils::renderJsAssets();?>
 
-
-        <!-- Custom scripts for all pages-->
-    <script  type="text/javascript"src="<?php echo Yii::app()->request->baseUrl; ?>/js/sb-admin-2.min.js"></script>
-    <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/app.js"></script>
-    <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/charts.js"></script>
-    <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/create_transaction.js"></script>
-    <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/accounts_selector.js"></script>
     <!-- Page level plugins -->
-
 </body>
 
 </html>

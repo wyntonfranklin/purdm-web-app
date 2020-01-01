@@ -7,9 +7,13 @@
  * @property integer $id
  * @property string $name
  * @property string $type
+ * @property  integer $user_id
+ * @property string $currentBalance
  */
-class Accounts extends CActiveRecord
+class Accounts extends Model
 {
+
+    public $currentBalance = "";
 	/**
 	 * @return string the associated database table name
 	 */
@@ -26,8 +30,11 @@ class Accounts extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('name', 'length', 'max'=>125),
+			array('name', 'length', 'max'=>125,'min'=>5),
 			array('type', 'length', 'max'=>45),
+            array('user_id', 'numerical', 'integerOnly'=>true),
+            array('currentBalance', 'match', 'pattern'=>'/^[0-9]+(\.[0-9]{1,2})?$/'),
+            array('name, user_id', 'required'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, name, type', 'safe', 'on'=>'search'),
@@ -97,7 +104,7 @@ class Accounts extends CActiveRecord
 
     public function getListing(){
         $data =  self::getUserAccounts();
-        return CHtml::listData($data,'id','name');
+        return CHtml::listData($data,'id','shortName');
     }
 
     public function getTransactionsViewUrl(){
@@ -124,4 +131,11 @@ class Accounts extends CActiveRecord
 	    return self::findAllByAttributes(['user_id'=>Utils::getCurrentUserId()]);
     }
 
+    public function getShortName(){
+        $charCount = strlen($this->name);
+        if($charCount >20){
+            return substr($this->name,0,20) . "...";
+        }
+        return $this->name;
+    }
 }

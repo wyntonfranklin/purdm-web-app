@@ -15,6 +15,10 @@ var InsightsPage = (function() {
         loadPageData();
     });
 
+    $(document).on('wf.transaction.created',function(){
+        loadPageData();
+    });
+
     $(document).on('pdm.update.transtable',function(){
         var settings = PDMApp.getCdpSettings();
         $.get('/ajax/GetTransactionsTableWithFilters', settings,function(data){
@@ -41,7 +45,8 @@ var InsightsPage = (function() {
     function loadPageData(){
         PDMApp.addLoaders();
         var settings = PDMApp.getCdpSettings();
-        $.extend(PDMApp.getPageSettings(), settings);
+        console.log(PDMApp.getPageSettings());
+        settings = $.extend({},PDMApp.getPageSettings(), settings);
         console.log(settings);
         setSubtitles(settings);
         $.getJSON('/ajax/GetInsightsTotals', settings, function(response){

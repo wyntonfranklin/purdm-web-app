@@ -11,6 +11,7 @@
  * @property string $category
  * @property integer $account_id
  * @property string $type
+ * @property string $memo
  */
 class Transaction extends CActiveRecord
 {
@@ -32,10 +33,14 @@ class Transaction extends CActiveRecord
 		return array(
 			array('account_id', 'numerical', 'integerOnly'=>true),
 			array('amount, description, category, type', 'length', 'max'=>45),
+            array('memo', 'length', 'max'=>125),
+            array('amount', 'match', 'pattern'=>'/^[0-9]+(\.[0-9]{1,2})?$/'),
+            array('account_id, amount, description, category, type,
+            trans_date', 'required','on'=>'save-trans'),
 			array('trans_date', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('transaction_id, trans_date, amount, description, category, account_id, type', 'safe', 'on'=>'search'),
+			array('transaction_id, trans_date, amount, description, category, account_id, type, memo', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -105,6 +110,7 @@ class Transaction extends CActiveRecord
         $results['type'] = $this->type;
         $results["account"] = $this->account_id;
         $results['frequency'] = $this->getFrequency();
+        $results['memo'] = $this->memo;
         return $results;
     }
 
@@ -127,5 +133,13 @@ class Transaction extends CActiveRecord
 
     public function getShortDate(){
         return  date("d, M", strtotime($this->trans_date));
+    }
+
+    public function getHTMLErrorSummary(){
+	    return CHtml::errorSummary($this);
+    }
+
+    public function assignAmount($val){
+	    $this->amount = str_replace( ',', '', $val);
     }
 }

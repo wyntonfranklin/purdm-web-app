@@ -1,4 +1,21 @@
-var PDMApp = (function(){
+var PDMApp = (function($){
+
+
+
+    function showAlerts(){
+        var successMsg = $('#alert-success').val();
+        var infoMsg = $('#alert-info').val();
+        var errorMsg = $('#alert-error').val();
+        if(successMsg){
+            setAlert('success', successMsg)
+        }
+        if(infoMsg){
+            setAlert('info', infoMsg)
+        }
+        if(errorMsg){
+            setAlert('error', errorMsg)
+        }
+    }
 
     function addLoaders(){
         $('.aj').empty().append('<div class="dot-pulse"></div>');
@@ -47,14 +64,35 @@ var PDMApp = (function(){
         $('#pdm-accounts-selector').val(id);
     }
 
-    function showNotification(message){
-        $.notify(message, "info",
-            { position:"top center" });;
+    function showNotification(message,type){
+        if(type== null){
+            $.notify(message, "info",
+                { position:"top center" });
+        }else{
+            $.notify(message, type,
+                { position:"top center" });
+        }
     }
 
     function monthLabels(){
         return ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
     }
+
+    function getJsonResponseObject(response){
+        try{
+            var object = JSON.parse(response);
+            return object.response;
+        }catch (e) {
+            return {'status': 'bad','message':'invalid response','data':''};
+        }
+
+        return false;
+    }
+
+    function setAlert(type, message){
+        $.notify(message,type);
+    }
+
     return {
         addLoaders : addLoaders,
         setElContent : setElContent,
@@ -66,7 +104,12 @@ var PDMApp = (function(){
         updatePageSettings : updatePageSettings,
         overwriteCDPSettings : overwriteCDPSettings,
         updateAccountSelector : updateAccountSelector,
-        monthLabels : monthLabels
+        monthLabels : monthLabels,
+        getJsonResponseObject : getJsonResponseObject,
+        setAlert : setAlert,
+        showAlerts : showAlerts
     }
 
-})();
+})(jQuery);
+
+PDMApp.showAlerts();

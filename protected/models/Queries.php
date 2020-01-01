@@ -168,8 +168,9 @@ class Queries
     }
 
     public static function getExpensesByMonth(){
-        $sql = "SELECT sum(amount) as total,Month(trans_date) as date 
-        FROM transactions WHERE type=\"expense\" AND ".Utils::queryUserAccounts()." 
+        $year = Utils::getYear();
+        $sql = "SELECT sum(amount) as total, Month(trans_date) as date 
+        FROM transactions WHERE type=\"expense\" AND YEAR(trans_date) =".$year." AND ".Utils::queryUserAccounts()." 
         group by MONTH(trans_date);";
         try{
             $results = Yii::app()->db->createCommand($sql)->queryAll();
@@ -180,8 +181,9 @@ class Queries
     }
 
     public static function getTopExpensesByYear(){
+        $year = Utils::getYear();
         $sql = "SELECT sum(amount) as total, category from transactions Where type=\"expense\" 
-        AND ".Utils::queryUserAccounts()." group by category order by total desc LIMIT 5;";
+        AND YEAR(trans_date)=".$year." AND ".Utils::queryUserAccounts()." group by category order by total desc LIMIT 5;";
         try{
             $results = Yii::app()->db->createCommand($sql)->queryAll();
         }catch (Exception $e){

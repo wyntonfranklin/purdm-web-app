@@ -47,8 +47,9 @@ var CategoryPage = (function() {
         PDMApp.addLoaders();
         var settings = PDMApp.getCdpSettings();
         var pageSettings = PDMApp.getPageSettings();
-        settings['category'] = pageSettings.category;
-        settings['accountId'] = (pageSettings.accountId) != null ? pageSettings.accountId : "";
+        settings = $.extend({}, settings, pageSettings);
+       // settings['category'] = pageSettings.category;
+      //  settings['accountId'] = (pageSettings.accountId) != null ? pageSettings.accountId : "";
         console.log(settings);
         setSubtitles(settings);
 

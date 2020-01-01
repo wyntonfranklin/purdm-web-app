@@ -1,0 +1,23 @@
+{
+  "name": "wfexpenses",
+  "version": "1.0.0",
+  "description": "Notes",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wyntonfranklin/wfexpenses.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wyntonfranklin/wfexpenses/issues"
+  },
+  "homepage": "https://github.com/wyntonfranklin/wfexpenses#readme",
+  "devDependencies": {
+    "grunt": "^1.0.4",
+    "grunt-contrib-concat": "^1.0.1"
+  }
+}

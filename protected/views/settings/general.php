@@ -25,12 +25,11 @@
                     <form action="#" method="post">
                         <p>Select a default account from the list below.(Which account do you register transactions with the most)</p>
                         <div class="form-group">
-                            <select style="width: 100%;">
-                                <option value="volvo">Volvo</option>
-                                <option value="saab">Saab</option>
-                                <option value="mercedes">Mercedes</option>
-                                <option value="audi">Audi</option>
-                            </select><br>
+                            <?php echo CHtml::dropDownList('account','', Accounts::model()->getListing(),
+                                array(
+                                    'class'=>'form-control',
+                                    'id'=>'default-account',
+                                ));?>
                         </div>
                         <input class="btn btn-primary btn-block"  value="Save" type="submit"/>
                     </form>
@@ -46,31 +45,20 @@
                         <div class="form-group">
                             <div class="form-label">
                                 <label>Username</label>
-                                <input name="accountName" type="text" id="accountName" class="form-control" placeholder="Account name" required="required">
+                                <input type="text" id="userName" class="form-control" placeholder="Username" required="required">
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="form-label">
                                 <label>Email</label>
-                                <input name="accountFunds" type="text" id="accountFunds" class="form-control" placeholder="Current Balance">
+                                <input type="text" id="userEmail" class="form-control" placeholder="User email">
                             </div>
                         </div>
-                        <input class="btn btn-primary btn-block"  value="Update information" type="submit"/>
+                        <input id="update-user-btn" class="btn btn-primary btn-block"  value="Update information" type="button"/>
                     </form>
                 </div>
             </div>
 
-            <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Repeat Transactions</h6>
-                </div>
-                <div class="card-body">
-                    <form action="#" method="post">
-                        <p>Mange you repeating transactions</p>
-                        <input class="btn btn-primary btn-block"  value="Manage" type="submit"/>
-                    </form>
-                </div>
-            </div>
 
 
         </div>
@@ -86,22 +74,22 @@
                         <div class="form-group">
                             <div class="form-label">
                                 <label>Old Password</label>
-                                <input name="accountFunds" type="text" id="accountFunds" class="form-control" placeholder="Current Balance">
+                                <input type="password" id="oldPassword" class="form-control" placeholder="Current Balance">
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="form-label">
                                 <label>New Password</label>
-                                <input name="accountFunds" type="text" id="accountFunds" class="form-control" placeholder="Current Balance">
+                                <input type="text" id="newPassword" class="form-control" placeholder="Current Balance">
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="form-label">
                                 <label>Confirm New Password</label>
-                                <input name="accountFunds" type="text" id="accountFunds" class="form-control" placeholder="Current Balance">
+                                <input type="password" id="confirmPassword" class="form-control" placeholder="Current Balance">
                             </div>
                         </div>
-                        <input class="btn btn-primary btn-block"  value="Save new password" type="submit"/>
+                        <input id="update-user-password-btn" class="btn btn-primary btn-block"  value="Save new password" type="button"/>
                     </form>
                 </div>
             </div>
@@ -113,7 +101,7 @@
                 </div>
                 <div class="card-body">
                     <form action="#" method="post">
-                        <p>Rand test adfasdfasdf</p>
+                        <p>Delete your account you will loose all your transactions data.</p>
                         <input class="btn btn-danger btn-block"  value="Create Account" type="submit"/>
                     </form>
                 </div>
@@ -123,3 +111,12 @@
 
 </div>
 
+
+<?php echo Utils::pageSettings([
+    'accountId' => Utils::getCurrentUserId(),
+]);?>
+
+
+<?php
+Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl."/js/pages/settings.js",
+    CClientScript::POS_END);?>

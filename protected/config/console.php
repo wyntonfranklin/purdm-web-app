@@ -9,18 +9,16 @@ return array(
 	// preloading 'log' component
 	'preload'=>array('log'),
 
+    'import'=>array(
+        'application.models.*',
+        'application.components.*',
+    ),
+
 	// application components
 	'components'=>array(
 
 		// database settings are configured in database.php
-        'db'=>array(
-            'connectionString' => 'mysql:host=127.0.0.1;dbname=wf_tutorials',
-            'emulatePrepare' => true,
-            'username' => 'root',
-            'password' => '',
-            'charset' => 'utf8',
-            //https://sg2nlsmysqladm1.secureserver.net/grid50/427/index.php
-        ),
+        'db'=>require(dirname(__FILE__).'/database.php'),
 
 		'log'=>array(
 			'class'=>'CLogRouter',

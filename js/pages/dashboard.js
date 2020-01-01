@@ -1,4 +1,4 @@
-var DashboardPage = (function(){
+var DashboardPage = (function($){
 
     var nwTile = $('#nw-tile');
     var exTile = $('#ex-tile');
@@ -65,7 +65,7 @@ var DashboardPage = (function(){
     return {
         init : init
     }
-})();
+})(jQuery);
 
 DashboardPage.init();
 

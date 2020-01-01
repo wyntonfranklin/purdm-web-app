@@ -30,21 +30,21 @@
             <i class="fas fa-fw fa-folder"></i>
             <span>Accounts</span>
         </a>
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div style="overflow: hidden" id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">All Accounts:</h6>
                 <?php  $accounts = Accounts::model()->getUserAccounts(); ?>
                 <?php foreach($accounts as $account):?>
-                    <a class="collapse-item" href="<?php echo $this->createUrl('/account/'.$account->id);?>">
-                        <?php echo $account->name;?></a>
+                    <a title="<?php echo $account->name;?>" class="collapse-item" href="<?php echo $this->createUrl('/account/'.$account->id);?>">
+                        <?php echo $account->getShortName();?></a>
                 <?php endforeach;?>
                 <a class="collapse-item" href="<?php echo $this->createUrl('/account/create');?>"><i class="fa fa-plus-circle"></i> &nbsp;New Account</a>
             </div>
         </div>
     </li>
 
-    <li class="nav-item <?php echo $this->menuActive('reports');?>">
-        <a class="nav-link" href="<?php echo $this->createUrl('/reports/');?>">
+    <li class="nav-item <?php echo $this->menuActive('insights');?>">
+        <a class="nav-link" href="<?php echo $this->createUrl('/insights/');?>">
             <i class="fas fa-fw fa-chart-area"></i>
             <span>Insights</span>
         </a>

@@ -1,4 +1,4 @@
-var PDMCreateAccountModal = (function(){
+var PDMCreateAccountModal = (function($){
 
     var modalId = "transaction-modal";
     var transModal = $('#transaction-modal');
@@ -32,16 +32,24 @@ var PDMCreateAccountModal = (function(){
         return false;
     });
 
+
     addNewButton.on('click',function(){
         openNewTransactionModal();
         return false;
     });
 
+    $('.pdm-open-trans-modal').on('click',function(){
+        openNewTransactionModal();
+        return false;
+    });
+
     saveButton.on('click',function(){
-        if(getFormAction() == 'save'){
-            saveTransForm();
-        }else if(getFormAction() == 'edit'){
-            updateTransForm();
+       if(transForm.valid()){
+            if(getFormAction() == 'save'){
+                saveTransForm();
+            }else if(getFormAction() == 'edit'){
+                updateTransForm();
+            }
         }
         return false;
     });
@@ -82,18 +90,22 @@ var PDMCreateAccountModal = (function(){
     }
 
     function loadTransactionModal(id, callback){
-        $.getJSON('/ajax/TransactionDetails',{id:id},function(results){
-            var transObject= results.data;
-            transForm.find('#amount').val(transObject.amount);
-            transForm.find('#description').val(transObject.description);
-            transDatePicker.datepicker("setDate",transObject.transDate);
-            transForm.find('#category').val(transObject.category).trigger('change');
-            transForm.find('#transType').val(transObject.type);
-            transForm.find('#transId').val(id);
-            transForm.find('#account').val(transObject.account);
-            transForm.find('#frequency').val(transObject.frequency);
-            if(callback){
-                callback();
+        $.get('/ajax/TransactionDetails',{id:id},function(response){
+            var res = PDMApp.getJsonResponseObject(response);
+            console.log(res);
+            if(res.status == 'good'){
+                transForm.find('#amount').val(res.data.amount);
+                transForm.find('#description').val(res.data.description);
+                transDatePicker.datepicker("setDate",res.data.transDate);
+                transForm.find('#category').val(res.data.category).trigger('change');
+                transForm.find('#transType').val(res.data.type);
+                transForm.find('#transId').val(id);
+                transForm.find('#account').val(res.data.account);
+                transForm.find('#frequency').val(res.data.frequency);
+                transForm.find('#memo').val(res.data.memo);
+                if(callback){
+                    callback();
+                }
             }
         })
     }
@@ -118,30 +130,47 @@ var PDMCreateAccountModal = (function(){
     function clearFormData(){
         transForm
             .find("input[type=text], textarea").val("");
+        transForm.find('#frequency').val('');
     }
 
     function saveTransaction(data){
-        $.post('/ajax/SaveTransaction', data,function(){
-            closeTransactionModal();
-            PDMApp.showNotification("Transaction successfully saved");
-            clearFormData();
-            saveButton.trigger('wf.transaction.created');
+        $.post('/ajax/SaveTransaction', data,function(response){
+            var rep = PDMApp.getJsonResponseObject(response);
+            console.log(rep);
+            if(rep.status == 'good'){
+                closeTransactionModal();
+                PDMApp.showNotification(rep.message);
+                clearFormData();
+                saveButton.trigger('wf.transaction.created');
+            }else if(rep.status == 'bad'){
+                PDMApp.showNotification(rep.message,'error');
+            }
         })
     }
 
     function updateTransaction(data){
-        $.post('/ajax/UpdateTransaction', data,function(){
-            closeTransactionModal();
-            PDMApp.showNotification("Transaction successfully updated");
-            clearFormData();
-            saveButton.trigger('wf.transaction.created');
+        $.post('/ajax/UpdateTransaction', data,function(response){
+            var rep = PDMApp.getJsonResponseObject(response);
+            if(rep.status =='good'){
+                closeTransactionModal();
+                PDMApp.showNotification(rep.message);
+                clearFormData();
+                saveButton.trigger('wf.transaction.created');
+            }else if(rep.status =='bad'){
+                PDMApp.showNotification(rep.message,'error');
+            }
         })
     }
 
     function saveCategory(cat){
-        $.post('/ajax/SaveUserCategory',{usercategory:cat},function(){
-            updateCategoryListing();
-            PDMApp.showNotification("Category saved");
+        $.post('/ajax/SaveUserCategory',{usercategory:cat},function(response){
+            var rep = PDMApp.getJsonResponseObject(response);
+            if(rep.status == 'good'){
+                updateCategoryListing();
+                PDMApp.showNotification(rep.message);
+            }else if(rep.status == 'bad'){
+                PDMApp.showNotification(rep.message,'error');
+            }
         });
     }
 
@@ -180,7 +209,7 @@ var PDMCreateAccountModal = (function(){
                     action: function () {
                         var name = this.$content.find('.name').val();
                         if(!name){
-                            $.alert('provide a valid name');
+                            $.alert('Provide a valid name');
                             return false;
                         }else{
                             saveCategory(name);
@@ -197,5 +226,5 @@ var PDMCreateAccountModal = (function(){
         });
     }
 
-})();
+})(jQuery);
 

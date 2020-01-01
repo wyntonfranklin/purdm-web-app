@@ -19,9 +19,9 @@
                 </div>
                 <!-- Card Body -->
                 <div class="card-body" style="">
-                    <form action="#" method="post">
+                    <form action="<?php echo Utils::getCurrentUrl();?>" method="post">
                         <p>Delete this account? Taking this action will remove all your data from this website.</p>
-                        <input class="btn btn-danger btn-block"  value="Remove Account" type="submit"/>
+                        <input name="delete-account" class="btn btn-danger btn-block"  value="Remove Account" type="submit"/>
                     </form>
                 </div>
             </div>

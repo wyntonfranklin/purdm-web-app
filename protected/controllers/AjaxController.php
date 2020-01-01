@@ -172,6 +172,7 @@ class AjaxController extends Controller
             $criteria->compare('category',$query,true,'AND');
             $criteria->compare('description',$query, true,'OR');
             $criteria->compare('amount',$query, false,'OR');
+            $criteria->compare('memo',$query, true,'OR');
         }
         $criteria->addCondition(Utils::queryUserAccounts());
         Utils::logger($criteria->condition);
@@ -270,19 +271,28 @@ class AjaxController extends Controller
 
     public function actionSaveTransaction(){
         $model = new Transaction();
+        $model->setScenario('save-trans');
         $model->trans_date = $_POST['transDate'];
-        $model->amount = str_replace( ',', '', $_POST['amount']); // replace thousands comma
+        $model->assignAmount($_POST['amount']);
+        $model->amount = $_POST['amount'];
         $model->category = $_POST['category'];
         $model->description = $_POST['description'];
         $model->account_id = $_POST['account'];
         $model->type = $_POST['transType'];
+        $model->memo = $_POST['memo'];
         $frequency = isset($_POST['frequency']) ? $_POST['frequency'] : null;
         if($model->save()){
             if($frequency){
                 $this->createRepeatTransaction($model, $frequency);
             }
+            Utils::jsonResponse(Utils::STATUS_GOOD,'Transaction successfully saved');
+        }else{
+            Utils::logger( CHtml::errorSummary($model));
+            Utils::jsonResponse(Utils::STATUS_BAD,
+                $this->getErrorSummaryAsText($model->getHTMLErrorSummary()));
         }
     }
+
 
     public function createRepeatTransaction($transaction, $freq){
         $model = RepeatTransaction::model()->findByAttributes(['transaction_id'=>$transaction->id]);
@@ -307,22 +317,32 @@ class AjaxController extends Controller
     public function actionUpdateTransaction(){
         $model = Transaction::model()->findByPk($_POST['transId']);
         $model->trans_date = $_POST['transDate'];
-        $model->amount = str_replace( ',', '', $_POST['amount']); // replace thousands comma
+        $model->assignAmount($_POST['amount']);
         $model->category = $_POST['category'];
         $model->description = $_POST['description'];
         $model->account_id = $_POST['account'];
         $model->type = $_POST['transType'];
+        $model->memo = $_POST['memo'];
         $frequency = isset($_POST['frequency']) ? $_POST['frequency'] : null;
         if($model->update()){
             $this->createRepeatTransaction($model, $frequency);
+            Utils::jsonResponse(Utils::STATUS_GOOD,'Transaction Updated', $model->id);
+        }else{
+            Utils::jsonResponse(Utils::STATUS_BAD,
+                $this->getErrorSummaryAsText($model->getHTMLErrorSummary()));
         }
     }
 
     public function actionSaveUserCategory(){
         $model = new UserCategories();
         $model->name = $_POST['usercategory'];
-        $model->userid = 1;
-        $model->save();
+        $model->userid = Utils::getCurrentUserId();
+        if($model->save()){
+            Utils::jsonResponse(Utils::STATUS_GOOD,'Category Saved',$model->name);
+        }else{
+            Utils::jsonResponse(Utils::STATUS_BAD,
+                $this->getErrorSummaryAsText($model->getHTMLErrorSummary()));
+        }
     }
 
     public function actionDeleteTransaction(){
@@ -414,7 +434,7 @@ class AjaxController extends Controller
     public function actionTransactionDetails(){
         $id = $_GET['id'];
         $model = Transaction::model()->findByPk($id);
-        echo json_encode(['data'=> $model->getAsJSONObject()]);
+        Utils::jsonResponse('good','good',$model->getAsJSONObject());
     }
 
     public function actionGetReconciliations(){
@@ -447,9 +467,38 @@ class AjaxController extends Controller
         echo $this->getAccountBalance();
     }
 
+    public function actionGetSettingsPageData(){
+        $user = Users::model()->findByPk(Utils::getCurrentUserId());
+        $data = [
+          'username' => $user->username,
+          'email' => $user->email,
+            'default' => '7'
+        ];
+        Utils::jsonResponse('good', "good",$data);
+    }
+
+    public function actionUpdateUserInfo(){
+        $user = Users::model()->findByPk(Utils::getCurrentUserId());
+        $user->username = $_POST['username'];
+        $user->email = $_POST['email'];
+        if($user->update()){
+            Utils::jsonResponse('good','User profile updated');
+        }else{
+            Utils::jsonResponse('bad',$this->getErrorSummaryAsText(
+                $user->getHTMLErrorSummary()));
+        }
+    }
+
+    public function actionUpdateUserPassword(){
+        $oldPassword = $_POST['oldpassword'];
+        $newPassword = $_POST['newpassword'];
+        $confirmPassword = $_POST['confirmpassword'];
+        Utils::jsonResponse('good','Password updated.');
+    }
+
 
     public function actionTest(){
-        echo date("m", strtotime('Feb'));
+
     }
 
     /** Private function */

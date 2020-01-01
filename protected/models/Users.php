@@ -9,7 +9,7 @@
  * @property string $email
  * @property string $createdAt
  */
-class Users extends CActiveRecord
+class Users extends Model
 {
 	/**
 	 * @return string the associated database table name

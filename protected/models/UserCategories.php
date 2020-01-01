@@ -8,7 +8,7 @@
  * @property string $name
  * @property integer $userid
  */
-class UserCategories extends CActiveRecord
+class UserCategories extends Model
 {
 	/**
 	 * @return string the associated database table name
@@ -28,6 +28,7 @@ class UserCategories extends CActiveRecord
 		return array(
 			array('userid', 'numerical', 'integerOnly'=>true),
 			array('name', 'length', 'max'=>45),
+            array('name, userid', 'required'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, name, userid', 'safe', 'on'=>'search'),

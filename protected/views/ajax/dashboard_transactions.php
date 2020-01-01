@@ -24,7 +24,6 @@
             <td><?php echo $transaction->getAccountName();?></td>
             <td>
                 <div data-id="<?php echo $transaction->transaction_id;?>">
-                    <a href="#"><i class="fa fa-eye"></i></a>&nbsp;&nbsp;
                     <a href="javascript:void(0);" class="open-trans-modal"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
                     <a href="javascript:void(0);" class="trans-delete"><i class="fa fa-trash"></i></a>
                 </div>

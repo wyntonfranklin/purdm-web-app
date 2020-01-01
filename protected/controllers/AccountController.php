@@ -15,20 +15,27 @@ class AccountController extends Controller
         if(isset($_POST['accountName'])){
             $account = new Accounts();
             $account->name = $_POST['accountName'];
+            $account->user_id = Utils::getCurrentUserId();
+            $account->currentBalance = isset($_POST['accountFunds']) ? $_POST['accountFunds'] : null;
             if( $account->save() ){
-                if(isset($_POST['accountFunds'])){
-                    $this->createDefaultReconciliation($account, $_POST['accountFunds']);
+                if(!empty($account->currentBalance)){
+                    $this->createDefaultReconciliation($account);
                 }
+                Utils::setAlert(Utils::ALERT_SUCCESS,"Account successfully created");
                 $this->redirect($account->getAccountViewUrl());
+            }else{
+                Utils::logger($account->getHTMLErrorSummary());
+                Utils::setAlert(Utils::ALERT_ERROR,
+                    $this->getErrorSummaryAsText($account->getHTMLErrorSummary()));
             }
         }
         $this->render('create');
     }
 
-    private function createDefaultReconciliation( $account, $amount ){
+    private function createDefaultReconciliation( Accounts $account ){
         $model = new Transaction();
         $model->trans_date = date('Y-m-d');
-        $model->amount = str_replace( ',', '', $amount); // replace thousands comma
+        $model->amount = str_replace( ',', '', $account->currentBalance); // replace thousands comma
         $model->category = "add";
         $model->description = "Starting balance";
         $model->account_id = $account->id;
@@ -58,6 +65,14 @@ class AccountController extends Controller
     public function actionClose($id=""){
         $account = Accounts::model()->findByPk($id);
         if($account !== null ){
+            if(isset($_POST['delete-account'])){
+                if($account->delete()){
+                    Utils::setAlert(
+                        Utils::ALERT_INFO, "Account removed"
+                    );
+                    $this->redirect('/dashboard/');
+                }
+            }
             $this->render('close',['model'=>$account]);
         }
     }

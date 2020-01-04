@@ -69,6 +69,4 @@
 </div>
 
 <?php echo Utils::pageSettings(['accountId'=>$model->id]);?>
-<?php
-Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl."/js/pages/reconciliation.js",
-    CClientScript::POS_END);?>
+

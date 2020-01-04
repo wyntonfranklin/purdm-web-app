@@ -45,7 +45,7 @@
                             <div class="col">
                                 <div class="form-label">
                                     <label for="category"><i class="fa fa-tag"></i>&nbsp;
-                                        Category <span><a href="#"id="add-trans-cat"><i class="fa fa-plus"></i></a></span>
+                                        Category <span><a href="javascript:void(0);" id="add-trans-cat"><i class="fa fa-plus"></i></a></span>
                                     </label>
                                     <div id="trans-cat-container">
                                         <?php echo CHtml::dropDownList('category','', Categories::model()->getListing(),

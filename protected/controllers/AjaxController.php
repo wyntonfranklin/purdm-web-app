@@ -6,6 +6,24 @@ class AjaxController extends Controller
 
     public $months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
+    public function filters()
+    {
+        return array(
+            'accessControl', // perform access control for CRUD operations
+        );
+    }
+    public function accessRules()
+    {
+        return array(
+            array('allow',  // allow all users to perform 'index' and 'view' actions
+                'users'=>array('@'),
+            ),
+            array('deny',  // deny all users
+                'users'=>array('*'),
+            ),
+        );
+    }
+
     public function outputJson($data){
         header('Content-Type: application/json');
         echo json_encode(["data"=>$data]);
@@ -121,11 +139,22 @@ class AjaxController extends Controller
 
     private function getReportFilterByAccount($settings){
         $filter= "";
-        if(isset($settings['accountId'])){
-            $filter .= 'account_id=' . $settings['accountId'];
-        }else{
-            $filter .= '' . Utils::queryUserAccounts();
+        if(isset($settings['type'])){
+            $type = $settings['type'];
+            if($type == "month"){
+                $year = $settings['year'];
+                $filter .= 'Year(trans_date) <='.$year;
+            }else if($type=="range"){
+                $currentYear = date("Y", strtotime($settings['enddate']));
+                $filter .= 'Year(trans_date) <='.$currentYear;
+            }
         }
+        if(isset($settings['accountId']) && !empty($settings['accountId'])){
+            $filter .= ' AND account_id=' . $settings['accountId'];
+        }else{
+            $filter .= ' AND ' . Utils::queryUserAccounts();
+        }
+        Utils::logger($filter);
         return $filter;
     }
 
@@ -453,10 +482,15 @@ class AjaxController extends Controller
         $model->trans_date = date('Y-m-d');
         $model->amount = str_replace( ',', '', $_POST['amount']); // replace thousands comma
         $model->category = $_POST['type'];
-        $model->description = $_POST['reason'];
+        $model->description = !empty($_POST['reason']) ? $_POST['reason'] : "Update account";
         $model->account_id = $_POST['account'];
         $model->type = "reconcile";
-        $model->save();
+        if($model->save()){
+            Utils::jsonResponse('good',"Reconciliation added");
+        }else{
+            Utils::jsonResponse('bad',
+                $this->getErrorSummaryAsText($model->getHTMLErrorSummary()));
+        }
     }
 
     public function actionRemoveReconciliation(){
@@ -493,7 +527,74 @@ class AjaxController extends Controller
         $oldPassword = $_POST['oldpassword'];
         $newPassword = $_POST['newpassword'];
         $confirmPassword = $_POST['confirmpassword'];
-        Utils::jsonResponse('good','Password updated.');
+        if($oldPassword && $newPassword && $confirmPassword){
+            $user = Users::model()->findByPk(Utils::getCurrentUserId());
+            $ph = new PasswordHash(Yii::app()->params['phpass']['iteration_count_log2'],
+                Yii::app()->params['phpass']['portable_hashes']);
+            if(!($ph->CheckPassword($oldPassword, $user->password))) {
+                Utils::jsonResponse('bad','Youve entered wrong or old password.');
+            }else{
+                $user->password = $ph->HashPassword($newPassword);
+                if($user->update()) {
+                    Utils::jsonResponse('good','Password updated');
+                }
+            }
+        }else{
+            Utils::jsonResponse('bad','Youve entered wrong old password.');
+        }
+    }
+
+
+    public function actionGetRepeatTransactions(){
+        $criteria = new CDbCriteria();
+        $transactions = RepeatTransaction::model()->findAll($criteria);
+        echo $this->renderPartial('repeat_transactions',
+            ['transactions'=>$transactions]);
+    }
+
+    public function actionGetRtDetails(){
+        $id = $_GET['rtId'];
+        $rt = RepeatTransaction::model()->findByPk($id);
+        $model = Transaction::model()->findByPk($rt->transaction_id);
+        $account = Accounts::model()->findByPk($model->account_id);
+        $data = $model->getAsJsonObject();
+        $data['amount'] = Utils::formatMoney($data['amount']);
+        $data['header'] = $data['category'] . " (" . $account->name . ")";
+        $data['nextDate'] = $rt->upcoming_date;
+        Utils::jsonResponse('good','Good', $data);
+    }
+
+    public function actionUpdateRt(){
+        $freq = Utils::getPost('frequency');
+        $date = Utils::getPost('date');
+        $id = Utils::getPost('id');
+        if($id && $date && $freq){
+            $rt = RepeatTransaction::model()->findByPk($id);
+            $rt->frequency = $freq;
+            $rt->upcoming_date = $date;
+            if($rt->update()){
+                Utils::jsonResponse('good','Update successful');
+            }else{
+                Utils::jsonResponse('bad',
+                    $this->getErrorSummaryAsText($rt->getHTMLErrorSummary()));
+            }
+        }else{
+            Utils::jsonResponse('bad',"Things are missing");
+        }
+    }
+
+    public function actionRemoveRT(){
+        $id = Utils::getPost('id');
+        if($id){
+            if(RepeatTransaction::model()
+                ->findByPk($id)->delete()){
+                Utils::jsonResponse('good','Recurring transaction removed');
+            }else{
+                Utils::jsonResponse('bad',"Error occurred");
+            }
+        }else{
+            Utils::jsonResponse('bad','No transaction selected');
+        }
     }
 
 

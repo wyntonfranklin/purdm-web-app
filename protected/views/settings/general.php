@@ -16,6 +16,7 @@
     </div>
 
     <div class="row">
+
         <div class="col-6">
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
@@ -41,7 +42,7 @@
                     <h6 class="m-0 font-weight-bold text-primary">Update Account Info</h6>
                 </div>
                 <div class="card-body">
-                    <form action="#" method="post">
+                    <form id="update-user-info-form" action="#" method="post">
                         <div class="form-group">
                             <div class="form-label">
                                 <label>Username</label>
@@ -51,15 +52,13 @@
                         <div class="form-group">
                             <div class="form-label">
                                 <label>Email</label>
-                                <input type="text" id="userEmail" class="form-control" placeholder="User email">
+                                <input type="email" id="userEmail" class="form-control" placeholder="User email" required="required">
                             </div>
                         </div>
                         <input id="update-user-btn" class="btn btn-primary btn-block"  value="Update information" type="button"/>
                     </form>
                 </div>
             </div>
-
-
 
         </div>
 
@@ -70,26 +69,26 @@
                     <h6 class="m-0 font-weight-bold text-primary">Change user password</h6>
                 </div>
                 <div class="card-body">
-                    <form action="#" method="post">
+                    <form id="update-user-password-form" action="" method="post">
                         <div class="form-group">
                             <div class="form-label">
                                 <label>Old Password</label>
-                                <input type="password" id="oldPassword" class="form-control" placeholder="Current Balance">
+                                <input minlength="2" type="password" id="oldPassword" class="form-control" placeholder="Enter your old password" required="required"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="form-label">
                                 <label>New Password</label>
-                                <input type="text" id="newPassword" class="form-control" placeholder="Current Balance">
+                                <input minlength="2" type="password" id="newPassword" class="form-control" placeholder="Enter your new password" required="required"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="form-label">
                                 <label>Confirm New Password</label>
-                                <input type="password" id="confirmPassword" class="form-control" placeholder="Current Balance">
+                                <input minlength="2" type="password" id="confirmPassword" class="form-control" placeholder="Enter you new password again" required="required">
                             </div>
                         </div>
-                        <input id="update-user-password-btn" class="btn btn-primary btn-block"  value="Save new password" type="button"/>
+                        <input id="update-user-password-btn" class="btn btn-primary btn-block"  value="Update password" type="button"/>
                     </form>
                 </div>
             </div>
@@ -107,6 +106,7 @@
                 </div>
             </div>
         </div>
+
     </div>
 
 </div>

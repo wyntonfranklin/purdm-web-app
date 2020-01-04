@@ -75,7 +75,7 @@ class Queries
 
     public static function getIncomeByGivenMonth($month){
         $sql = "SELECT sum(amount) FROM transactions WHERE type=\"income\" 
-        AND ".Utils::queryUserAccounts()." AND Month(trans_date)=".$month;
+        AND ".Utils::queryUserAccounts()." AND Month(trans_date)=".$month . ' AND YEAR(trans_date)='.Utils::getYear();
         try{
             $results = Yii::app()->db->createCommand($sql)->queryScalar();
         }catch (Exception $e){
@@ -86,7 +86,8 @@ class Queries
 
     public static function getExpenses($month){
         $sql = "SELECT sum(amount) FROM transactions WHERE type=\"expense\" 
-        AND ".Utils::queryUserAccounts()." AND Month(trans_date)=".$month;
+        AND ".Utils::queryUserAccounts()." AND Month(trans_date)=".$month
+            . ' AND YEAR(trans_date)='.Utils::getYear();;
         try{
             $results = Yii::app()->db->createCommand($sql)->queryScalar();
         }catch (Exception $e){
@@ -96,11 +97,14 @@ class Queries
     }
 
     public static function getSavings($month){
+        $year = Utils::getYear();
         $sql = "SELECT (IFNULL(income,0) - IFNULL(expense,0)) as networth FROM (
             SELECT (SElect sum(amount) From transactions WHERE type = \"income\" 
-            AND ".Utils::queryUserAccounts()." AND MONTH(trans_date) = ".$month.") as income,
+            AND ".Utils::queryUserAccounts()." AND MONTH(trans_date) = ".$month." AND YEAR(trans_date)=
+             ".$year." ) as income,
             (SELECT sum(amount) FROM transactions WHERE type =\"expense\" 
-            AND ".Utils::queryUserAccounts()." AND MONTH(trans_date) = ".$month.") as expense 
+            AND ".Utils::queryUserAccounts()." AND MONTH(trans_date) = ".$month." AND YEAR(trans_date)=
+             ".$year." )as expense 
             FROM transactions group by income) t;";
         try{
             $results = Yii::app()->db->createCommand($sql)->queryScalar();

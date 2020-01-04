@@ -57,7 +57,7 @@ var CategoryPage = (function() {
             loadTiles(response.data);
         });
         $.getJSON('/ajax/GetCategoryIEChartData',settings,function(response){
-            PDMCharts.loadDashboardIEChart('incomevsexpense', response.data);
+            PDMCharts.loadDashboardIELineChart('incomevsexpense', response.data);
         });
         $.get('/ajax/GetCategoryTransactionsTableWithFilters', settings,function(data){
             transLay.empty().append(data);

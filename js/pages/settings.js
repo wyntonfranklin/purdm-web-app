@@ -35,16 +35,20 @@ var SettingsPage = (function() {
         var oldPassword = oldPasswordEl.val();
         var newPassword = newPasswordEl.val();
         var confirmPassword = confirmPasswordEl.val();
-        console.log(oldPassword,newPassword,confirmPassword);
-        $.post('/ajax/UpdateUserPassword',{oldpassword: oldPassword,
-        newpassword: newPassword, confirmpassword:confirmPassword},function(response){
-            var res = PDMApp.getJsonResponseObject(response);
-            if(res.status == "good"){
-                PDMApp.setAlert('success', res.message);
-            }else if(res.status == 'bad'){
-                PDMApp.setAlert('error', res.message);
-            }
-        });
+        if(oldPassword && newPassword && confirmPassword){
+            console.log(oldPassword,newPassword,confirmPassword);
+            $.post('/ajax/UpdateUserPassword',{oldpassword: oldPassword,
+                newpassword: newPassword, confirmpassword:confirmPassword},function(response){
+                var res = PDMApp.getJsonResponseObject(response);
+                if(res.status == "good"){
+                    PDMApp.setAlert('success', res.message);
+                }else if(res.status == 'bad'){
+                    PDMApp.setAlert('error', res.message);
+                }
+            });
+        }else{
+
+        }
     }
 
     function updateUserInfo(){

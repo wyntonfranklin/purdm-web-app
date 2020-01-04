@@ -71,7 +71,7 @@
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                     <h6 class="m-0 font-weight-bold text-primary">
-                        Income vs Expenditure by Year
+                        Expenditure of Category by Year
                         <br><span class="card-header-subtitle"></span>
                     </h6>
                 </div>

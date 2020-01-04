@@ -114,6 +114,10 @@
                     <i class="fas fa-chart-area fa-sm fa-fw mr-2 text-gray-400"></i>
                     View Insights
                 </a>
+                <a class="dropdown-item" href="<?php echo $this->createUrl('/settings/repeat');?>">
+                    <i class="fas fa-reply fa-sm fa-fw mr-2 text-gray-400"></i>
+                    Recurring Transactions
+                </a>
                 <a class="dropdown-item" href="<?php echo $this->createUrl('/settings/');?>">
                     <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                     Settings

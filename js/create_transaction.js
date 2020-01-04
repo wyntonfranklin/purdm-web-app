@@ -130,7 +130,9 @@ var PDMCreateAccountModal = (function($){
     function clearFormData(){
         transForm
             .find("input[type=text], textarea").val("");
+
         transForm.find('#frequency').val('');
+        transForm.find('#category').val('').trigger('change');
     }
 
     function saveTransaction(data){

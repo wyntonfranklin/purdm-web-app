@@ -6,6 +6,7 @@ var PDMCharts = (function($){
     var myTEPieChart = null;
     var ieBarChart = null;
     var mcPieChart = null;
+    var ieLineChart = null;
 
     function clear_canvas(id){
         var grapharea = document.getElementById(id).getContext("2d");
@@ -14,12 +15,14 @@ var PDMCharts = (function($){
     }
 
     function load_pie_chart_labels(id, colors, labels){
+        var baseUrl = "/category/report?name=";
         var template ='';
         for(var i=0; i<= labels.length-1; i++){
-            template += '<span class="mr-2">\n' +
+            var catUrl = baseUrl + labels[i];
+            template += '<span class="mr-2">\n<a href="'+catUrl+'">' +
                 '<i style="color:'+colors[i]+'" class="fas fa-circle"></i> '
                 +firstLetterUpper(labels[i]) +'\n' +
-                '</span>';
+                '</a></span>';
         }
         $('#'+id+'-labels').empty().append(template);
     }
@@ -237,6 +240,56 @@ var PDMCharts = (function($){
         }
     }
 
+    function loadDashboardIELineChart(id, data){
+        PDMApp.removeChartsLoader(id);
+        var ctx = document.getElementById(id);
+        if ( ieLineChart != null ) {
+            ieLineChart.destroy();
+        }
+        if(Object.keys(data.expense).length > 0 || Object.keys(data.income).length > 0){
+            ieLineChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: data.labels,
+                    datasets: [
+                        {
+                            label: "Expense",
+                            lineTension: 0.3,
+                            backgroundColor: 'rgb(255, 99, 132)',
+                            borderColor: 'rgb(255, 99, 132)',
+                            data: data.expense,
+                        }],
+                },
+                options: {
+                    tooltips: {
+                        backgroundColor: "rgb(255,255,255)",
+                        bodyFontColor: "#858796",
+                        titleMarginBottom: 10,
+                        titleFontColor: '#6e707e',
+                        titleFontSize: 14,
+                        borderColor: '#dddfeb',
+                        borderWidth: 1,
+                        xPadding: 15,
+                        yPadding: 15,
+                        displayColors: false,
+                        intersect: false,
+                        mode: 'index',
+                        caretPadding: 10,
+                        callbacks: {
+                            label: function(tooltipItem, chart) {
+                                var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
+                                return datasetLabel + ': $' + number_format(tooltipItem.yLabel);
+                            }
+                        }
+                    }
+                }
+            });
+        }else{
+            var context = ctx.getContext('2d');
+            context.fillText("No content to display", 100,100);
+        }
+    }
+
     function loadTEPieChart(id, data){
         var colors = ['#4e73df', '#1cc88a', '#36b9cc','#ff3333','#ff748c'];
         PDMApp.removeChartsLoader(id);
@@ -386,6 +439,7 @@ var PDMCharts = (function($){
         loadChart : loadChart,
         loadPieChart : loadPieChart,
         loadDashboardIEChart : loadDashboardIEChart,
+        loadDashboardIELineChart : loadDashboardIELineChart,
         loadTEPieChart : loadTEPieChart,
         loadMultiCatPieChart : loadMultiCatPieChart,
         number_format : number_format

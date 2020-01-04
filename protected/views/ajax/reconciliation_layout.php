@@ -6,7 +6,7 @@
     <?php foreach ($transactions as $transaction):?>
     <li class="list-group-item" data-id="<?php echo $transaction->id;?>">
         <?php echo Utils::getReconcileIcon($transaction->category);?>&nbsp;&nbsp;
-        <?php echo $transaction->amount;?>
+        <?php echo Utils::formatMoney($transaction->amount);?>
         &nbsp;&nbsp; | &nbsp;&nbsp;
         <?php echo $transaction->description;?>
         <span style="cursor: pointer;" class="reconcile-delete float-right"><i class="fa fa-trash"></i></span>

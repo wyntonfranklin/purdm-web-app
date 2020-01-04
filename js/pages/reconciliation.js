@@ -5,21 +5,25 @@ var ReconciliationPage = (function() {
 
     saveBtn.on('click',function(){
         var data = $('#reconcile-form').serialize();
-        console.log(data);
         addReconciliation(data);
         return false;
     });
 
     $('#reconcile-layout').on('click','.reconcile-delete',function(){
        var transId = $(this).parent().attr('data-id');
-       console.log(transId);
        removeReconciliation(transId);
     });
 
     function addReconciliation(data){
-        $.post('/ajax/AddReconciliation',data, function(){
-            clearForm();
-            loadPage(); // reload pages
+        $.post('/ajax/AddReconciliation',data, function(response){
+            var jresponse = PDMApp.getJsonResponseObject(response);
+            if(jresponse.status = "good"){
+                clearForm();
+                loadPage(); // reload pages
+                PDMApp.setAlert('success',jresponse.message);
+            }else if(jresponse.status == 'bad'){
+                PDMApp.setAlert('error',"An error occured");
+            }
         });
     }
 

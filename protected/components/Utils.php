@@ -18,7 +18,8 @@ class Utils
 
     public static function formatMoney($value){
       // return money_format('%.2n', $value);
-       return "$" . sprintf('%01.2f', $value);
+      // return "$" . sprintf('%01.2f', $value);
+        return '$' . number_format($value, 2);
     }
 
     public static function getMonth(){
@@ -145,5 +146,9 @@ class Utils
 
     public static function createUrl($path, $params=array()){
         return Yii::app()->createUrl($path, $params);
+    }
+
+    public static function getPost($key, $default= null){
+        return isset($_POST[$key]) ? $_POST[$key] : $default;
     }
 }

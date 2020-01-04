@@ -20,7 +20,11 @@
                 &nbsp;&nbsp;
                 <?php echo Utils::formatMoney($transaction->amount);?></td>
             <td style="min-width: 200px;"><?php echo $transaction->description;?></td>
-            <td><?php echo $transaction->category;?></td>
+            <td>
+                <a href="<?php echo $transaction->getCategoryUrl();?>">
+                    <?php echo $transaction->category;?>
+                </a>
+            </td>
             <td><?php echo $transaction->getAccountName();?></td>
             <td>
                 <div data-id="<?php echo $transaction->transaction_id;?>">

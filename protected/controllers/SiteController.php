@@ -2,6 +2,8 @@
 
 class SiteController extends Controller
 {
+
+    public $layout = 'secondary';
 	/**
 	 * Declares class-based actions.
 	 */
@@ -78,6 +80,9 @@ class SiteController extends Controller
 	public function actionLogin()
 	{
 		$model=new LoginForm;
+        if(!Yii::app()->user->isGuest){
+            $this->redirect(array('/dashboard/'));
+        }
 
 		// if it is ajax validation request
 		if(isset($_POST['ajax']) && $_POST['ajax']==='login-form')
@@ -89,10 +94,16 @@ class SiteController extends Controller
 		// collect user input data
 		if(isset($_POST['LoginForm']))
 		{
-			$model->attributes=$_POST['LoginForm'];
+			$model->attributes = $_POST['LoginForm'];
 			// validate user input and redirect to the previous page if valid
-			if($model->validate() && $model->login())
-				$this->redirect(Yii::app()->user->returnUrl);
+            if($model->validate() && $model->login()) {
+                Yii::app()->session['userid'] = Yii::app()->user->userid;
+                $url =  $this->createUrl("/dashboard/");
+                $this->redirect($url);
+            }else{
+                Utils::setAlert('error',$this->getErrorSummaryAsText(CHtml::errorSummary($model)));
+                Utils::logger($this->getErrorSummaryAsText(CHtml::errorSummary($model)));
+            }
 		}
 		// display the login form
 		$this->render('login',array('model'=>$model));
@@ -104,15 +115,18 @@ class SiteController extends Controller
 	public function actionLogout()
 	{
 		Yii::app()->user->logout();
-		$this->redirect(Yii::app()->homeUrl);
+        Yii::app()->session->clear();
+        Yii::app()->session->destroy();
+		$this->redirect('/site/login');
 	}
 
-	public function actionHelloWorld(){
-        echo "hello world";
+    public function actionForgetPassword(){
+
+	    $this->render('forgetpassword');
     }
 
-    public function actionHelp(){
-	    echo "Help me";
+    public function actionRegister(){
+	    $this->render('register');
     }
 
     public function actionTest(){

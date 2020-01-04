@@ -5,11 +5,11 @@ class CategoryController extends Controller
 {
 
 
-    public function actionView($id=""){
-        $category = Categories::model()->findByAttributes(['name'=>strtolower($id)]);
+    public function actionReport($name=""){
+        $category = Categories::model()->findByAttributes(['name'=>strtolower($name)]);
         if($category == null ){
-            $category = UserCategories::model()->findByAttributes(['name'=>strtolower($id)]);
+            $category = UserCategories::model()->findByAttributes(['name'=>strtolower($name)]);
         }
-        $this->render('view',['model'=>$category]);
+        $this->render('report',['model'=>$category]);
     }
 }

@@ -116,7 +116,3 @@
     'accountId' => Utils::getCurrentUserId(),
 ]);?>
 
-
-<?php
-Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl."/js/pages/settings.js",
-    CClientScript::POS_END);?>

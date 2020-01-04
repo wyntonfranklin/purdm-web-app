@@ -17,7 +17,8 @@ class Utils
     }
 
     public static function formatMoney($value){
-        return money_format('%.2n', $value);
+      // return money_format('%.2n', $value);
+       return "$" . sprintf('%01.2f', $value);
     }
 
     public static function getMonth(){
@@ -73,7 +74,7 @@ class Utils
     }
 
     public static function getCurrentUserId(){
-        return '2';
+        return Yii::app()->user->userid;
     }
 
     public static function getUserName(){
@@ -93,7 +94,12 @@ class Utils
     }
 
     public static function renderCssAssets(){
-        Yii::app()->controller->renderPartial('//layouts/css_assets');
+        $file = "/public/assets/css/styles.css";
+        if(YII_DEBUG){
+            Yii::app()->controller->renderPartial('//layouts/css_assets');
+        }else{
+            Yii::app()->clientScript->registerCssFile($file);
+        }
     }
 
     public static function renderJsAssets(){
@@ -105,12 +111,18 @@ class Utils
         }
     }
 
+    public static function registerCustomScripts($scripts=array(),$end=false){
+        foreach ($scripts as $script){
+            self::registerJs($script);
+        }
+    }
+
     public static function registerPageJs( $file )
     {
         if(YII_DEBUG){
             $file = "/js/pages/{$file}.js?v=" .self::getAssetsVersion();
         }else{
-            $file = "/public/assets/js/{$file}.js?v=". self::getAssetsVersion();
+            $file = "/public/assets/js/pages/{$file}.js?v=". self::getAssetsVersion();
         }
         Yii::app()->clientScript->registerScriptFile($file,
             CClientScript::POS_END);
@@ -129,5 +141,9 @@ class Utils
     private static function getAssetsVersion()
     {
         return self::APP_ASSETS_VERSION;
+    }
+
+    public static function createUrl($path, $params=array()){
+        return Yii::app()->createUrl($path, $params);
     }
 }

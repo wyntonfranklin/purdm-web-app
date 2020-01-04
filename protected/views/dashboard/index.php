@@ -147,4 +147,3 @@
 
 </div>
 
-<?php Utils::registerPageJs('dashboard'); ?>

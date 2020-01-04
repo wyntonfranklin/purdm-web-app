@@ -18,7 +18,4 @@
 
 <!-- Custom scripts for all pages-->
 <script  type="text/javascript"src="<?php echo Yii::app()->request->baseUrl; ?>/js/sb-admin-2.min.js"></script>
-<script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/app.js"></script>
-<script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/charts.js"></script>
-<script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/create_transaction.js"></script>
-<script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/accounts_selector.js"></script>
+

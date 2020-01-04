@@ -19,7 +19,7 @@ var CategoryPage = (function() {
         if(pageSettings.accountId){
             window.location.href = '/account/' + pageSettings.accountId + "?" + backUrl;
         }else{
-            window.location.href = '/reports/?' + backUrl;
+            window.location.href = '/insights/?' + backUrl;
         }
         return false;
     });
@@ -47,11 +47,11 @@ var CategoryPage = (function() {
         PDMApp.addLoaders();
         var settings = PDMApp.getCdpSettings();
         var pageSettings = PDMApp.getPageSettings();
-        settings = $.extend({}, settings, pageSettings);
+        settings = $.extend({},PDMApp.getPageSettings(), settings);
        // settings['category'] = pageSettings.category;
       //  settings['accountId'] = (pageSettings.accountId) != null ? pageSettings.accountId : "";
         console.log(settings);
-        setSubtitles(settings);
+        PDMApp.setSubtitles(settings);
 
         $.getJSON('/ajax/GetCategoryTotals', settings, function(response){
             loadTiles(response.data);
@@ -62,17 +62,6 @@ var CategoryPage = (function() {
         $.get('/ajax/GetCategoryTransactionsTableWithFilters', settings,function(data){
             transLay.empty().append(data);
         });
-    }
-
-    function setSubtitles(settings){
-        var labels = PDMApp.monthLabels();
-        if(settings.type == 'month'){
-            var sub = labels[settings.month-1] + ' ' + settings.year;
-            $('.card-header-subtitle').text(sub);
-        }else if(settings.type =='range'){
-            var sub = settings.startdate + ' - ' + settings.enddate;
-            $('.card-header-subtitle').text(sub);
-        }
     }
 
     function createBackUrl(settings){

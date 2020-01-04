@@ -142,4 +142,8 @@ class Transaction extends CActiveRecord
     public function assignAmount($val){
 	    $this->amount = str_replace( ',', '', $val);
     }
+
+    public function getCategoryUrl(){
+	    return Yii::app()->createUrl('/category/report',['name'=>$this->category]);
+    }
 }

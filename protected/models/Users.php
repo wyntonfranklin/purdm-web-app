@@ -27,11 +27,11 @@ class Users extends Model
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('username, email', 'length', 'max'=>45),
+			array('username, email, password', 'length', 'max'=>45),
 			array('createdAt', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, username, email, createdAt', 'safe', 'on'=>'search'),
+			array('id, username, email, createdAt, password', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -97,4 +97,83 @@ class Users extends Model
 	{
 		return parent::model($className);
 	}
+
+    public function session_validate(  )
+    {
+        // Encrypt information about this session
+        $user_agent = $this->session_hash_string($_SERVER['userid'], $this->email);
+        // Check for instance of session
+        if ( $this->session_exists() == false )
+        {
+            // The session does not exist, create it
+            $this->session_reset($user_agent);
+        }
+        // Match the hashed key in session against the new hashed string
+        if ( $this->session_match($user_agent) )
+        {
+            return true;
+        }
+        // The hashed string is different, reset session
+        $this->session_reset($user_agent);
+        return false;
+    }
+    /**
+     * session_exists()
+     * Will check if the needed session keys exists.
+     *
+     * @return {boolean} True if keys exists, else false
+     */
+    private function session_exists()
+    {
+        return isset($_SESSION['userid']) && isset($_SESSION['INIT']);
+    }
+    /**
+     * session_match()
+     * Compares the session secret with the current generated secret.
+     *
+     * @param {String} $user_agent The encrypted key
+     */
+    private function session_match( $user_agent )
+    {
+        // Validate the agent and initiated
+        return $_SESSION['userid'] == $user_agent && $_SESSION['INIT'] == true;
+    }
+    /**
+     * session_encrypt()
+     * Generates a unique encrypted string
+     *
+     * @param {String} $user_agent      The http_user_agent constant
+     * @param {String} $unique_string    Something unique for the user (email, etc)
+     */
+    private function session_hash_string( $user_agent, $unique_string )
+    {
+        return md5($user_agent.$unique_string);
+    }
+    /**
+     * session_reset()
+     * Will regenerate the session_id (the local file) and build a new
+     * secret for the user.
+     *
+     * @param {String} $user_agent
+     */
+    private function session_reset( $user_agent )
+    {
+        // Create new id
+        session_regenerate_id(TRUE);
+        $_SESSION = array();
+        $_SESSION['INIT'] = true;
+        // Set hashed http user agent
+        $_SESSION['userid'] = $user_agent;
+    }
+    /**
+     * Destroys the session
+     */
+    private function session_destroy()
+    {
+        // Destroy session
+        session_destroy();
+    }
+    public function validatePassword(){
+        return true;
+    }
 }

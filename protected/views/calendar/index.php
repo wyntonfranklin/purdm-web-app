@@ -34,4 +34,3 @@
 </div>
 <?php echo Utils::pageSettings(['accountId'=>""]);?>
 
-<?php Utils::registerPageJs('calendar'); ?>

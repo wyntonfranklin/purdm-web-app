@@ -48,7 +48,7 @@ var InsightsPage = (function() {
         console.log(PDMApp.getPageSettings());
         settings = $.extend({},PDMApp.getPageSettings(), settings);
         console.log(settings);
-        setSubtitles(settings);
+        PDMApp.setSubtitles(settings);
         $.getJSON('/ajax/GetInsightsTotals', settings, function(response){
             loadTiles(response.data);
         });
@@ -61,17 +61,6 @@ var InsightsPage = (function() {
         $.get('/ajax/GetTransactionsTableWithFilters', settings,function(data){
             transLay.empty().append(data);
         });
-    }
-
-    function setSubtitles(settings){
-        var labels = PDMApp.monthLabels();
-        if(settings.type == 'month'){
-            var sub = labels[settings.month-1] + ' ' + settings.year;
-            $('.card-header-subtitle').text(sub);
-        }else if(settings.type =='range'){
-            var sub = settings.startdate + ' - ' + settings.enddate;
-            $('.card-header-subtitle').text(sub);
-        }
     }
 
 

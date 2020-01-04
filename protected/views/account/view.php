@@ -200,4 +200,3 @@
     'accountId' => $model->id,
 ]);?>
 
-<?php Utils::registerPageJs('account'); ?>

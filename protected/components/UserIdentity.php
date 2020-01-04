@@ -1,5 +1,4 @@
 <?php
-
 /**
  * UserIdentity represents the data needed to identity a user.
  * It contains the authentication method that checks if the provided
@@ -7,27 +6,34 @@
  */
 class UserIdentity extends CUserIdentity
 {
-	/**
-	 * Authenticates a user.
-	 * The example implementation makes sure if the username and password
-	 * are both 'demo'.
-	 * In practical applications, this should be changed to authenticate
-	 * against some persistent user identity storage (e.g. database).
-	 * @return boolean whether authentication succeeds.
-	 */
-	public function authenticate()
-	{
-		$users=array(
-			// username => password
-			'demo'=>'demo',
-			'admin'=>'admin',
-		);
-		if(!isset($users[$this->username]))
-			$this->errorCode=self::ERROR_USERNAME_INVALID;
-		elseif($users[$this->username]!==$this->password)
-			$this->errorCode=self::ERROR_PASSWORD_INVALID;
-		else
-			$this->errorCode=self::ERROR_NONE;
-		return !$this->errorCode;
-	}
+    private $_id;
+
+    public function authenticate()
+    {
+        $record = Users::model()->findByAttributes(array('email'=>$this->username));
+        $ph=new PasswordHash(Yii::app()->params['phpass']['iteration_count_log2'],
+            Yii::app()->params['phpass']['portable_hashes']);
+        if($record===null){
+            $this->errorCode=self::ERROR_USERNAME_INVALID;
+            $this->errorMessage = "This account does not exists.";
+        }else if(!$ph->CheckPassword($this->password, $record->password)){
+            $this->errorCode=self::ERROR_PASSWORD_INVALID;
+            $this->errorMessage = "Username or password is incorrect.";
+        }else{
+            $name = $record->username;
+            $this->_id = $record->id;
+            $this->setState('userid', $record->id);
+            $this->setState('email', $record->email);
+            $this->setState('username', $name);
+            $this->errorCode=self::ERROR_NONE;
+        }
+        return !$this->errorCode;
+    }
+    /**
+     * @return integer the ID of the user record
+     */
+    public function getId()
+    {
+        return $this->_id;
+    }
 }

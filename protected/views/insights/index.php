@@ -187,6 +187,5 @@
     'accountId' => "",
 ]);?>
 
-<?php Utils::registerPageJs('insights'); ?>
 
 

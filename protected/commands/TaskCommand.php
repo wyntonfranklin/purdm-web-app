@@ -25,4 +25,18 @@ class TaskCommand extends CConsoleCommand
             }
         }
     }
+
+    public function actionUpdateUserPassword($id, $password){
+        $user = Users::model()->findByPk($id);
+        $ph = new PasswordHash(Yii::app()->params['phpass']['iteration_count_log2'],
+            Yii::app()->params['phpass']['portable_hashes']);;
+        $user->password = $ph->HashPassword($password);
+        if($user->update()){
+            echo "update successfully\n";
+        }else{
+            echo $user->getHTMLErrorSummary();
+        }
+    }
+
+
 }

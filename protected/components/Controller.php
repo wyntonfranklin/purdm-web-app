@@ -119,4 +119,28 @@ class Controller extends CController
         }
         return $output;
     }
+
+    function loadPageJsAssets(){
+        $page = Yii::app()->controller->action->id;
+        $path = Yii::app()->controller->id;
+        if($page == "index" && $path=="dashboard"){
+            Utils::registerPageJs('dashboard');
+        }else if($page=="view" && $path=="account"){
+            Utils::registerPageJs('account');
+        }else if($page=='index' && $path=='insights'){
+            Utils::registerPageJs('insights');
+        }else if($page=="index" && $path=="calendar"){
+            Utils::registerPageJs('calendar');
+        }else if($page=="index" && $path=="search"){
+            Utils::registerPageJs('search');
+        }else if($page=="transactions" && $path=="account"){
+            Utils::registerPageJs('transactions');
+        }else if($page=="reconciliation" && $path=="account"){
+            Utils::registerPageJs('reconciliation');
+        }else if($page=="general" && $path=="settings"){
+            Utils::registerPageJs('settings');
+        }else if($page=="report" && $path=="category"){
+            Utils::registerPageJs('category');
+        }
+    }
 }

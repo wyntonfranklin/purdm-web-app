@@ -343,7 +343,7 @@ var PDMCharts = (function($){
         var dpSettings = PDMApp.getCdpSettings();
         var settings = PDMApp.getPageSettings();
         dpSettings['accountId'] = (settings.accountId !=null) ? settings.accountId : "";
-        var baseUrl = "/category/view?id=";
+        var baseUrl = "/category/report?name=";
         var query = createCategoryUrl(dpSettings);
         var $el = $("#" + id + '-list');
         var labels = data.labels;

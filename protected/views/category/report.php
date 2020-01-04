@@ -10,7 +10,7 @@
         <div class="d-none d-sm-inline-block">
             <?php $this->customDatePickerWidget();?>
             <?php $this->accountSelectorWidget(); ?>
-            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-dark shadow-sm"><i class="fas fa-cog fa-sm text-white-50"></i> Options</a>
+            <a id='pdm-add-transaction' href="javascript:void(0);" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-coins fa-sm text-white-50"></i> Add transaction</a>
         </div>
      </div>
 
@@ -116,6 +116,3 @@
     'accountId' => (isset($_GET['accountId'])) ? $_GET['accountId'] : "",
 ]);?>
 
-<?php
-Yii::app()->clientScript->registerScriptFile(Yii::app()->request->baseUrl."/js/pages/category.js",
-    CClientScript::POS_END);?>

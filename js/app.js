@@ -93,6 +93,19 @@ var PDMApp = (function($){
         $.notify(message,type);
     }
 
+    function setSubtitles(settings){
+        var labels = monthLabels();
+        if(settings.type == 'month'){
+            var sub = labels[settings.month-1] + ' ' + settings.year;
+            $('.card-header-subtitle').text(sub);
+        }else if(settings.type =='range'){
+            var csDate = moment(settings.startdate).format('D, MMM YYYY');
+            var ceDate = moment(settings.enddate).format('D, MMM YYYY');
+            var sub = csDate + ' - ' + ceDate;
+            $('.card-header-subtitle').text(sub);
+        }
+    }
+
     return {
         addLoaders : addLoaders,
         setElContent : setElContent,
@@ -107,7 +120,8 @@ var PDMApp = (function($){
         monthLabels : monthLabels,
         getJsonResponseObject : getJsonResponseObject,
         setAlert : setAlert,
-        showAlerts : showAlerts
+        showAlerts : showAlerts,
+        setSubtitles : setSubtitles
     }
 
 })(jQuery);

@@ -72,6 +72,7 @@ var RTransactionsPage = (function() {
     }
 
     function loadPageData(){
+        PDMApp.addLoaders();
         $.get('/ajax/GetRepeatTransactions',{},function(data){
             layout.empty().append(data);
         });

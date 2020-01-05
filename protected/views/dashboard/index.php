@@ -147,3 +147,6 @@
 
 </div>
 
+<?php echo Utils::pageSettings([
+    'accountId' => Utils::getCurrentUserSetting('default_account'),
+]);?>

@@ -151,4 +151,26 @@ class Utils
     public static function getPost($key, $default= null){
         return isset($_POST[$key]) ? $_POST[$key] : $default;
     }
+
+    public static function getUserSetting($value, $id, $default=null){
+        $setting = Settings::model()->findByAttributes(['user_id'=>$id,'setting_name'=>$value]);
+        if($setting == null ){
+            return $default;
+        }else{
+            return $setting->setting_value;
+        }
+    }
+
+    public static function getCurrentUserSetting($value, $default=null){
+        return self::getUserSetting($value, self::getCurrentUserId(), $default);
+    }
+
+    public static function updateSetting($name, $value, $id){
+        $setting = Settings::model()->findByAttributes(['user_id'=>$id,'setting_name'=>$name]);
+        $setting->setting_value = $value;
+        if($setting->update()){
+            return true;
+        }
+        return false;
+    }
 }

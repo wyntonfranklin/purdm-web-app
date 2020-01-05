@@ -19,7 +19,8 @@ class SettingsController extends Controller
                 'users'=>array('*'),
             ),
             array('allow', // allow admin user to perform 'admin' and 'delete' actions
-                'actions'=>array('index','notifications','general','profile','backups','help','repeat'),
+                'actions'=>array('index','notifications','general',
+                    'profile','backups','help','repeat','categories'),
                 'users'=>array('@'),
             ),
             array('deny',  // deny all users
@@ -30,6 +31,10 @@ class SettingsController extends Controller
 
     public function actionIndex(){
         $this->redirect('/settings/general');
+    }
+
+    public function actionCategories(){
+        $this->render('categories');
     }
 
     public function actionNotifications(){

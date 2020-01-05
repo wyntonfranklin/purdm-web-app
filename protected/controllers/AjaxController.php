@@ -363,15 +363,36 @@ class AjaxController extends Controller
     }
 
     public function actionSaveUserCategory(){
+        $category = Utils::getPost('usercategory');
+        $catId = Utils::getPost('id');
         $model = new UserCategories();
-        $model->name = $_POST['usercategory'];
-        $model->userid = Utils::getCurrentUserId();
-        if($model->save()){
+        $modelUpdated = false;
+        if($catId){
+            $model = UserCategories::model()->findByPk($catId);
+            $this->updateAllTransactionsWithCategory($model->name, $category);
+            $model->name = $category;
+        }else{
+            $model = new UserCategories();
+            $model->name = $category;
+            $model->userid = Utils::getCurrentUserId();
+        }
+        if($model->isNewRecord){
+            $modelUpdated = $model->save();
+        }else{
+            $modelUpdated = $model->update();
+        }
+        if($modelUpdated){
             Utils::jsonResponse(Utils::STATUS_GOOD,'Category Saved',$model->name);
         }else{
             Utils::jsonResponse(Utils::STATUS_BAD,
                 $this->getErrorSummaryAsText($model->getHTMLErrorSummary()));
         }
+    }
+
+    private function updateAllTransactionsWithCategory($old, $new){
+        $sql = "UPDATE transactions set category='".$new
+            ."' WHERE category='".$old."' AND ".Utils::queryUserAccounts();
+        Yii::app()->db->createCommand($sql)->query();
     }
 
     public function actionDeleteTransaction(){
@@ -503,12 +524,22 @@ class AjaxController extends Controller
 
     public function actionGetSettingsPageData(){
         $user = Users::model()->findByPk(Utils::getCurrentUserId());
+        $default_account = Utils::getCurrentUserSetting('default_account','');
         $data = [
           'username' => $user->username,
           'email' => $user->email,
-            'default' => '7'
+            'default' => $default_account
         ];
         Utils::jsonResponse('good', "good",$data);
+    }
+
+    public function actionUpdateDefaultAccount(){
+        $id = Utils::getPost('id');
+        if($id){
+            if(Utils::updateSetting('default_account', $id, Utils::getCurrentUserId())){
+                Utils::jsonResponse('good',"Setting updated");
+            }
+        }
     }
 
     public function actionUpdateUserInfo(){
@@ -559,7 +590,7 @@ class AjaxController extends Controller
         $account = Accounts::model()->findByPk($model->account_id);
         $data = $model->getAsJsonObject();
         $data['amount'] = Utils::formatMoney($data['amount']);
-        $data['header'] = $data['category'] . " (" . $account->name . ")";
+        $data['header'] = $data['category'] . " - " . $account->name . "";
         $data['nextDate'] = $rt->upcoming_date;
         Utils::jsonResponse('good','Good', $data);
     }
@@ -597,6 +628,11 @@ class AjaxController extends Controller
         }
     }
 
+    public function actionGetUserCategories(){
+
+        $categories = UserCategories::model()->findAll();
+        $this->renderPartial('categories_list',['categories'=>$categories]);
+    }
 
     public function actionTest(){
 

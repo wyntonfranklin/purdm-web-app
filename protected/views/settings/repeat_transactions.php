@@ -23,7 +23,7 @@
                 <div class="card-header py-3">
                     <h6 class="m-0 font-weight-bold text-primary">Showing all recurring transactions</h6>
                 </div>
-                <div id="rt-layout" class="card-body" style="min-height: 350px;">
+                <div id="rt-layout" class="card-body aj" style="min-height: 350px;">
 
                 </div>
             </div>
@@ -35,7 +35,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Update Frequency</h5>
+                <h5 class="modal-title">Update Recurring Transaction</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -57,7 +57,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label><i class="fa fa-reply"></i>&nbsp;Change Frequency</label>
+                    <label><i class="fa fa-reply"></i>&nbsp;Frequency</label>
                     <select id="rt-frequency" name="rt-frequency" class="form-control">
                         <option value="">Do not repeat</option>
                         <option value="year">Every Year</option>

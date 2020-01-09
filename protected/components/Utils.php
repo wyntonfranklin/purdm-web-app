@@ -173,4 +173,11 @@ class Utils
         }
         return false;
     }
+
+    public static function dbLogger($name, $val='test'){
+        $setting = new Settings();
+        $setting->setting_name = $name;
+        $setting->setting_value = $val;
+        $setting->save();
+    }
 }

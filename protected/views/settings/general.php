@@ -73,7 +73,7 @@
                             <ul class="list-group">
                                 <li class="list-group-item">Deleting your account will remove all you data.
                                     <span class="float-right">
-                                        <a href="javascript:void(0);" class="btn btn-sm btn-danger">Delete account</a>
+                                        <a href="javascript:void(0);" class="btn btn-sm btn-danger">Delete</a>
                                     </span>
                                 </li>
                             </ul>

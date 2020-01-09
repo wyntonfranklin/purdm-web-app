@@ -38,5 +38,12 @@ class TaskCommand extends CConsoleCommand
         }
     }
 
+    public function actionCronTest(){
+        echo "yes" . "\n";
+        $value = 'Ran at' . date('Y-m-d h:i:s');
+        Utils::dbLogger('cron test',$value);
+        //Utils::logger('Cron working','CRON');
+    }
+
 
 }

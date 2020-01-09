@@ -25,7 +25,10 @@
                     <?php echo $transaction->category;?>
                 </a>
             </td>
-            <td><?php echo $transaction->getAccountName();?></td>
+            <td><a href="<?php echo $transaction->getAccountUrl();?>">
+                    <?php echo $transaction->getAccountName();?>
+                </a>
+            </td>
             <td>
                 <div data-id="<?php echo $transaction->transaction_id;?>">
                     <a href="javascript:void(0);" class="open-trans-modal"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;

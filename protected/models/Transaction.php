@@ -146,4 +146,8 @@ class Transaction extends CActiveRecord
     public function getCategoryUrl(){
 	    return Yii::app()->createUrl('/category/report',['name'=>$this->category]);
     }
+
+    public function getAccountUrl(){
+        return Yii::app()->createUrl('/account/view',['id'=>$this->account_id]);
+    }
 }

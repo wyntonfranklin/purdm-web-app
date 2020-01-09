@@ -311,7 +311,7 @@ class AjaxController extends Controller
         $model->memo = $_POST['memo'];
         $frequency = isset($_POST['frequency']) ? $_POST['frequency'] : null;
         if($model->save()){
-            if($frequency){
+            if(!empty($frequency)){
                 $this->createRepeatTransaction($model, $frequency);
             }
             Utils::jsonResponse(Utils::STATUS_GOOD,'Transaction successfully saved');
@@ -325,21 +325,23 @@ class AjaxController extends Controller
 
     public function createRepeatTransaction($transaction, $freq){
         $model = RepeatTransaction::model()->findByAttributes(['transaction_id'=>$transaction->id]);
-        if($model == null ){
-            $model = new RepeatTransaction();
-            $model->created_date = $transaction->trans_date;
-            $model->transaction_id = $transaction->id;
-        }
-        if($model->isNewRecord){
-            $model->frequency = $freq;
-            $model->setUpComingDateFromFrequency();
-            $model->save();
-        }else{
-            if($model->frequency != $freq){
-                $model->frequency = $freq;
-                //$model->setCurrentUpComingDate();
+        if(!empty($freq)){
+            if($model == null ){
+                $model = new RepeatTransaction();
+                $model->created_date = $transaction->trans_date;
+                $model->transaction_id = $transaction->id;
             }
-            $model->update();
+            if($model->isNewRecord){
+                $model->frequency = $freq;
+                $model->setUpComingDateFromFrequency();
+                $model->save();
+            }else{
+                if($model->frequency != $freq){
+                    $model->frequency = $freq;
+                    //$model->setCurrentUpComingDate();
+                }
+                $model->update();
+            }
         }
     }
 
@@ -365,28 +367,32 @@ class AjaxController extends Controller
     public function actionSaveUserCategory(){
         $category = Utils::getPost('usercategory');
         $catId = Utils::getPost('id');
+        $prevCats = UserCategories::model()->findAllByAttributes(['name'=>$category]);
+        $prevCatsCount = count($prevCats);
         $model = new UserCategories();
         $modelUpdated = false;
-        if($catId){
-            $model = UserCategories::model()->findByPk($catId);
-            $this->updateAllTransactionsWithCategory($model->name, $category);
-            $model->name = $category;
+        if($prevCatsCount >0  && empty($catId) ){
+            Utils::jsonResponse('bad',"Category exists");
         }else{
-            $model = new UserCategories();
-            $model->name = $category;
-            $model->userid = Utils::getCurrentUserId();
+            if (!empty($catId)) {
+                $model = UserCategories::model()->findByPk($catId);
+                $this->updateAllTransactionsWithCategory($model->name, $category);
+                $model->name = $category;
+                $modelUpdated = $model->update();
+            } else {
+                $model = new UserCategories();
+                $model->name = $category;
+                $model->userid = Utils::getCurrentUserId();
+                $modelUpdated = $model->save();
+            }
+            if ($modelUpdated) {
+                Utils::jsonResponse(Utils::STATUS_GOOD, 'Category Saved', $model->name);
+            } else {
+                Utils::jsonResponse(Utils::STATUS_BAD,
+                    $this->getErrorSummaryAsText($model->getHTMLErrorSummary()));
+            }
         }
-        if($model->isNewRecord){
-            $modelUpdated = $model->save();
-        }else{
-            $modelUpdated = $model->update();
-        }
-        if($modelUpdated){
-            Utils::jsonResponse(Utils::STATUS_GOOD,'Category Saved',$model->name);
-        }else{
-            Utils::jsonResponse(Utils::STATUS_BAD,
-                $this->getErrorSummaryAsText($model->getHTMLErrorSummary()));
-        }
+
     }
 
     private function updateAllTransactionsWithCategory($old, $new){

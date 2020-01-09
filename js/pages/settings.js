@@ -56,6 +56,8 @@ var SettingsPage = (function() {
                     PDMApp.setAlert('error',res.message);
                 }
             })
+        }else{
+            PDMApp.setAlert('info','Enter a valid name');
         }
         return false;
     });

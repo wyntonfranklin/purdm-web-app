@@ -26,35 +26,10 @@
 
                     <div class="row">
 
-                        <div class="col-6">
-                            <h6>App Settings</h6>
-                            <ul class="list-group">
-                                <li class="list-group-item">Update default account
-                                    <span class="float-right">
-                                        <a id="update-default-account" href="javascript:void(0);" class="btn btn-sm btn-primary">Update</a>
-                                    </span>
-                                </li>
-                                <li class="list-group-item">Manage Categories
-                                    <span class="float-right">
-                                        <a id="manage-account-categories" href="javascript:void(0);" class="btn btn-sm btn-primary">Manage</a>
-                                    </span>
-                                </li>
-                            </ul>
 
-                            <br>
-                            <h6>API Settings</h6>
-                            <ul class="list-group">
-                                <li class="list-group-item">Update default account
-                                    <span class="float-right">
-                                        <a href="" class="btn btn-sm btn-primary">Update</a>
-                                    </span>
-                                </li>
-                            </ul>
-                        </div>
+                        <div class="col-12">
 
-
-                        <div class="col-6">
-                            <h6>User Settings</h6>
+                            <h6 style="font-weight: bold">User Settings</h6>
                             <ul class="list-group">
                                 <li class="list-group-item">Update your password
                                     <span class="float-right">
@@ -69,7 +44,46 @@
                             </ul>
 
                             <br>
-                            <h6>Delete your account</h6>
+                            <h6 style="font-weight: bold">App Settings</h6>
+                            <ul class="list-group">
+                                <li class="list-group-item">Update default account
+                                    <span class="float-right">
+                                        <a id="update-default-account" href="javascript:void(0);" class="btn btn-sm btn-primary">Update</a>
+                                    </span>
+                                </li>
+                                <li class="list-group-item">Manage Categories
+                                    <span class="float-right">
+                                        <a id="manage-account-categories" href="javascript:void(0);" class="btn btn-sm btn-primary">Manage</a>
+                                    </span>
+                                </li>
+                            </ul>
+
+                            <br>
+                            <h6 style="font-weight: bold">API Settings</h6>
+                            <ul class="list-group">
+                                <li class="list-group-item">Create/Update your api access key
+                                    <span class="float-right">
+                                        <a id="manage-api" href="javascript:void(0);" class="btn btn-sm btn-primary">Manage Api</a>
+                                    </span>
+                                </li>
+                            </ul>
+
+                            <br>
+                            <h6 style="font-weight: bold">Download Transactions</h6>
+                            <ul class="list-group">
+                                <li class="list-group-item">Convert transactions to excel file
+                                    <span class="float-right">
+                                        <a href="" class="btn btn-sm btn-primary">Update</a>
+                                    </span>
+                                </li>
+                            </ul>
+
+                            <br>
+                            <div class="alert alert-danger" role="alert">
+                                Welcome to the danger zone. Taking actions here can do real damage.
+                            </div>
+
+                            <h6 style="font-weight: bold">Delete your account</h6>
                             <ul class="list-group">
                                 <li class="list-group-item">Deleting your account will remove all you data.
                                     <span class="float-right">

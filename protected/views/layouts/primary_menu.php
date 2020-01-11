@@ -6,7 +6,7 @@
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?php echo $this->createUrl('/dashboard/');?>">
         <div class="sidebar-brand-icon rotate-n-15">
-            <i class="fas fa-wallet"></i>
+                <i class="fas fa-paw"></i>
         </div>
         <div class="sidebar-brand-text mx-3"><?php echo Yii::app()->name;?></div>
     </a>

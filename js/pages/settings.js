@@ -11,6 +11,7 @@ var SettingsPage = (function() {
     var confirmPasswordEl = $('#confirmPassword');
     var updatePasswordBtn = $('#update-user-password-btn');
     var defaultAccountBtn = $('#save-default-account-btn');
+    var apiKeyEl = $('#api-key-input');
     var currentCatId = null;
 
 
@@ -31,6 +32,11 @@ var SettingsPage = (function() {
 
     $('#manage-account-categories').on('click',function(){
         openCategoriesModal();
+        return false;
+    });
+
+    $('#manage-api').on('click',function(){
+       openApiModal();
         return false;
     });
 
@@ -62,6 +68,15 @@ var SettingsPage = (function() {
         return false;
     });
 
+    $('#generate-api-key').on('click',function(){
+       $.get('/ajax/generateapikey',function(results){
+          var res = PDMApp.getJsonResponseObject(results);
+          if(res.status == 'good'){
+              apiKeyEl.val(res.data.apiKey);
+          }
+       });
+    });
+
     defaultAccountBtn.on('click',function(){
         var dId = $('#default-account').val();
         updateDefaultAccount(dId);
@@ -80,8 +95,18 @@ var SettingsPage = (function() {
 
     function openCategoriesModal(){
         PDMApp.addLoaders();
-        $('#category-modal').modal('show');
         loadCategoriesDiv();
+        $('#category-modal').modal('show');
+    }
+
+    function openApiModal(){
+        $.get('/ajax/GetApiKey',function(results){
+            var res = PDMApp.getJsonResponseObject(results);
+            if(res.status == 'good'){
+                apiKeyEl.val(res.data.apiKey);
+                $('#api-modal').modal('show');
+            }
+        });
     }
 
     function loadCategoriesDiv(){

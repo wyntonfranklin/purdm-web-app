@@ -1,7 +1,7 @@
 <?php
 
 
-class AjaxController extends Controller
+class AjaxController extends QueriesController
 {
 
     public $months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
@@ -67,125 +67,7 @@ class AjaxController extends Controller
         $this->outputJson($data);
     }
 
-    private function getCategoryExpense(){
-        $filter = $this->getReportFilter($_GET);
-        return Utils::formatMoney(Queries::getCategoryExpenseByFilter($filter, $_GET['category']));
-    }
 
-    private function getAvgExpense()
-    {
-        $filter = $this->getReportFilterByYear($_GET);
-        return Utils::formatMoney(Queries::getAvgExpense($filter));
-    }
-
-    private function getAvgCategoryExpense()
-    {
-        $filter = $this->getReportFilterByYear($_GET);
-        return Utils::formatMoney(
-            Queries::getCategoryAvgExpense($filter,$_GET['category'])
-        );
-    }
-
-    private function getReportIncome(){
-        $filter = $this->getReportFilter($_GET);
-        return Utils::formatMoney(Queries::getIncomeByFilter($filter));
-    }
-
-    private function getAccountBalance(){
-        $filter = $this->getReportFilterByAccount($_GET);
-        return Utils::formatMoney(Queries::getAccountBalance($filter));
-    }
-
-    private function getReportFilter($settings){
-        $filter= "";
-        if(isset($settings['type'])){
-            $type = $settings['type'];
-            if($type == "month"){
-                $nmonth = $settings['month'];
-                $year = $settings['year'];
-                $filter .= 'Month(trans_date)='. $nmonth.' AND Year(trans_date)='.$year;
-            }else if($type=="range"){
-                $filter .= 'trans_date between "'. $settings['startdate']
-                    .'" AND "' . $settings['enddate']. '"';
-            }
-        }
-        if(isset($settings['accountId']) && !empty($settings['accountId'])){
-            $filter .= ' AND account_id=' . $settings['accountId'];
-        }else{
-            $filter .= ' AND ' . Utils::queryUserAccounts();
-        }
-        return $filter;
-    }
-
-    private function getReportFilterByYear($settings){
-        $filter= "";
-        if(isset($settings['type'])){
-            $type = $settings['type'];
-            if($type == "month"){
-                $year = $settings['year'];
-                $filter .= 'Year(trans_date)='.$year;
-            }else if($type=="range"){
-                $currentYear = date("Y", strtotime($settings['startdate']));
-                $filter .= 'Year(trans_date)='.$currentYear;
-            }
-        }
-        if(isset($settings['accountId']) && !empty($settings['accountId'])){
-            $filter .= ' AND account_id=' . $settings['accountId'];
-        }else{
-            $filter .= ' AND ' . Utils::queryUserAccounts();
-        }
-        return $filter;
-    }
-
-    private function getReportFilterByAccount($settings){
-        $filter= "";
-        if(isset($settings['type'])){
-            $type = $settings['type'];
-            if($type == "month"){
-                $year = $settings['year'];
-                $filter .= 'Year(trans_date) <='.$year;
-            }else if($type=="range"){
-                $currentYear = date("Y", strtotime($settings['enddate']));
-                $filter .= 'Year(trans_date) <='.$currentYear;
-            }
-        }
-        if(isset($settings['accountId']) && !empty($settings['accountId'])){
-            $filter .= ' AND account_id=' . $settings['accountId'];
-        }else{
-            $filter .= ' AND ' . Utils::queryUserAccounts();
-        }
-        Utils::logger($filter);
-        return $filter;
-    }
-
-    private function getIncomeThisMonth(){
-        $month = date('m');
-        return Utils::formatMoney(Queries::getIncomeByGivenMonth($month));
-    }
-
-    private function getExpenses(){
-        $month = date('m');
-        return Utils::formatMoney(Queries::getExpenses($month));
-    }
-
-    private function getReportExpense(){
-        $filter = $this->getReportFilter($_GET);
-        return Utils::formatMoney(Queries::getExpenseByFilter($filter));
-    }
-
-    private function getSavings(){
-        $month = date('m');
-        return Utils::formatMoney(Queries::getSavings($month));
-    }
-
-    private function getReportSavings(){
-        $filter = $this->getReportFilter($_GET);
-        return Utils::formatMoney(Queries::getSavingsByFilter($filter));
-    }
-
-    private function getNetWorth(){
-        return Utils::formatMoney(Queries::getNetWorth());
-    }
 
     public function actionChart($name){
         if($name == "income_expenditure"){
@@ -640,6 +522,20 @@ class AjaxController extends Controller
         $this->renderPartial('categories_list',['categories'=>$categories]);
     }
 
+
+    public function actionGetApiKey(){
+        $setting = Utils::getCurrentUserSetting('api_key','');
+        Utils::jsonResponse('good','good', ['apiKey'=> $setting]);
+    }
+
+    public function actionGenerateApiKey(){
+        $apiKey = Utils::getApiKey();
+        if(Utils::updateSetting('api_key',$apiKey, Utils::getCurrentUserId())){
+            Utils::jsonResponse('good','good',['apiKey'=>$apiKey]);
+        }
+
+    }
+
     public function actionTest(){
 
     }
@@ -669,35 +565,6 @@ class AjaxController extends Controller
         ];
     }
 
-    private function convert_to_months_dataset($key, $value, $source){
-        $income_data = [];
-        $match = false;
-        if($source && is_array($source)){
-            for($i=0; $i<= 11; $i++){
-                $match = false;
-                foreach($source as $query){
-                    if($query[$key] == ($i+1)){
-                        $income_data[] = $query[$value];
-                        $match = true;
-                        break;
-                    }
-                }
-                if(!$match){
-                    $income_data[] = 0;
-                }
-            }
-            return $income_data;
-        }
-        return [];
-    }
-
-    private function convert_data_to_pie_dataset($name, $source){
-        $dataset = [];
-        foreach ($source as $row){
-            $dataset[] = $row[$name];
-        }
-        return $dataset;
-    }
 
 
 

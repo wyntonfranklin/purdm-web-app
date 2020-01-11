@@ -78,6 +78,10 @@ class Utils
         return Yii::app()->user->userid;
     }
 
+    public static function setCurrentUserId($id){
+        Yii::app()->user->userid = '1';
+    }
+
     public static function getUserName(){
         return Users::model()->findByPk(self::getCurrentUserId())->username;
     }
@@ -166,9 +170,19 @@ class Utils
     }
 
     public static function updateSetting($name, $value, $id){
-        $setting = Settings::model()->findByAttributes(['user_id'=>$id,'setting_name'=>$name]);
-        $setting->setting_value = $value;
-        if($setting->update()){
+        $setting = Settings::model()->findByAttributes(['id'=>$id,'setting_name'=>$name]);
+        $status = false;
+        if($setting == null ){
+            $setting = new Settings();
+            $setting->user_id = $id;
+            $setting->setting_name = $name;
+            $setting->setting_value = $value;
+            $status = $setting->save();
+        }else{
+            $setting->setting_value = $value;
+            $status = $setting->update();
+        }
+        if($status){
             return true;
         }
         return false;
@@ -179,5 +193,20 @@ class Utils
         $setting->setting_name = $name;
         $setting->setting_value = $val;
         $setting->save();
+    }
+
+    public static function getApiKey(){
+        $key = self::randomString(15);
+        return $key;
+    }
+
+    public static function randomString($len=30){
+        $characters = 'abcdefghijklmnopqrstuvwxyz0123456789';
+        $string = '';
+        $max = strlen($characters) - 1;
+        for ($i = 0; $i < $len; $i++) {
+            $string .= $characters[mt_rand(0, $max)];
+        }
+        return $string;
     }
 }

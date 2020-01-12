@@ -9,7 +9,7 @@
  * @property integer $user_id
  * @property string $setting_value
  */
-class Settings extends CActiveRecord
+class Settings extends Model
 {
 	/**
 	 * @return string the associated database table name

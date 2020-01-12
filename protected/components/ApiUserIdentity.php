@@ -11,9 +11,10 @@ class ApiUserIdentity extends CUserIdentity
     public function authenticate()
     {
         $this->_id = '1';
-        $this->setState('userid', '1');
-        $this->setState('email', 'asdfasdf');
-        $this->setState('username', 'asdfasfd');
+        $userModel = Users::model()->findByAttributes(['email'=>$this->password,'username'=>$this->username]);
+        $this->setState('userid', $userModel->id);
+        $this->setState('email', $userModel->email);
+        $this->setState('username', $userModel->username);
         $this->errorCode=self::ERROR_NONE;
         return !$this->errorCode;
     }

@@ -170,7 +170,7 @@ class Utils
     }
 
     public static function updateSetting($name, $value, $id){
-        $setting = Settings::model()->findByAttributes(['id'=>$id,'setting_name'=>$name]);
+        $setting = Settings::model()->findByAttributes(['user_id'=>$id,'setting_name'=>$name]);
         $status = false;
         if($setting == null ){
             $setting = new Settings();

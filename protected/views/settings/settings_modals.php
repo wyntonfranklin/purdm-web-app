@@ -140,11 +140,11 @@
                 </button>
             </div>
             <div class="modal-body">
-                <p>Create or generate a new api to use with the PURDM app.</p>
+                <p>Create or generate a new api key to use with the PURDM app.</p>
                 <div class="input-group mb-3">
                     <input id="api-key-input" type="text" class="form-control" placeholder="Api Key">
                     <div class="input-group-append">
-                        <button class="btn btn-outline-secondary" type="button" id="generate-api-key">Generate</button>
+                        <button class="btn btn-outline-primary" type="button" id="generate-api-key">Generate</button>
                     </div>
                 </div>
             </div>

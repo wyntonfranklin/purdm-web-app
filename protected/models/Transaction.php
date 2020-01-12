@@ -111,6 +111,7 @@ class Transaction extends CActiveRecord
         $results["account"] = $this->account_id;
         $results['frequency'] = $this->getFrequency();
         $results['memo'] = $this->memo;
+				$results["accountName"] = $this->getAccountName();
         return $results;
     }
 

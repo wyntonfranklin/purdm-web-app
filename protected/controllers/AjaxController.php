@@ -466,6 +466,8 @@ class AjaxController extends QueriesController
 
     public function actionGetRepeatTransactions(){
         $criteria = new CDbCriteria();
+        $criteria->addCondition('transaction_id IN (Select transaction_id 
+        from transactions where ('.Utils::queryUserAccounts().'))');
         $transactions = RepeatTransaction::model()->findAll($criteria);
         echo $this->renderPartial('repeat_transactions',
             ['transactions'=>$transactions]);

@@ -44,7 +44,6 @@ var RTransactionsPage = (function() {
             $('#rt-frequency').val(response.data.frequency);
             $('#rt-date').val(response.data.nextDate);
             $('#rt-modal').modal('show');
-            console.log(response);
         });
     }
 
@@ -57,7 +56,13 @@ var RTransactionsPage = (function() {
             id : currentRow
         },function(response){
             var res = PDMApp.getJsonResponseObject(response);
-            console.log(res);
+            if(res.status == "good"){
+                PDMApp.setAlert('success', "Successfully updated");
+            }else{
+                PDMApp.setAlert('info','An error occurred');
+            }
+            $('#rt-modal').modal('hide');
+            loadPageData();
         });
     }
 

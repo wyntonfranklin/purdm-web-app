@@ -9,7 +9,7 @@ class TaskCommand extends CConsoleCommand
     }
 
     public function actionRepeatTransactions(){
-        $rTrans = RepeatTransaction::model()->findAllByAttributes(['id'=>5]);
+        $rTrans = RepeatTransaction::model()->findAllByAttributes(['upcoming_date'=>date('Y-m-d')]);
         foreach ($rTrans as $repeat){
             $transaction = Transaction::model()->findByPk($repeat->transaction_id);
             $newTransaction = new Transaction();

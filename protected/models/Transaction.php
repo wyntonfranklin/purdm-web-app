@@ -136,6 +136,10 @@ class Transaction extends CActiveRecord
         return  date("d, M", strtotime($this->trans_date));
     }
 
+    public function getShortDateWithYear(){
+        return  date("d, M Y", strtotime($this->trans_date));
+    }
+
     public function getHTMLErrorSummary(){
 	    return CHtml::errorSummary($this);
     }

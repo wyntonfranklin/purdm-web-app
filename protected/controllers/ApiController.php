@@ -9,6 +9,7 @@ class ApiController extends QueriesController
     const INCOME_EXPENSES_ACTION_TAG = "ie";
     const USER_CREDENTIALS_ACTION_TAG = "uc";
     const RECENT_TRANSACTIONS_ACTION_TAG = "rt";
+    const EXPENSES_BY_CATEGORY_ACTION_TAG = "ec";
 
     public function init()
     {
@@ -56,6 +57,8 @@ class ApiController extends QueriesController
             $this->appGetIEThisMonth();
         }else if($action ==  self::RECENT_TRANSACTIONS_ACTION_TAG){
            $this->getRecentTransactions();
+        }else if($action == self::EXPENSES_BY_CATEGORY_ACTION_TAG){
+            $this->getExpensesByCategory();
         }else{
             Utils::jsonResponse('bad','Bad Request Not found');
         }
@@ -118,22 +121,44 @@ class ApiController extends QueriesController
     }
 
     public function getRecentTransactions(){
-      $criteria = new CDbCriteria();
-      $criteria->limit = 50;
-      $criteria->order = "trans_date desc";
-      $transactions = Transaction::model()->findAll($criteria);
-      $trans_array = [];
-      foreach($transactions as $transaction){
-        $trans_array[] = $transaction->getAsJsonObject();
-      }
-      if(count($transactions) > 0){
-        Utils::jsonResponse('good','good',[
-          'transactions' => $trans_array,
-          'limit' => 50
-        ]);
-      }else{
-        Utils::jsonResponse('bad','No transcations found','');
-      }
+        $criteria = new CDbCriteria();
+        $criteria->addCondition('type="expense" OR type="income"');
+        $criteria->addCondition(Utils::queryUserAccounts());
+        $criteria->limit = 50;
+        $criteria->order = "trans_date desc";
+        $transactions = Transaction::model()->findAll($criteria);
+        $trans_array = [];
+        foreach($transactions as $transaction){
+          $data = $transaction->getAsJsonObject();
+          $data["transDate"] = date("D, M d Y", strtotime($transaction->trans_date));
+          $data["amount"] = Utils::formatMoney($transaction->amount);
+          $data["category"] = ucfirst($transaction->category);
+          $trans_array[] = $data;
+        }
+        if(count($transactions) > 0){
+          Utils::jsonResponse('good','good',[
+            'transactions' => $trans_array,
+            'limit' => 50
+         ]);
+        }else{
+          Utils::jsonResponse('bad','No transcations found','');
+        }
+    }
+
+    public function getExpensesByCategory(){
+        $settings['type'] = "month";
+        $settings["month"] = Utils::getNumMonth();
+        $settings["year"] = Utils::getYear();
+        $data = Queries::getAllExpensesByYear($this->getReportFilter($settings));
+        $labels = $this->convert_data_to_pie_dataset('category', $data);
+        $dataset = $this->convert_data_to_pie_dataset('total',$data);
+        $data = [
+            'labels' => $labels,
+            'dataset' => $dataset,
+            'colors' => $this->getHexColors(count($labels)),
+            'percentages' => $this->convert_data_to_pie_dataset('percentage',$data)
+        ];
+        Utils::jsonResponse('good','good',$data);
     }
 
 

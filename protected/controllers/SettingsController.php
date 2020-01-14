@@ -62,6 +62,9 @@ class SettingsController extends Controller
     }
 
     public function actionRepeat(){
+        $criteria = new CDbCriteria();
+        $criteria->addCondition('transaction_id IN (Select transaction_id 
+        from transactions where account_id ('.Utils::queryUserAccounts().'))');
         $transactions = RepeatTransaction::model()->findAll();
         $this->render('repeat_transactions',['transactions'=>$transactions]);
     }

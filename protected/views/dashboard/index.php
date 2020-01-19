@@ -7,8 +7,6 @@
         <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
         <div class="d-none d-sm-inline-block">
             <a href="<?php echo $this->createUrl('/insights/');?>" class="btn btn-sm btn-secondary"><i class="fa fa-chart-area"></i>&nbsp;View Insights</a>
-            <a id='pdm-add-transaction' href="javascript:void(0);" class="btn btn-sm btn-primary shadow-sm"><i class="fas fa-coins fa-sm text-white-50"></i> Add transaction</a>
-
         </div>
     </div>
 

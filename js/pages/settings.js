@@ -40,6 +40,11 @@ var SettingsPage = (function() {
         return false;
     });
 
+    $('#download-transactions').on('click',function(){
+       $('#download-transactions-modal').modal('show');
+        return false;
+    });
+
     $("#settings-cat-input").on("input", function(){
 
         if($(this).val() == ""){

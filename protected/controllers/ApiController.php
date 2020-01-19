@@ -95,7 +95,47 @@ class ApiController extends QueriesController
     }
 
     public function appCreateTransaction(){
+        $model = new Transaction();
+        $model->setScenario('save-trans');
+        $model->trans_date = Utils::getPost('transDate');
+        $model->assignAmount(Utils::getPost('amount'));
+        $model->amount = Utils::getPost('amount');
+        $model->category = Utils::getPost('category');
+        $model->description = Utils::getPost('description');
+        $model->account_id = Utils::getPost('account');
+        $model->type = Utils::getPost('transType');
+        $model->memo = Utils::getPost('memo');
+        $frequency = Utils::getPost('frequency');
+        if($model->save()){
+            if(!empty($frequency)){
+                $this->createRepeatTransaction($model, $frequency);
+            }
+            Utils::jsonResponse(Utils::STATUS_GOOD,'Transaction successfully saved');
+        }else{
+            Utils::logger(CHtml::errorSummary($model));
+            Utils::jsonResponse(Utils::STATUS_BAD,"Error occurred");
+        }
+    }
 
+    public function createRepeatTransaction($transaction, $freq){
+        $model = RepeatTransaction::model()->findByAttributes(['transaction_id'=>$transaction->id]);
+        if(!empty($freq)){
+            if($model == null ){
+                $model = new RepeatTransaction();
+                $model->created_date = $transaction->trans_date;
+                $model->transaction_id = $transaction->id;
+            }
+            if($model->isNewRecord){
+                $model->frequency = $freq;
+                $model->setUpComingDateFromFrequency();
+                $model->save();
+            }else{
+                if($model->frequency != $freq){
+                    $model->frequency = $freq;
+                }
+                $model->update();
+            }
+        }
     }
 
     public function getCredentials(){
@@ -115,7 +155,10 @@ class ApiController extends QueriesController
             }else if(empty($apiKey)){
                 Utils::jsonResponse('bad','No api key is setup for this user');
             }else{
-                Utils::jsonResponse('good','good', ['apiKey'=>$apiKey,'username'=>$record->username]);
+                Utils::jsonResponse('good','good',
+                    ['apiKey'=>$apiKey,
+                        'username'=>$record->username
+                    ]);
             }
         }
     }

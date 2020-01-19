@@ -7,8 +7,7 @@
         <div class="d-none d-sm-inline-block">
             <?php $this->customDatePickerWidget();?>
             <?php $this->accountSelectorWidget(); ?>
-            <a id='pdm-add-transaction' href="javascript:void(0);" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-coins fa-sm text-white-50"></i> Add transaction</a>
-        </div>
+       </div>
     </div>
 
     <div class="row">

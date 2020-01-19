@@ -48,7 +48,7 @@
                             <ul class="list-group">
                                 <li class="list-group-item">Update default account
                                     <span class="float-right">
-                                        <a id="update-default-account" href="javascript:void(0);" class="btn btn-sm btn-primary">Update</a>
+                                        <a id="update-default-account" href="javascript:void(0);" class="btn btn-sm btn-primary">Change</a>
                                     </span>
                                 </li>
                                 <li class="list-group-item">Manage Categories
@@ -63,17 +63,22 @@
                             <ul class="list-group">
                                 <li class="list-group-item">Create/Update your api access key
                                     <span class="float-right">
-                                        <a id="manage-api" href="javascript:void(0);" class="btn btn-sm btn-primary">Manage Api</a>
+                                        <a id="manage-api" href="javascript:void(0);" class="btn btn-sm btn-primary">Create/Update</a>
                                     </span>
                                 </li>
                             </ul>
 
                             <br>
-                            <h6 style="font-weight: bold">Download Transactions</h6>
+                            <h6 style="font-weight: bold">Download/Upload Transactions</h6>
                             <ul class="list-group">
                                 <li class="list-group-item">Convert transactions to excel file
                                     <span class="float-right">
-                                        <a href="" class="btn btn-sm btn-primary">Update</a>
+                                        <a id="download-transactions" href="javascript:void(0);" class="btn btn-sm btn-primary">Download</a>
+                                    </span>
+                                </li>
+                                <li class="list-group-item">Add transactions via csv file
+                                    <span class="float-right">
+                                        <a id="upload-transactions" href="javascript:void(0);" class="btn btn-sm btn-primary">Upload</a>
                                     </span>
                                 </li>
                             </ul>

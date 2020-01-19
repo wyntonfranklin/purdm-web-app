@@ -43,7 +43,6 @@
             </div>
         </li>
 
-
         <!-- Nav Item - Alerts -->
         <li class="nav-item dropdown no-arrow mx-1">
             <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -67,6 +66,12 @@
                 </a>
                 <a class="dropdown-item text-center small text-gray-500" href="javascript:void(0);">Show All Alerts</a>
             </div>
+        </li>
+
+        <li class="nav-item">
+            <a title="Create Transaction" class="nav-link pdm-open-trans-modal" href="javascript:void(0);" role="button">
+                <i class="fas fa-coins fa-fw"></i>
+            </a>
         </li>
 
         <div class="topbar-divider d-none d-sm-block"></div>

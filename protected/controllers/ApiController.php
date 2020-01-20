@@ -156,11 +156,35 @@ class ApiController extends QueriesController
                 Utils::jsonResponse('bad','No api key is setup for this user');
             }else{
                 Utils::jsonResponse('good','good',
-                    ['apiKey'=>$apiKey,
-                        'username'=>$record->username
+                    [
+                        'apiKey'=>$apiKey,
+                        'username'=>$record->username,
+                        'categories' => $this->getUserCategories(),
+                        'accounts' => $this->getUserAccounts()
                     ]);
             }
         }
+    }
+
+    private function getUserCategories(){
+        $cats = Categories::model()->getAllCategories();
+        $catsData = [];
+        foreach ($cats as $cat){
+            $catsData[] = $cat->name;
+        }
+        return $catsData;
+    }
+
+    private function getUserAccounts(){
+        $accounts = Accounts::model()->getUserAccounts();
+        $accountsData = [];
+        foreach ($accounts as $account){
+            $accountsData[] = [
+                'id' => $account->id,
+                'name' => $account->name
+            ];
+        }
+        return $accountsData;
     }
 
     public function getRecentTransactions(){

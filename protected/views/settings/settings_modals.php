@@ -160,15 +160,48 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Download/Upload your transactions</h5>
+                <h5 class="modal-title">Download your transactions as a csv file</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <p>Create or generate a new api key to use with the PURDM app.</p>
+                <p>Download all your transactions as a csv file.</p>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Save File as">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-primary" type="button">Download</button>
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="upload-transactions-modal" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Upload your transactions</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Upload a correctly a csv file with transactions.</p>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Choose File">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-primary" type="button">Select File</button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">Upload</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
         </div>

@@ -45,6 +45,11 @@ var SettingsPage = (function() {
         return false;
     });
 
+    $('#upload-transactions').on('click',function(){
+        $("#upload-transactions-modal").modal("show");
+        return false;
+    });
+
     $("#settings-cat-input").on("input", function(){
 
         if($(this).val() == ""){

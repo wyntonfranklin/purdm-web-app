@@ -96,10 +96,11 @@ class Categories extends CActiveRecord
         return CHtml::listData($data,'name','name');
     }
 
-    private function getAllCategories(){
+    public function getAllCategories(){
 	    $sql = "SELECT id, name FROM wfexpenses.categories UNION (
-        Select id, name from user_categories) order by name asc";
+        Select id, name from user_categories WHERE userid=".Utils::getCurrentUserId().") order by name asc";
 	    return Categories::model()->findAllBySql($sql);
     }
+
 
 }

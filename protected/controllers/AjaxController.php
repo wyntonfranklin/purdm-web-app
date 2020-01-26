@@ -543,45 +543,51 @@ class AjaxController extends QueriesController
         $file = CUploadedFile::getInstanceByName('file');
         $acc = Utils::getPost('accounts');
         $createAccount =  isset($_POST['create']) ? true : false;
-        $path = Yii::app()->basePath.'/../temp/'.$file->name;
-        $file->saveAs($path);
-        $excel = new ExcelAdapter();
-        $data = $excel->getRows($path);
-        $transactions = $data->sheets[0]['cells'];
-        for($i=2; $i<=count($transactions);$i++){
-            $model = new Transaction();
-            $model->trans_date = $transactions[$i][1];
-            $model->amount = $transactions[$i][2];
-            $model->description = $transactions[$i][3];
-            $model->category = $transactions[$i][4];
-            if($acc == "byname"){
-                $aname = Accounts::model()->getAccountByName($transactions[$i][5]);
-                if($aname == null){
-                    $account = new Accounts();
-                    $account->name = $transactions[$i][5];
-                    $account->user_id = Utils::getCurrentUserId();
-                    if($account->save()){
-                        $model->account_id = $account->id;
+        if($file->type!='application/vnd.ms-excel'){
+            echo Utils::jsonResponse('bad','File is wrong format',[]);
+        }else{
+            $path = Yii::app()->basePath.'/../temp/'.$file->name;
+            $file->saveAs($path);
+            $excel = new ExcelAdapter();
+            $data = $excel->getRows($path);
+            $transactions = $data->sheets[0]['cells'];
+            for($i=2; $i<=count($transactions);$i++){
+                $cols = $excel->assignTransactionsCols($transactions[$i]);
+                $model = new Transaction();
+                $model->setScenario("save-trans");
+                $model->trans_date = $cols["transDate"];
+                $model->amount = $cols["amount"];
+                $model->description = $cols["description"];
+                $model->category = $cols["category"];
+                if($acc == "byname"){
+                    $aname = Accounts::model()->getAccountByName($cols["account"]);
+                    if($aname == null && $createAccount){
+                        $account = new Accounts();
+                        $account->name = $cols["account"];
+                        $account->user_id = Utils::getCurrentUserId();
+                        if($account->save()){
+                            $model->account_id = $account->id;
+                        }else{
+                            $log .= Utils::getErrorSummaryAsText($account->getHTMLErrorSummary());
+                        }
                     }else{
-                        $log .= Utils::getErrorSummaryAsText($account->getHTMLErrorSummary());
+                        $model->account_id = "";
                     }
                 }else{
-                    $model->account_id = $aname;
+                    $model->account_id = $acc;
                 }
-            }else{
-                $model->account_id = $acc;
+                $model->type = $cols["type"];
+                $model->memo = $cols["memo"];
+                if($model->save()){
+                    $log .= "Transaction ".$model->description . "[" .$model->amount
+                        ."] saved as id:" .$model->transaction_id. ". to the account\r\n";
+                }else{
+                    $log .= "Error saving transaction - ".$model->description."(".$model->amount."). Error is: " .
+                        Utils::getErrorSummaryAsText($model->getHTMLErrorSummary()) . "\r\n";
+                }
             }
-            $model->type = $transactions[$i][6];
-            $model->memo = $transactions[$i][7];
-            if($model->save()){
-                $log .= "Transaction ".$model->description . "[" .$model->amount
-                    ."] saved as id:" .$model->transaction_id. ".\r\n";
-            }else{
-                $log .= "Error saving transaction - ".$model->description."(".$model->amount."). Error is: " .
-                    Utils::getErrorSummaryAsText($model->getHTMLErrorSummary()) . "\r\n";
-            }
+            echo Utils::jsonResponse('good','good', ['post'=>$_POST,'log'=>$log]);
         }
-        echo Utils::jsonResponse('good','good', ['post'=>$_POST,'log'=>$log]);
     }
 
     public function actionTest(){

@@ -212,12 +212,15 @@ class Utils
 
     public static function getErrorSummaryAsText($summary){
         $output = "";
-        $dom = new domDocument;
-        $dom->loadHTML($summary);
-        $items = $dom->getElementsByTagName('li');
-        foreach ($items as $row) {
-            $output .= $row->nodeValue . "\r\n";
+        if(!empty($summary)){
+            $dom = new domDocument;
+            $dom->loadHTML($summary);
+            $items = $dom->getElementsByTagName('li');
+            foreach ($items as $row) {
+                $output .= $row->nodeValue . "\r\n";
+            }
+            return $output;
         }
-        return $output;
+        return "";
     }
 }

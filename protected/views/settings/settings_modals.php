@@ -207,7 +207,7 @@
                     <select class="form-control" id="bu-accounts">
                         <option value="byname" selected>Find account by name</option>
                         <?php foreach (Accounts::model()->getUserAccounts() as $account):?>
-                            <option value="<?php echo $account->id;?>"><?php echo $account->getShortName();?></option>
+                            <option value="<?php echo $account->id;?>">Upload to - <?php echo $account->getShortName();?></option>
                         <?php endforeach;?>
                     </select>
                     </select>

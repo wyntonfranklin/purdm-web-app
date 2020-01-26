@@ -145,7 +145,11 @@ class Transaction extends CActiveRecord
     }
 
     public function getHTMLErrorSummary(){
-	    return CHtml::errorSummary($this);
+	    $errors = CHtml::errorSummary($this);
+	    if($errors){
+	        return $errors;
+        }
+	    return "";
     }
 
     public function assignAmount($val){

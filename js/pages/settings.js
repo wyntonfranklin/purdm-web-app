@@ -129,8 +129,9 @@ var SettingsPage = (function() {
         var fileInput = document.getElementById('uploader');
         formData.append("file", fileInput.files[0]);
         formData.append("accounts", $('#bu-accounts').val());
-        formData.append("create", $('#bu-create').val());
-        console.log(formData);
+        if(document.getElementById("bu-create").checked){
+            formData.append("create", "true");
+        }
         PDMApp.setAlert('info',"Uploading File...");
         $.ajax({
             url : "/ajax/bulkupload",
@@ -139,15 +140,25 @@ var SettingsPage = (function() {
             processData: false,
             contentType: false,
             success:function(data, textStatus, jqXHR){
-                PDMApp.setAlert('success',"Transactions successfully uploaded...");
                 console.log(data);
-                var res = PDMApp.getJsonResponseObject(data);
-                $('#upload-transactions-modal').modal('hide');
-                $('#upload-transactions-errors-modal').modal("show");
-                $('#upload-log').val(res.data.log);
+                try{
+                    var res = PDMApp.getJsonResponseObject(data);
+                    if(res.status == "good"){
+                        $('#upload-transactions-modal').modal('hide');
+                        $('#upload-transactions-errors-modal').modal("show");
+                        $('#upload-log').val(res.data.log);
+                        PDMApp.setAlert('success',"Transactions successfully uploaded...");
+                    }else{
+                        $('#upload-transactions-modal').modal('hide');
+                        PDMApp.setAlert('error',res.message);
+                    }
+                }catch (e) {
+                    $('#upload-transactions-modal').modal('hide');
+                    PDMApp.setAlert('error',e.message);
+                }
             },
             error: function(jqXHR, textStatus, errorThrown){
-                //if fails
+                PDMApp.setAlert('error', errorThrown.message);
             }
         });
         return false;

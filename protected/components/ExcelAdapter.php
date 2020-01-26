@@ -17,29 +17,15 @@ class ExcelAdapter
     return $data;
   }
 
-  public function assignColumns($cols){
+  public function assignTransactionsCols($cols){
     return array(
-      "name" => $cols[0],
-      "firstname" => $cols[2],
-      "lastname" => $cols[3],
-      "company" => $cols[3],
-      "office" => $cols[8],
-      "mobile" => $cols[7],
-      "email" => $cols[1],
-      "sector" => $cols[6],
-      "regdate" => $cols[14],
-			"registration_number" => "",
-      "work_street" => $cols[10],
-      "work_city" => $cols[11],
-      "country" => $cols[12],
-      "profession" => $cols[5],
-      "current_employer" => $cols[4],
-      "company_website" => $cols[9],
-      "work_postal_code" => "",
-      "work_landline" => $cols[8],
-      "work_mobile" => "",
-      "last_access" => $cols[13],
-      "member_for" => $cols[14]
+      "transDate" => isset($cols[1]) ? $cols[1] : "",
+      "amount" => isset($cols[2]) ? $cols[2] : "",
+      "description" => isset($cols[3]) ? $cols[3] : "",
+      "category" => isset($cols[4]) ? $cols[4] : "",
+      "account" => isset($cols[5]) ? $cols[5] : "",
+      "type" => isset($cols[6]) ? $cols[6] : "",
+      "memo" => isset($cols[7]) ? $cols[7] : "",
     );
   }
 

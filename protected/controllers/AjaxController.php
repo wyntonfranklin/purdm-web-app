@@ -538,6 +538,52 @@ class AjaxController extends QueriesController
 
     }
 
+    public function actionBulkUpload(){
+        $log = "";
+        $file = CUploadedFile::getInstanceByName('file');
+        $acc = Utils::getPost('accounts');
+        $createAccount =  isset($_POST['create']) ? true : false;
+        $path = Yii::app()->basePath.'/../temp/'.$file->name;
+        $file->saveAs($path);
+        $excel = new ExcelAdapter();
+        $data = $excel->getRows($path);
+        $transactions = $data->sheets[0]['cells'];
+        for($i=2; $i<=count($transactions);$i++){
+            $model = new Transaction();
+            $model->trans_date = $transactions[$i][1];
+            $model->amount = $transactions[$i][2];
+            $model->description = $transactions[$i][3];
+            $model->category = $transactions[$i][4];
+            if($acc == "byname"){
+                $aname = Accounts::model()->getAccountByName($transactions[$i][5]);
+                if($aname == null){
+                    $account = new Accounts();
+                    $account->name = $transactions[$i][5];
+                    $account->user_id = Utils::getCurrentUserId();
+                    if($account->save()){
+                        $model->account_id = $account->id;
+                    }else{
+                        $log .= Utils::getErrorSummaryAsText($account->getHTMLErrorSummary());
+                    }
+                }else{
+                    $model->account_id = $aname;
+                }
+            }else{
+                $model->account_id = $acc;
+            }
+            $model->type = $transactions[$i][6];
+            $model->memo = $transactions[$i][7];
+            if($model->save()){
+                $log .= "Transaction ".$model->description . "[" .$model->amount
+                    ."] saved as id:" .$model->transaction_id. ".\r\n";
+            }else{
+                $log .= "Error saving transaction - ".$model->description."(".$model->amount."). Error is: " .
+                    Utils::getErrorSummaryAsText($model->getHTMLErrorSummary()) . "\r\n";
+            }
+        }
+        echo Utils::jsonResponse('good','good', ['post'=>$_POST,'log'=>$log]);
+    }
+
     public function actionTest(){
 
     }

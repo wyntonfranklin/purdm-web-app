@@ -27,7 +27,7 @@ class Users extends Model
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('username, email, password', 'length', 'max'=>45),
+			array('username, email, password', 'length', 'max'=>125),
 			array('createdAt', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.

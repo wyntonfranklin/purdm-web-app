@@ -103,6 +103,56 @@ var SettingsPage = (function() {
         return false;
     });
 
+    $('#download-excel-action').on('click',function(){
+        var options = "";
+        var filename = $('#file-name-input').val();
+        options += "f=" + filename;
+        var fullUrl = "/settings/DownloadTransactions?" + options;
+        console.log(fullUrl);
+        window.location.href = fullUrl;
+    });
+
+    $('#choose-file').on("click",function(){
+        $("#uploader").trigger('click');
+        return false;
+    });
+
+    $('#uploader').on('change',function(){
+        var fileInput = document.getElementById('uploader');
+        var filename = fileInput.files[0].name;
+        $('#uploader-placeholder').val(filename);
+    });
+
+    $('#upload-import-btn').on('click',function(){
+        var form = document.getElementById('uploader');
+        var formData = new FormData();
+        var fileInput = document.getElementById('uploader');
+        formData.append("file", fileInput.files[0]);
+        formData.append("accounts", $('#bu-accounts').val());
+        formData.append("create", $('#bu-create').val());
+        console.log(formData);
+        PDMApp.setAlert('info',"Uploading File...");
+        $.ajax({
+            url : "/ajax/bulkupload",
+            type: "POST",
+            data : formData,
+            processData: false,
+            contentType: false,
+            success:function(data, textStatus, jqXHR){
+                PDMApp.setAlert('success',"Transactions successfully uploaded...");
+                console.log(data);
+                var res = PDMApp.getJsonResponseObject(data);
+                $('#upload-transactions-modal').modal('hide');
+                $('#upload-transactions-errors-modal').modal("show");
+                $('#upload-log').val(res.data.log);
+            },
+            error: function(jqXHR, textStatus, errorThrown){
+                //if fails
+            }
+        });
+        return false;
+    });
+
     function openCategoriesModal(){
         PDMApp.addLoaders();
         loadCategoriesDiv();

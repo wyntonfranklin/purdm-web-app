@@ -20,7 +20,7 @@ class SettingsController extends Controller
             ),
             array('allow', // allow admin user to perform 'admin' and 'delete' actions
                 'actions'=>array('index','notifications','general',
-                    'profile','backups','help','repeat','categories'),
+                    'profile','backups','help','repeat','categories','test','downloadtransactions'),
                 'users'=>array('@'),
             ),
             array('deny',  // deny all users
@@ -75,5 +75,39 @@ class SettingsController extends Controller
         if ($action ==  $menu) {
             return "active";
         }
+    }
+
+    public function actionDownloadTransactions($f="mytransactions"){
+        $criteria = new CDbCriteria();
+        //$criteria->addCondition('type="income" or type="expense"');
+        $criteria->addCondition(Utils::queryUserAccounts());
+        $criteria->order = 'trans_date DESC';
+        $transactions = Transaction::model()->findAll($criteria);
+        $this->createExcelFromTransactions($transactions, $f);
+    }
+
+    private function createExcelFromTransactions($transactions, $filename){
+        $data = array();
+        $i=0;
+        $data[$i]['trans_date'] = 'Date';
+        $data[$i]['amount'] = 'Amount';
+        $data[$i]['description'] = 'Description';
+        $data[$i]['category'] = 'Category';
+        $data[$i]['account'] = 'Account';
+        $data[$i]['type'] = 'Type';
+        $data[$i]['memo'] = 'Memo';
+        $i++;
+        foreach($transactions as $transaction){
+            $data[$i]['trans_date'] = $transaction->trans_date;
+            $data[$i]['amount'] = $transaction->amount;
+            $data[$i]['description'] = $transaction->description;
+            $data[$i]['category'] = $transaction->category;
+            $data[$i]['account'] = $transaction->getAccountName();
+            $data[$i]['type'] = $transaction->type;
+            $data[$i]['memo'] = $transaction->memo;
+            $i++;
+        }
+        $excel = new ExcelAdapter();
+        $excel->createExcel($data,$filename);
     }
 }

@@ -138,4 +138,19 @@ class Accounts extends Model
         }
         return $this->name;
     }
+
+    public function getAccountByName($name){
+	    $criteria = new CDbCriteria();
+	    $criteria->addCondition('name="'.$name.'" and user_id='.Utils::getCurrentUserId());
+	    try{
+            $account = Accounts::model()->find($criteria);
+            if($account == null ){
+                return null;
+            }else{
+                return $account->id;
+            }
+        }catch (Exception $e){
+	        return null;
+        }
+	}
 }

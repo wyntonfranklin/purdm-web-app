@@ -168,13 +168,14 @@
             <div class="modal-body">
                 <p>Download all your transactions as a csv file.</p>
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Save File as">
+                    <input id="file-name-input" value="mytransactions" type="text" class="form-control" placeholder="Save File as">
                     <div class="input-group-append">
-                        <button class="btn btn-outline-primary" type="button">Download</button>
+                        <button title="Generate random name" class="btn btn-outline-primary" type="button">Generate</button>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
+                <button id="download-excel-action" class="btn btn-outline-primary" type="button">Download</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
         </div>
@@ -193,15 +194,58 @@
             </div>
             <div class="modal-body">
                 <p>Upload a correctly a csv file with transactions.</p>
+                <form id="bu-form">
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Choose File">
+                    <input id="uploader-placeholder" type="text" class="form-control" placeholder="Choose a file"/>
+                    <input id="uploader" style="display:none;" type="file" placeholder="Choose File"/>
                     <div class="input-group-append">
-                        <button class="btn btn-outline-primary" type="button">Select File</button>
+                        <button id="choose-file" class="btn btn-outline-primary" type="button">Select File</button>
                     </div>
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlSelect1">Upload to account</label>
+                    <select class="form-control" id="bu-accounts">
+                        <option value="byname" selected>Find account by name</option>
+                        <?php foreach (Accounts::model()->getUserAccounts() as $account):?>
+                            <option value="<?php echo $account->id;?>"><?php echo $account->getShortName();?></option>
+                        <?php endforeach;?>
+                    </select>
+                    </select>
+                </div>
+                <div class="form-check">
+                    <input id="bu-create" class="form-check-input" type="checkbox" value="">
+                    <label class="form-check-label" for="defaultCheck1">
+                        Create account if not exists
+                    </label>
+                </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button id="upload-import-btn" type="button" class="btn btn-primary">Upload</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="upload-transactions-errors-modal" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Upload Log</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>View the upload log here.</p>
+                <div class="form-group">
+                    <label for="exampleFormControlTextarea1">Bulk Upload log output</label>
+                    <textarea class="form-control" style="width: 100%;" id="upload-log"></textarea>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary">Upload</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
         </div>

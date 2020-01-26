@@ -67,9 +67,11 @@ class AccountController extends Controller
         if($account !== null ){
             if(isset($_POST['delete-account'])){
                 if($account->delete()){
-                    Utils::setAlert(
-                        Utils::ALERT_INFO, "Account removed"
-                    );
+                    if( Transaction::model()->deleteByAccount($id)){
+                        Utils::setAlert(
+                            Utils::ALERT_INFO, "Account removed"
+                        );
+                    };
                     $this->redirect('/dashboard/');
                 }
             }

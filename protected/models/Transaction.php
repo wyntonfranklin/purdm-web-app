@@ -129,7 +129,11 @@ class Transaction extends CActiveRecord
     }
 
     public function getAccountName(){
-	    return Accounts::model()->findByPk($this->account_id)->name;
+	    $account = Accounts::model()->findByPk($this->account_id);
+	    if($account){
+	        return $account->name;
+        }
+	    return "";
     }
 
     public function getShortDate(){
@@ -154,5 +158,15 @@ class Transaction extends CActiveRecord
 
     public function getAccountUrl(){
         return Yii::app()->createUrl('/account/view',['id'=>$this->account_id]);
+    }
+
+    public function deleteByAccount( $id ){
+	    $sql = "DELETE FROM transactions WHERE account_id=".$id;
+        try{
+            $results = Yii::app()->db->createCommand($sql)->query();
+        }catch (Exception $e){
+            return false;
+        }
+        return true;
     }
 }

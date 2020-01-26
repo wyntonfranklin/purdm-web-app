@@ -29,7 +29,7 @@ class TaskCommand extends CConsoleCommand
     public function actionUpdateUserPassword($id, $password){
         $user = Users::model()->findByPk($id);
         $ph = new PasswordHash(Yii::app()->params['phpass']['iteration_count_log2'],
-            Yii::app()->params['phpass']['portable_hashes']);;
+            Yii::app()->params['phpass']['portable_hashes']);
         $user->password = $ph->HashPassword($password);
         if($user->update()){
             echo "update successfully\n";
@@ -43,6 +43,23 @@ class TaskCommand extends CConsoleCommand
         $value = 'Ran at' . date('Y-m-d h:i:s');
         Utils::dbLogger('cron test',$value);
         //Utils::logger('Cron working','CRON');
+    }
+
+    public function actionCreateUser($name, $email, $password){
+        $user = new Users();
+        $user->username = $name;
+        $user->email = $email;
+        $user->createdAt = date("Y-m-d h:i:s");
+        $ph = new PasswordHash(Yii::app()->params['phpass']['iteration_count_log2'],
+            Yii::app()->params['phpass']['portable_hashes']);
+        $user->password = $ph->HashPassword($password);
+        if($user->save()){
+            echo "User Saved \r\n";
+        }else{
+            echo Utils::getErrorSummaryAsText(
+                $user->getHTMLErrorSummary());
+        }
+
     }
 
 

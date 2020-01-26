@@ -59,7 +59,6 @@ var CDMWidget = (function($){
 
     $('#cdp-update-range').on('click',function(){
         var startdate = startDateEl.val();
-        console.log(startdate);
         setCdpSettings('startdate',startdate);
         var sd = moment(startdate).format('D, MMM YYYY');
         var enddate = $('#cdp-end-date').val();
@@ -76,7 +75,6 @@ var CDMWidget = (function($){
         closeCdpMenu();
         openCpdMonthView();
         event.stopPropagation();
-        console.log("show the month widget");
         return false;
     });
 
@@ -84,7 +82,6 @@ var CDMWidget = (function($){
         closeCdpMenu();
         openCpdRangeView();
         event.stopPropagation();
-        console.log("show the range widget");
         return false;
     });
 
@@ -245,7 +242,6 @@ var CDMWidget = (function($){
             }else{
                 cdpDescription.text(monthLabels[first-1] + " " + settings.year);
             }
-            console.log(first);
         }else if(settings.type == 'range'){
             cdpDescription.text(first + " - " + second);
         }

@@ -6,7 +6,4 @@
     <li class="nav-item">
         <a class="nav-link <?php echo $this->settingsMenuActive('repeat');?>" href="<?php echo $this->createUrl('/settings/repeat');?>">Repeat Transactions</a>
     </li>
-    <li class="nav-item">
-        <a class="nav-link <?php echo $this->settingsMenuActive('help');?>" href="<?php echo $this->createUrl('/settings/help');?>" >Help</a>
-    </li>
 </ul>

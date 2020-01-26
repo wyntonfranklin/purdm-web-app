@@ -48,31 +48,6 @@ class SiteController extends Controller
 		}
 	}
 
-	/**
-	 * Displays the contact page
-	 */
-	public function actionContact()
-	{
-		$model=new ContactForm;
-		if(isset($_POST['ContactForm']))
-		{
-			$model->attributes=$_POST['ContactForm'];
-			if($model->validate())
-			{
-				$name='=?UTF-8?B?'.base64_encode($model->name).'?=';
-				$subject='=?UTF-8?B?'.base64_encode($model->subject).'?=';
-				$headers="From: $name <{$model->email}>\r\n".
-					"Reply-To: {$model->email}\r\n".
-					"MIME-Version: 1.0\r\n".
-					"Content-Type: text/plain; charset=UTF-8";
-
-				mail(Yii::app()->params['adminEmail'],$subject,$model->body,$headers);
-				Yii::app()->user->setFlash('contact','Thank you for contacting us. We will respond to you as soon as possible.');
-				$this->refresh();
-			}
-		}
-		$this->render('contact',array('model'=>$model));
-	}
 
 	/**
 	 * Displays the login page
@@ -80,6 +55,9 @@ class SiteController extends Controller
 	public function actionLogin()
 	{
 		$model=new LoginForm;
+		if(isset($_GET['completed'])){
+		    $this->logout();
+        }
         if(!Yii::app()->user->isGuest){
             $this->redirect(array('/dashboard/'));
         }
@@ -120,16 +98,17 @@ class SiteController extends Controller
 		$this->redirect('/site/login');
 	}
 
-    public function actionForgetPassword(){
-
-	    $this->render('forgetpassword');
+	private function logout(){
+        Yii::app()->user->logout();
+        Yii::app()->session->clear();
+        Yii::app()->session->destroy();
     }
 
-    public function actionRegister(){
-	    $this->render('register');
+	public function actionTest(){
+      $file =  Yii::app()->basePath.'/../protected/config/database-copy.php';
+      $replacement =  Yii::app()->basePath.'/../protected/config/database-test.php';
+      $updated = str_replace("{dbname}","mydb", file_get_contents($file));
+      file_put_contents($replacement, $updated);
     }
 
-    public function actionTest(){
-	   var_dump(Queries::getIncomeByMonth());
-    }
 }

@@ -82,7 +82,6 @@ var PDMCreateAccountModal = (function($){
         modalTitle.text('Edit Transaction');
         saveButton.text('Save changes');
         var transId = el.parent().attr('data-id');
-        console.log(transId);
         loadTransactionModal(transId,function(){
             transModal.modal('show');
             jQuery(document).off('focusin.modal')
@@ -92,7 +91,6 @@ var PDMCreateAccountModal = (function($){
     function loadTransactionModal(id, callback){
         $.get('/ajax/TransactionDetails',{id:id},function(response){
             var res = PDMApp.getJsonResponseObject(response);
-            console.log(res);
             if(res.status == 'good'){
                 transForm.find('#amount').val(res.data.amount);
                 transForm.find('#description').val(res.data.description);

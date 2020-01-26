@@ -50,7 +50,6 @@ var CategoryPage = (function() {
         settings = $.extend({},PDMApp.getPageSettings(), settings);
        // settings['category'] = pageSettings.category;
       //  settings['accountId'] = (pageSettings.accountId) != null ? pageSettings.accountId : "";
-        console.log(settings);
         PDMApp.setSubtitles(settings);
 
         $.getJSON('/ajax/GetCategoryTotals', settings, function(response){

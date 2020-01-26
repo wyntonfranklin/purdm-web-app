@@ -51,6 +51,7 @@
             var c = confirm('Remove this tranaction');
             if(c){
                 $.post('/ajax/DeleteTransaction',{id:transId},function(){
+                    PDMApp.setAlert('success',"Transaction deleted");
                     el.trigger('pdm.update.transtable');
                 });
             }

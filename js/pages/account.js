@@ -23,7 +23,6 @@ var AccountPage = (function() {
     function overwriteCDPSettings(){
         var pageSettings = PDMApp.getPageSettings();
         if(pageSettings.type != null && pageSettings.type != ""){
-            console.log('overwriting cdp setings');
             PDMApp.overwriteCDPSettings(pageSettings);
         }
     }
@@ -40,9 +39,7 @@ var AccountPage = (function() {
     function loadPageData(){
         PDMApp.addLoaders();
         var settings = PDMApp.getCdpSettings();
-        console.log(PDMApp.getPageSettings());
         settings = $.extend({},PDMApp.getPageSettings(),settings);
-        console.log(settings);
         $.getJSON('/ajax/getaccounttotals', settings, function(response){
             loadTiles(response.data);
         });

@@ -29,7 +29,6 @@ var InsightsPage = (function() {
     function overwriteCDPSettings(){
         var pageSettings = PDMApp.getPageSettings();
         if(pageSettings.type != null && pageSettings.type != ""){
-            console.log('overwriting cdp setings');
             PDMApp.overwriteCDPSettings(pageSettings);
         }
     }
@@ -45,9 +44,7 @@ var InsightsPage = (function() {
     function loadPageData(){
         PDMApp.addLoaders();
         var settings = PDMApp.getCdpSettings();
-        console.log(PDMApp.getPageSettings());
         settings = $.extend({},PDMApp.getPageSettings(), settings);
-        console.log(settings);
         PDMApp.setSubtitles(settings);
         $.getJSON('/ajax/GetInsightsTotals', settings, function(response){
             loadTiles(response.data);

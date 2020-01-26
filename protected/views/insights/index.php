@@ -1,4 +1,4 @@
-<?php /** @var $this ReportsController */?>
+<?php /** @var $this InsightsController */?>
 
 <div class="container-fluid">
     <!-- Page Heading -->

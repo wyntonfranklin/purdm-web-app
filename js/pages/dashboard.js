@@ -23,7 +23,6 @@ var DashboardPage = (function($){
 
 
     function loadTiles(response){
-        console.log(response.income);
         PDMApp.setElContent(nwTile,response.worth);
         PDMApp.setElContent(exTile,response.expenses);
         PDMApp.setElContent(inTile,response.income);

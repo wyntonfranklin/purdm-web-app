@@ -223,4 +223,14 @@ class Utils
         }
         return "";
     }
+
+    public static function runTasks(){
+        $params = "";
+        $basePath = Yii::app()->basePath;
+        $params .= $basePath;
+        $fullpath = $basePath . "/cron.sh {$params}  2>&1";
+        echo $fullpath;
+        exec($fullpath, $logs);
+       var_dump($logs);
+    }
 }

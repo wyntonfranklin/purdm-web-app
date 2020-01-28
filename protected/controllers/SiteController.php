@@ -58,6 +58,9 @@ class SiteController extends Controller
 		if(isset($_GET['completed'])){
 		    $this->logout();
         }
+		if(Yii::app()->params["setup"] == "false"){
+            $this->redirect(array('/setup/'));
+        }
         if(!Yii::app()->user->isGuest){
             $this->redirect(array('/dashboard/'));
         }
@@ -105,10 +108,7 @@ class SiteController extends Controller
     }
 
 	public function actionTest(){
-      $file =  Yii::app()->basePath.'/../protected/config/database-copy.php';
-      $replacement =  Yii::app()->basePath.'/../protected/config/database-test.php';
-      $updated = str_replace("{dbname}","mydb", file_get_contents($file));
-      file_put_contents($replacement, $updated);
+        Utils::runTasks();;
     }
 
 }

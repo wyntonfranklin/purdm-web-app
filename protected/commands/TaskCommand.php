@@ -24,6 +24,8 @@ class TaskCommand extends CConsoleCommand
                 $repeat->update();
             }
         }
+        $value = 'Ran at' . date('Y-m-d h:i:s');
+        Utils::dbLogger('cron test',$value);
     }
 
     public function actionUpdateUserPassword($id, $password){

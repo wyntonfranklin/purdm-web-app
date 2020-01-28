@@ -1,6 +1,6 @@
 # Create all tables
 
-CREATE TABLE `accounts` (
+CREATE TABLE IF NOT EXISTS `accounts` (
     `id` int(11) NOT NULL AUTO_INCREMENT,
     `name` varchar(125) DEFAULT NULL,
     `type` varchar(45) DEFAULT NULL,
@@ -9,14 +9,14 @@ CREATE TABLE `accounts` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
-CREATE TABLE `categories` (
+CREATE TABLE IF NOT EXISTS `categories` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
-CREATE TABLE `repeat_transactions` (
+CREATE TABLE IF NOT EXISTS `repeat_transactions` (
    `id` int(11) NOT NULL AUTO_INCREMENT,
    `created_date` date DEFAULT NULL,
    `upcoming_date` date DEFAULT NULL,
@@ -25,7 +25,7 @@ CREATE TABLE `repeat_transactions` (
    PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-CREATE TABLE `settings` (
+CREATE TABLE IF NOT EXISTS `settings` (
     `id` int(11) NOT NULL AUTO_INCREMENT,
     `setting_name` varchar(45) DEFAULT NULL,
     `user_id` int(11) DEFAULT NULL,
@@ -33,7 +33,7 @@ CREATE TABLE `settings` (
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-CREATE TABLE `transactions` (
+CREATE TABLE IF NOT EXISTS `transactions` (
     `transaction_id` int(11) NOT NULL AUTO_INCREMENT,
     `trans_date` date DEFAULT NULL,
     `amount` varchar(45) DEFAULT NULL,
@@ -45,14 +45,14 @@ CREATE TABLE `transactions` (
     PRIMARY KEY (`transaction_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-CREATE TABLE `user_categories` (
+CREATE TABLE IF NOT EXISTS `user_categories` (
    `id` int(11) NOT NULL AUTO_INCREMENT,
    `name` varchar(45) DEFAULT NULL,
    `userid` int(11) DEFAULT NULL,
    PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-CREATE TABLE `users` (
+CREATE TABLE IF NOT EXISTS `users` (
      `id` int(11) NOT NULL AUTO_INCREMENT,
      `username` varchar(45) DEFAULT NULL,
      `email` varchar(45) DEFAULT NULL,

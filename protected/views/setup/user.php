@@ -7,7 +7,7 @@
                 <div class="col-lg-7">
                     <div class="p-5">
                         <div class="text-center">
-                            <h1 class="h4 text-gray-900 mb-4">Create Admin Account</h1>
+                            <h1 class="h4 text-gray-900 mb-4">Create Your Admin Account</h1>
                         </div>
                         <?php $form=$this->beginWidget('CActiveForm', array(
                             'id'=>'login-form',
@@ -15,11 +15,13 @@
                             'htmlOptions' =>[
                                 'class' =>'user'
                             ]
-                        ));?>
+                        ));
+                        echo CHtml::errorSummary($model);
+                        ?>
                             <div class="form-group">
-                                <label>UserName</label>
+                                <label>User Name</label>
                                 <?php echo $form->textField($model,'username', array('class'=>'form-control form-control-user',
-                                    'title'=>'username','placeholder'=>'Username','required'=>'required')); ?>
+                                    'title'=>'username','placeholder'=>'Username')); ?>
                             </div>
                             <div class="form-group">
                                 <label>Email</label>

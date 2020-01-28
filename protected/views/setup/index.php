@@ -15,7 +15,14 @@
                                 'htmlOptions' =>[
                                     'class' =>'user'
                                 ]
-                            ));?>
+                            ));
+                            echo CHtml::errorSummary($model);
+                            ?>
+                            <div class="form-group">
+                                <label>Database Host</label>
+                                <?php echo $form->textField($model,'dbhost', array('class'=>'form-control form-control-user',
+                                    'title'=>'Database Host','placeholder'=>'Database Host')); ?>
+                            </div>
                             <div class="form-group">
                                 <label>Database Name</label>
                                 <?php echo $form->textField($model,'dbname', array('class'=>'form-control form-control-user',
@@ -24,7 +31,7 @@
                             <div class="form-group">
                                 <label>Database User</label>
                                 <?php echo $form->textField($model,'dbuser', array('class'=>'form-control form-control-user',
-                                    'title'=>'Database user','placeholder'=>'database User','required'=>'required')); ?>
+                                    'title'=>'Database user','placeholder'=>'Database User','required'=>'required')); ?>
                             </div>
                             <div class="form-group">
                                 <label>Database Password</label>

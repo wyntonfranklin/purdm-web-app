@@ -79,7 +79,7 @@
                 <div class="card-body">
                     <div class="chart-area">
                         <div class="aj charts-loader"></div>
-                        <canvas width="400" height="125" class="chart-area" id="incomevsexpense"></canvas>
+                        <canvas width="400" height="115" class="chart-area" id="incomevsexpense"></canvas>
                     </div>
                 </div>
             </div>

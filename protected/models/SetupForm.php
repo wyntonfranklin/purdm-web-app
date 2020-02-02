@@ -51,6 +51,18 @@ class SetupForm extends CFormModel
         }
     }
 
+    public function update_tables(){
+        $file =  Yii::app()->basePath.'/../sql/on_update.sql';
+        $contents = file_get_contents($file);
+        try{
+            Yii::app()->db->createCommand($contents)->query();
+            return true;
+        }catch (Exception $e){
+            $this->errorMessage = $e->getMessage();
+            return false;
+        }
+    }
+
     public function getDatabaseHost(){
         if($this->dbhost){
             return $this->dbhost;

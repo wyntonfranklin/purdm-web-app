@@ -473,6 +473,12 @@ class AjaxController extends QueriesController
             ['transactions'=>$transactions]);
     }
 
+    public function actionGetAllUsers(){
+        $users = Users::model()->findAll();
+        echo $this->renderPartial('users_layout',
+            ['users'=>$users]);
+    }
+
     public function actionGetRtDetails(){
         $id = $_GET['rtId'];
         $rt = RepeatTransaction::model()->findByPk($id);
@@ -588,6 +594,44 @@ class AjaxController extends QueriesController
             }
             echo Utils::jsonResponse('good','good', ['post'=>$_POST,'log'=>$log]);
         }
+    }
+
+    public function actionGetAllUsersData(){
+        $id = isset($_GET['id']) ? $_GET['id'] : null;
+        if($id){
+            $user = Users::model()->findByPk($id);
+            Utils::jsonResponse('good','good',[
+                'username' => $user->username,
+                'email' => $user->email,
+            ]);
+        }
+    }
+
+    public function actionAdminChangeUserPassword(){
+        $id = Utils::getPost("id");
+        $password = Utils::getPost("password");
+        if($id && $password){
+            $user = Users::model()->findByPk($id);
+            $ph = new PasswordHash(Yii::app()->params['phpass']['iteration_count_log2'],
+                Yii::app()->params['phpass']['portable_hashes']);
+            $user->password = $ph->HashPassword($password);
+            if($user->update()){
+                Utils::jsonResponse('good','Password updated',[]);
+            }else{
+                Utils::jsonResponse('bad',
+                    Utils::getErrorSummaryAsText($user->getHTMLErrorSummary()));
+            }
+        }else{
+            Utils::jsonResponse('bad','All values not submitted correctly');
+        }
+    }
+
+    public function actionAdminUpdateUser(){
+
+    }
+
+    public function actionAdminDeleteUser(){
+
     }
 
     public function actionTest(){

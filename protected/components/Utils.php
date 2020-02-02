@@ -228,9 +228,18 @@ class Utils
         $params = "";
         $basePath = Yii::app()->basePath;
         $params .= $basePath;
-        $fullpath = $basePath . "/cron.sh {$params}  2>&1";
-        echo $fullpath;
-        exec($fullpath, $logs);
-       var_dump($logs);
+        $fullpath = $basePath . "/cron.sh {$params}  > /dev/null 2> /dev/null &";
+        exec($fullpath);
+    }
+
+    public static function isMenuOpen($area="body"){
+        if(isset($_COOKIE["menuopen"]) && $_COOKIE["menuopen"] == "no"){
+            if($area == "body"){
+                return "sidebar-toggled";
+            }
+            if($area == "menu"){
+                return  "toggled";
+            }
+        }
     }
 }

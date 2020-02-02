@@ -1,7 +1,7 @@
 <?php ?>
 
 <!-- Sidebar -->
-<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion <?php echo Utils::isMenuOpen("menu");?>" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?php echo $this->createUrl('/dashboard/');?>">
@@ -61,6 +61,13 @@
         <a class="nav-link" href="<?php echo $this->createUrl('/settings/');?>">
             <i class="fas fa-fw fa-cogs"></i>
             <span>Settings</span>
+        </a>
+    </li>
+
+    <li class="nav-item <?php echo $this->menuActive('users');?>">
+        <a class="nav-link" href="<?php echo $this->createUrl('/users/');?>">
+            <i class="fas fa-fw fa-users"></i>
+            <span>Users</span>
         </a>
     </li>
 

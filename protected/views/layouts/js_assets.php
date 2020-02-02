@@ -16,6 +16,4 @@
 <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery.maskMoney.min.js"></script>
 
 
-<!-- Custom scripts for all pages-->
-<script  type="text/javascript"src="<?php echo Yii::app()->request->baseUrl; ?>/js/sb-admin-2.min.js"></script>
 

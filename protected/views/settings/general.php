@@ -83,20 +83,6 @@
                                 </li>
                             </ul>
 
-                            <br>
-                            <div class="alert alert-danger" role="alert">
-                                Welcome to the danger zone. Taking actions here can do real damage.
-                            </div>
-
-                            <h6 style="font-weight: bold">Delete your account</h6>
-                            <ul class="list-group">
-                                <li class="list-group-item">Deleting your account will remove all you data.
-                                    <span class="float-right">
-                                        <a href="javascript:void(0);" class="btn btn-sm btn-danger">Delete</a>
-                                    </span>
-                                </li>
-                            </ul>
-
                         </div>
 
                     </div>

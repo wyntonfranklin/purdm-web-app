@@ -1,0 +1,1276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet" xmlns:html="http://www.w3.org/TR/REC-html40">
+<Worksheet ss:Name="All Transactions">
+<Table>
+<Row>
+<Cell><Data ss:Type="String">Date</Data></Cell>
+<Cell><Data ss:Type="String">Amount</Data></Cell>
+<Cell><Data ss:Type="String">Description</Data></Cell>
+<Cell><Data ss:Type="String">Category</Data></Cell>
+<Cell><Data ss:Type="String">Account</Data></Cell>
+<Cell><Data ss:Type="String">Type</Data></Cell>
+<Cell><Data ss:Type="String">Memo</Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2019-11-02</Data></Cell>
+<Cell><Data ss:Type="String">5000</Data></Cell>
+<Cell><Data ss:Type="String">car payment</Data></Cell>
+<Cell><Data ss:Type="String">credit card</Data></Cell>
+<Cell><Data ss:Type="String">Primary RBC</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2019-10-03</Data></Cell>
+<Cell><Data ss:Type="String">10000.54</Data></Cell>
+<Cell><Data ss:Type="String">laptop</Data></Cell>
+<Cell><Data ss:Type="String">electronics</Data></Cell>
+<Cell><Data ss:Type="String">Primary RBC</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2019-09-04</Data></Cell>
+<Cell><Data ss:Type="String">300</Data></Cell>
+<Cell><Data ss:Type="String">subway</Data></Cell>
+<Cell><Data ss:Type="String">food</Data></Cell>
+<Cell><Data ss:Type="String">Primary RBC</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2019-08-01</Data></Cell>
+<Cell><Data ss:Type="String">5000</Data></Cell>
+<Cell><Data ss:Type="String">shoes</Data></Cell>
+<Cell><Data ss:Type="String">clothes</Data></Cell>
+<Cell><Data ss:Type="String">Primary RBC</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2019-10-10</Data></Cell>
+<Cell><Data ss:Type="String">10000</Data></Cell>
+<Cell><Data ss:Type="String">salary</Data></Cell>
+<Cell><Data ss:Type="String">salary</Data></Cell>
+<Cell><Data ss:Type="String">Primary RBC</Data></Cell>
+<Cell><Data ss:Type="String">income</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2019-09-01</Data></Cell>
+<Cell><Data ss:Type="String">5000</Data></Cell>
+<Cell><Data ss:Type="String">pj</Data></Cell>
+<Cell><Data ss:Type="String">pj</Data></Cell>
+<Cell><Data ss:Type="String">Primary RBC</Data></Cell>
+<Cell><Data ss:Type="String">income</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2019-11-01</Data></Cell>
+<Cell><Data ss:Type="String">9000</Data></Cell>
+<Cell><Data ss:Type="String">salary</Data></Cell>
+<Cell><Data ss:Type="String">salary</Data></Cell>
+<Cell><Data ss:Type="String">Primary RBC</Data></Cell>
+<Cell><Data ss:Type="String">income</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2019-08-01</Data></Cell>
+<Cell><Data ss:Type="String">3000</Data></Cell>
+<Cell><Data ss:Type="String">salary</Data></Cell>
+<Cell><Data ss:Type="String">salary</Data></Cell>
+<Cell><Data ss:Type="String">Primary RBC</Data></Cell>
+<Cell><Data ss:Type="String">income</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2019-12-03</Data></Cell>
+<Cell><Data ss:Type="String">2000</Data></Cell>
+<Cell><Data ss:Type="String">bike</Data></Cell>
+<Cell><Data ss:Type="String">fitness</Data></Cell>
+<Cell><Data ss:Type="String">Primary RBC</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2019-07-01</Data></Cell>
+<Cell><Data ss:Type="String">1000</Data></Cell>
+<Cell><Data ss:Type="String">cream</Data></Cell>
+<Cell><Data ss:Type="String">cosmetics</Data></Cell>
+<Cell><Data ss:Type="String">Primary RBC</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2019-07-01</Data></Cell>
+<Cell><Data ss:Type="String">10000</Data></Cell>
+<Cell><Data ss:Type="String">salary</Data></Cell>
+<Cell><Data ss:Type="String">salary</Data></Cell>
+<Cell><Data ss:Type="String">Primary RBC</Data></Cell>
+<Cell><Data ss:Type="String">income</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2019-06-01</Data></Cell>
+<Cell><Data ss:Type="String">200</Data></Cell>
+<Cell><Data ss:Type="String">ice cream</Data></Cell>
+<Cell><Data ss:Type="String">entertainment</Data></Cell>
+<Cell><Data ss:Type="String">Primary RBC</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2019-05-01</Data></Cell>
+<Cell><Data ss:Type="String">500</Data></Cell>
+<Cell><Data ss:Type="String">gym membership</Data></Cell>
+<Cell><Data ss:Type="String">memberships</Data></Cell>
+<Cell><Data ss:Type="String">Primary RBC</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2019-04-01</Data></Cell>
+<Cell><Data ss:Type="String">600</Data></Cell>
+<Cell><Data ss:Type="String">gifts</Data></Cell>
+<Cell><Data ss:Type="String">gifts</Data></Cell>
+<Cell><Data ss:Type="String">Primary RBC</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2019-08-05</Data></Cell>
+<Cell><Data ss:Type="String">500</Data></Cell>
+<Cell><Data ss:Type="String">House payment</Data></Cell>
+<Cell><Data ss:Type="String">bills</Data></Cell>
+<Cell><Data ss:Type="String">Primary RBC</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2019-01-01</Data></Cell>
+<Cell><Data ss:Type="String">6000</Data></Cell>
+<Cell><Data ss:Type="String">salary</Data></Cell>
+<Cell><Data ss:Type="String">salary</Data></Cell>
+<Cell><Data ss:Type="String">Primary RBC</Data></Cell>
+<Cell><Data ss:Type="String">income</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2019-02-01</Data></Cell>
+<Cell><Data ss:Type="String">12000</Data></Cell>
+<Cell><Data ss:Type="String">salary</Data></Cell>
+<Cell><Data ss:Type="String">salary</Data></Cell>
+<Cell><Data ss:Type="String">Primary RBC</Data></Cell>
+<Cell><Data ss:Type="String">income</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2019-01-07</Data></Cell>
+<Cell><Data ss:Type="String">30</Data></Cell>
+<Cell><Data ss:Type="String">food</Data></Cell>
+<Cell><Data ss:Type="String">food</Data></Cell>
+<Cell><Data ss:Type="String">Primary RBC</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2019-01-14</Data></Cell>
+<Cell><Data ss:Type="String">10</Data></Cell>
+<Cell><Data ss:Type="String">food</Data></Cell>
+<Cell><Data ss:Type="String">food</Data></Cell>
+<Cell><Data ss:Type="String">Primary RBC</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2019-03-04</Data></Cell>
+<Cell><Data ss:Type="String">30</Data></Cell>
+<Cell><Data ss:Type="String">food</Data></Cell>
+<Cell><Data ss:Type="String">food</Data></Cell>
+<Cell><Data ss:Type="String">Primary RBC</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2019-03-04</Data></Cell>
+<Cell><Data ss:Type="String">300</Data></Cell>
+<Cell><Data ss:Type="String">light bill</Data></Cell>
+<Cell><Data ss:Type="String">bills</Data></Cell>
+<Cell><Data ss:Type="String">Primary RBC</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2019-02-05</Data></Cell>
+<Cell><Data ss:Type="String">1500.00</Data></Cell>
+<Cell><Data ss:Type="String">maps</Data></Cell>
+<Cell><Data ss:Type="String">car</Data></Cell>
+<Cell><Data ss:Type="String">Primary RBC</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2019-03-19</Data></Cell>
+<Cell><Data ss:Type="String">3000.00</Data></Cell>
+<Cell><Data ss:Type="String">roof repairs</Data></Cell>
+<Cell><Data ss:Type="String">home</Data></Cell>
+<Cell><Data ss:Type="String">Primary RBC</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2019-03-01</Data></Cell>
+<Cell><Data ss:Type="String">15000.00</Data></Cell>
+<Cell><Data ss:Type="String">job</Data></Cell>
+<Cell><Data ss:Type="String">salary</Data></Cell>
+<Cell><Data ss:Type="String">Primary RBC</Data></Cell>
+<Cell><Data ss:Type="String">income</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2019-04-01</Data></Cell>
+<Cell><Data ss:Type="String">13000.00</Data></Cell>
+<Cell><Data ss:Type="String">job</Data></Cell>
+<Cell><Data ss:Type="String">salary</Data></Cell>
+<Cell><Data ss:Type="String">Primary RBC</Data></Cell>
+<Cell><Data ss:Type="String">income</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2019-05-01</Data></Cell>
+<Cell><Data ss:Type="String">5000.00</Data></Cell>
+<Cell><Data ss:Type="String">job</Data></Cell>
+<Cell><Data ss:Type="String">salary</Data></Cell>
+<Cell><Data ss:Type="String">Primary RBC</Data></Cell>
+<Cell><Data ss:Type="String">income</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2019-06-01</Data></Cell>
+<Cell><Data ss:Type="String">3000.00</Data></Cell>
+<Cell><Data ss:Type="String">salary</Data></Cell>
+<Cell><Data ss:Type="String">salary</Data></Cell>
+<Cell><Data ss:Type="String">Primary RBC</Data></Cell>
+<Cell><Data ss:Type="String">income</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2019-01-14</Data></Cell>
+<Cell><Data ss:Type="String">400.00</Data></Cell>
+<Cell><Data ss:Type="String">car bill</Data></Cell>
+<Cell><Data ss:Type="String">insurance</Data></Cell>
+<Cell><Data ss:Type="String">Primary RBC</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2019-01-07</Data></Cell>
+<Cell><Data ss:Type="String">300.00</Data></Cell>
+<Cell><Data ss:Type="String">government</Data></Cell>
+<Cell><Data ss:Type="String">tax</Data></Cell>
+<Cell><Data ss:Type="String">Primary RBC</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2019-06-04</Data></Cell>
+<Cell><Data ss:Type="String">400.00</Data></Cell>
+<Cell><Data ss:Type="String">phone bill</Data></Cell>
+<Cell><Data ss:Type="String">telephone</Data></Cell>
+<Cell><Data ss:Type="String">Primary RBC</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2019-09-11</Data></Cell>
+<Cell><Data ss:Type="String">400.00</Data></Cell>
+<Cell><Data ss:Type="String">clean the pool</Data></Cell>
+<Cell><Data ss:Type="String">pools</Data></Cell>
+<Cell><Data ss:Type="String">Primary RBC</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2019-05-21</Data></Cell>
+<Cell><Data ss:Type="String">400.00</Data></Cell>
+<Cell><Data ss:Type="String">electronics</Data></Cell>
+<Cell><Data ss:Type="String">shopping</Data></Cell>
+<Cell><Data ss:Type="String">Primary RBC</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2019-06-11</Data></Cell>
+<Cell><Data ss:Type="String">5000.00</Data></Cell>
+<Cell><Data ss:Type="String">gym eqipment</Data></Cell>
+<Cell><Data ss:Type="String">fitness</Data></Cell>
+<Cell><Data ss:Type="String">Primary RBC</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2019-03-13</Data></Cell>
+<Cell><Data ss:Type="String">200.00</Data></Cell>
+<Cell><Data ss:Type="String">phone case</Data></Cell>
+<Cell><Data ss:Type="String">fitness</Data></Cell>
+<Cell><Data ss:Type="String">Primary RBC</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2019-07-17</Data></Cell>
+<Cell><Data ss:Type="String">3000.00</Data></Cell>
+<Cell><Data ss:Type="String">jackets</Data></Cell>
+<Cell><Data ss:Type="String">clothes</Data></Cell>
+<Cell><Data ss:Type="String">Primary RBC</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2019-07-17</Data></Cell>
+<Cell><Data ss:Type="String">200.00</Data></Cell>
+<Cell><Data ss:Type="String">pants</Data></Cell>
+<Cell><Data ss:Type="String">clothes</Data></Cell>
+<Cell><Data ss:Type="String">Primary RBC</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2019-08-14</Data></Cell>
+<Cell><Data ss:Type="String">500.00</Data></Cell>
+<Cell><Data ss:Type="String">shoes</Data></Cell>
+<Cell><Data ss:Type="String">clothes</Data></Cell>
+<Cell><Data ss:Type="String">Primary RBC</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2019-12-11</Data></Cell>
+<Cell><Data ss:Type="String">500.00</Data></Cell>
+<Cell><Data ss:Type="String">running shoes</Data></Cell>
+<Cell><Data ss:Type="String">fitness</Data></Cell>
+<Cell><Data ss:Type="String">Primary RBC</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2019-08-13</Data></Cell>
+<Cell><Data ss:Type="String">700.00</Data></Cell>
+<Cell><Data ss:Type="String">stuff</Data></Cell>
+<Cell><Data ss:Type="String">fitness</Data></Cell>
+<Cell><Data ss:Type="String">Primary RBC</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2019-05-14</Data></Cell>
+<Cell><Data ss:Type="String">900.00</Data></Cell>
+<Cell><Data ss:Type="String">fitness</Data></Cell>
+<Cell><Data ss:Type="String">fitness</Data></Cell>
+<Cell><Data ss:Type="String">Primary RBC</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2019-04-17</Data></Cell>
+<Cell><Data ss:Type="String">300.00</Data></Cell>
+<Cell><Data ss:Type="String">cinema</Data></Cell>
+<Cell><Data ss:Type="String">entertainment</Data></Cell>
+<Cell><Data ss:Type="String">Primary RBC</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2019-04-22</Data></Cell>
+<Cell><Data ss:Type="String">100.00</Data></Cell>
+<Cell><Data ss:Type="String">cinema</Data></Cell>
+<Cell><Data ss:Type="String">entertainment</Data></Cell>
+<Cell><Data ss:Type="String">Primary RBC</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2020-01-01</Data></Cell>
+<Cell><Data ss:Type="String">10000.00</Data></Cell>
+<Cell><Data ss:Type="String">salary</Data></Cell>
+<Cell><Data ss:Type="String">salary</Data></Cell>
+<Cell><Data ss:Type="String">Primary RBC</Data></Cell>
+<Cell><Data ss:Type="String">income</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2019-12-16</Data></Cell>
+<Cell><Data ss:Type="String">3000.00</Data></Cell>
+<Cell><Data ss:Type="String">Pants and shoes</Data></Cell>
+<Cell><Data ss:Type="String">entertainment</Data></Cell>
+<Cell><Data ss:Type="String">Primary RBC</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2019-06-11</Data></Cell>
+<Cell><Data ss:Type="String">500</Data></Cell>
+<Cell><Data ss:Type="String">pants</Data></Cell>
+<Cell><Data ss:Type="String">clothing</Data></Cell>
+<Cell><Data ss:Type="String">Primary RBC</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2019-12-09</Data></Cell>
+<Cell><Data ss:Type="String">151.33</Data></Cell>
+<Cell><Data ss:Type="String">Bootstrap theme</Data></Cell>
+<Cell><Data ss:Type="String">Credit Card</Data></Cell>
+<Cell><Data ss:Type="String">Primary RBC</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2019-12-11</Data></Cell>
+<Cell><Data ss:Type="String">46</Data></Cell>
+<Cell><Data ss:Type="String">Subway lunch</Data></Cell>
+<Cell><Data ss:Type="String">food</Data></Cell>
+<Cell><Data ss:Type="String">Primary RBC</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2019-12-04</Data></Cell>
+<Cell><Data ss:Type="String">100</Data></Cell>
+<Cell><Data ss:Type="String">electric bill</Data></Cell>
+<Cell><Data ss:Type="String">bills</Data></Cell>
+<Cell><Data ss:Type="String">Primary RBC</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2019-12-16</Data></Cell>
+<Cell><Data ss:Type="String">40</Data></Cell>
+<Cell><Data ss:Type="String">github</Data></Cell>
+<Cell><Data ss:Type="String">subscriptions</Data></Cell>
+<Cell><Data ss:Type="String">Primary RBC</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2019-01-01</Data></Cell>
+<Cell><Data ss:Type="String">10000</Data></Cell>
+<Cell><Data ss:Type="String">salaray</Data></Cell>
+<Cell><Data ss:Type="String">salary</Data></Cell>
+<Cell><Data ss:Type="String">Secondary Account</Data></Cell>
+<Cell><Data ss:Type="String">income</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2019-02-04</Data></Cell>
+<Cell><Data ss:Type="String">500</Data></Cell>
+<Cell><Data ss:Type="String">interest from shares</Data></Cell>
+<Cell><Data ss:Type="String">shares</Data></Cell>
+<Cell><Data ss:Type="String">Eastern Credit Union</Data></Cell>
+<Cell><Data ss:Type="String">income</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2019-02-12</Data></Cell>
+<Cell><Data ss:Type="String">100</Data></Cell>
+<Cell><Data ss:Type="String">Air fresherner</Data></Cell>
+<Cell><Data ss:Type="String">home</Data></Cell>
+<Cell><Data ss:Type="String">Secondary Account</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2019-12-28</Data></Cell>
+<Cell><Data ss:Type="String">1200.56</Data></Cell>
+<Cell><Data ss:Type="String">Lost track. Add changees</Data></Cell>
+<Cell><Data ss:Type="String">minus</Data></Cell>
+<Cell><Data ss:Type="String">Primary RBC</Data></Cell>
+<Cell><Data ss:Type="String">reconcile</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2019-12-28</Data></Cell>
+<Cell><Data ss:Type="String">100000</Data></Cell>
+<Cell><Data ss:Type="String">Base balance</Data></Cell>
+<Cell><Data ss:Type="String">add</Data></Cell>
+<Cell><Data ss:Type="String">Primary RBC</Data></Cell>
+<Cell><Data ss:Type="String">reconcile</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2019-12-28</Data></Cell>
+<Cell><Data ss:Type="String">50000</Data></Cell>
+<Cell><Data ss:Type="String">Starting balance</Data></Cell>
+<Cell><Data ss:Type="String">add</Data></Cell>
+<Cell><Data ss:Type="String">Investments (RBC)</Data></Cell>
+<Cell><Data ss:Type="String">reconcile</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2019-12-28</Data></Cell>
+<Cell><Data ss:Type="String">500</Data></Cell>
+<Cell><Data ss:Type="String">Pants and  shoes</Data></Cell>
+<Cell><Data ss:Type="String">clothing</Data></Cell>
+<Cell><Data ss:Type="String">Investments (RBC)</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2019-12-29</Data></Cell>
+<Cell><Data ss:Type="String">10000</Data></Cell>
+<Cell><Data ss:Type="String">Starting balance</Data></Cell>
+<Cell><Data ss:Type="String">add</Data></Cell>
+<Cell><Data ss:Type="String">Savings (ECU)</Data></Cell>
+<Cell><Data ss:Type="String">reconcile</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2019-02-13</Data></Cell>
+<Cell><Data ss:Type="String">200</Data></Cell>
+<Cell><Data ss:Type="String">maps</Data></Cell>
+<Cell><Data ss:Type="String">bill</Data></Cell>
+<Cell><Data ss:Type="String">Secondary Account</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2019-02-18</Data></Cell>
+<Cell><Data ss:Type="String">500</Data></Cell>
+<Cell><Data ss:Type="String">water bill</Data></Cell>
+<Cell><Data ss:Type="String">bill</Data></Cell>
+<Cell><Data ss:Type="String">Secondary Account</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2019-03-05</Data></Cell>
+<Cell><Data ss:Type="String">100</Data></Cell>
+<Cell><Data ss:Type="String">light bill</Data></Cell>
+<Cell><Data ss:Type="String">bill</Data></Cell>
+<Cell><Data ss:Type="String">Secondary Account</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2019-03-19</Data></Cell>
+<Cell><Data ss:Type="String">330</Data></Cell>
+<Cell><Data ss:Type="String">glasses and shades</Data></Cell>
+<Cell><Data ss:Type="String">clothing</Data></Cell>
+<Cell><Data ss:Type="String">Secondary Account</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2019-12-29</Data></Cell>
+<Cell><Data ss:Type="String">5000</Data></Cell>
+<Cell><Data ss:Type="String">Starting balance</Data></Cell>
+<Cell><Data ss:Type="String">add</Data></Cell>
+<Cell><Data ss:Type="String">Savings (RB)</Data></Cell>
+<Cell><Data ss:Type="String">reconcile</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2019-12-29</Data></Cell>
+<Cell><Data ss:Type="String">500</Data></Cell>
+<Cell><Data ss:Type="String">rent</Data></Cell>
+<Cell><Data ss:Type="String">home</Data></Cell>
+<Cell><Data ss:Type="String">Savings (RB)</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2019-12-24</Data></Cell>
+<Cell><Data ss:Type="String">47</Data></Cell>
+<Cell><Data ss:Type="String">subway lunch</Data></Cell>
+<Cell><Data ss:Type="String">food</Data></Cell>
+<Cell><Data ss:Type="String">Savings (RB)</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2019-12-15</Data></Cell>
+<Cell><Data ss:Type="String">161.44</Data></Cell>
+<Cell><Data ss:Type="String">weekly shopping</Data></Cell>
+<Cell><Data ss:Type="String">groceries</Data></Cell>
+<Cell><Data ss:Type="String">Savings (RB)</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2019-12-02</Data></Cell>
+<Cell><Data ss:Type="String">10000</Data></Cell>
+<Cell><Data ss:Type="String">salary</Data></Cell>
+<Cell><Data ss:Type="String">salary</Data></Cell>
+<Cell><Data ss:Type="String">Savings (RB)</Data></Cell>
+<Cell><Data ss:Type="String">income</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2019-12-12</Data></Cell>
+<Cell><Data ss:Type="String">33</Data></Cell>
+<Cell><Data ss:Type="String">netflix</Data></Cell>
+<Cell><Data ss:Type="String">Credit Card</Data></Cell>
+<Cell><Data ss:Type="String">Savings (RB)</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2019-12-20</Data></Cell>
+<Cell><Data ss:Type="String">60</Data></Cell>
+<Cell><Data ss:Type="String">Php storm subscription</Data></Cell>
+<Cell><Data ss:Type="String">Credit Card</Data></Cell>
+<Cell><Data ss:Type="String">Savings (RB)</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2019-12-23</Data></Cell>
+<Cell><Data ss:Type="String">500</Data></Cell>
+<Cell><Data ss:Type="String">light</Data></Cell>
+<Cell><Data ss:Type="String">bills</Data></Cell>
+<Cell><Data ss:Type="String">Savings (RB)</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2019-12-02</Data></Cell>
+<Cell><Data ss:Type="String">1500</Data></Cell>
+<Cell><Data ss:Type="String">car loan</Data></Cell>
+<Cell><Data ss:Type="String">car</Data></Cell>
+<Cell><Data ss:Type="String">Savings (RB)</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2019-12-16</Data></Cell>
+<Cell><Data ss:Type="String">300</Data></Cell>
+<Cell><Data ss:Type="String">wordpress hosting</Data></Cell>
+<Cell><Data ss:Type="String">Credit Card</Data></Cell>
+<Cell><Data ss:Type="String">Savings (RB)</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2019-11-01</Data></Cell>
+<Cell><Data ss:Type="String">50</Data></Cell>
+<Cell><Data ss:Type="String">shoe repairs</Data></Cell>
+<Cell><Data ss:Type="String">clothes</Data></Cell>
+<Cell><Data ss:Type="String">Savings (RB)</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2019-10-01</Data></Cell>
+<Cell><Data ss:Type="String">250</Data></Cell>
+<Cell><Data ss:Type="String">travel expenses</Data></Cell>
+<Cell><Data ss:Type="String">transportation</Data></Cell>
+<Cell><Data ss:Type="String">Savings (RB)</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2019-09-09</Data></Cell>
+<Cell><Data ss:Type="String">30</Data></Cell>
+<Cell><Data ss:Type="String">drinks for lunch</Data></Cell>
+<Cell><Data ss:Type="String">snacks</Data></Cell>
+<Cell><Data ss:Type="String">Savings (RB)</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2019-06-11</Data></Cell>
+<Cell><Data ss:Type="String">500</Data></Cell>
+<Cell><Data ss:Type="String">payments</Data></Cell>
+<Cell><Data ss:Type="String">Credit Card</Data></Cell>
+<Cell><Data ss:Type="String">Savings (RB)</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2019-05-07</Data></Cell>
+<Cell><Data ss:Type="String">100</Data></Cell>
+<Cell><Data ss:Type="String">clean the pool</Data></Cell>
+<Cell><Data ss:Type="String">pool</Data></Cell>
+<Cell><Data ss:Type="String">Savings (RB)</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2019-12-31</Data></Cell>
+<Cell><Data ss:Type="String">30000</Data></Cell>
+<Cell><Data ss:Type="String">starting balance</Data></Cell>
+<Cell><Data ss:Type="String">add</Data></Cell>
+<Cell><Data ss:Type="String">Piggy Bank</Data></Cell>
+<Cell><Data ss:Type="String">reconcile</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2019-02-12</Data></Cell>
+<Cell><Data ss:Type="String">5000</Data></Cell>
+<Cell><Data ss:Type="String">salary</Data></Cell>
+<Cell><Data ss:Type="String">salary</Data></Cell>
+<Cell><Data ss:Type="String">Unit Trust</Data></Cell>
+<Cell><Data ss:Type="String">income</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2019-12-16</Data></Cell>
+<Cell><Data ss:Type="String">400</Data></Cell>
+<Cell><Data ss:Type="String">water bill</Data></Cell>
+<Cell><Data ss:Type="String">bills</Data></Cell>
+<Cell><Data ss:Type="String">Piggy Bank</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2019-12-31</Data></Cell>
+<Cell><Data ss:Type="String">10000</Data></Cell>
+<Cell><Data ss:Type="String">Starting balance</Data></Cell>
+<Cell><Data ss:Type="String">add</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+<Cell><Data ss:Type="String">reconcile</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2020-01-31</Data></Cell>
+<Cell><Data ss:Type="String">500</Data></Cell>
+<Cell><Data ss:Type="String">light</Data></Cell>
+<Cell><Data ss:Type="String">bills</Data></Cell>
+<Cell><Data ss:Type="String">Savings (RB)</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2020-01-02</Data></Cell>
+<Cell><Data ss:Type="String">1500</Data></Cell>
+<Cell><Data ss:Type="String">car loan</Data></Cell>
+<Cell><Data ss:Type="String">car</Data></Cell>
+<Cell><Data ss:Type="String">Savings (RB)</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2020-12-16</Data></Cell>
+<Cell><Data ss:Type="String">300</Data></Cell>
+<Cell><Data ss:Type="String">wordpress hosting</Data></Cell>
+<Cell><Data ss:Type="String">Credit Card</Data></Cell>
+<Cell><Data ss:Type="String">Savings (RB)</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2019-11-08</Data></Cell>
+<Cell><Data ss:Type="String">50</Data></Cell>
+<Cell><Data ss:Type="String">shoe repairs</Data></Cell>
+<Cell><Data ss:Type="String">clothes</Data></Cell>
+<Cell><Data ss:Type="String">Savings (RB)</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2019-10-08</Data></Cell>
+<Cell><Data ss:Type="String">250</Data></Cell>
+<Cell><Data ss:Type="String">travel expenses</Data></Cell>
+<Cell><Data ss:Type="String">transportation</Data></Cell>
+<Cell><Data ss:Type="String">Savings (RB)</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2019-09-18</Data></Cell>
+<Cell><Data ss:Type="String">30</Data></Cell>
+<Cell><Data ss:Type="String">drinks for lunch</Data></Cell>
+<Cell><Data ss:Type="String">snacks</Data></Cell>
+<Cell><Data ss:Type="String">Savings (RB)</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2019-07-11</Data></Cell>
+<Cell><Data ss:Type="String">500</Data></Cell>
+<Cell><Data ss:Type="String">payments</Data></Cell>
+<Cell><Data ss:Type="String">Credit Card</Data></Cell>
+<Cell><Data ss:Type="String">Savings (RB)</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2019-09-19</Data></Cell>
+<Cell><Data ss:Type="String">30</Data></Cell>
+<Cell><Data ss:Type="String">drinks for lunch</Data></Cell>
+<Cell><Data ss:Type="String">snacks</Data></Cell>
+<Cell><Data ss:Type="String">Savings (RB)</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2019-09-20</Data></Cell>
+<Cell><Data ss:Type="String">30</Data></Cell>
+<Cell><Data ss:Type="String">drinks for lunch</Data></Cell>
+<Cell><Data ss:Type="String">snacks</Data></Cell>
+<Cell><Data ss:Type="String">Savings (RB)</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2019-08-11</Data></Cell>
+<Cell><Data ss:Type="String">500</Data></Cell>
+<Cell><Data ss:Type="String">payments</Data></Cell>
+<Cell><Data ss:Type="String">Credit Card</Data></Cell>
+<Cell><Data ss:Type="String">Savings (RB)</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2019-09-11</Data></Cell>
+<Cell><Data ss:Type="String">500</Data></Cell>
+<Cell><Data ss:Type="String">payments</Data></Cell>
+<Cell><Data ss:Type="String">Credit Card</Data></Cell>
+<Cell><Data ss:Type="String">Savings (RB)</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2019-10-15</Data></Cell>
+<Cell><Data ss:Type="String">250</Data></Cell>
+<Cell><Data ss:Type="String">travel expenses</Data></Cell>
+<Cell><Data ss:Type="String">transportation</Data></Cell>
+<Cell><Data ss:Type="String">Savings (RB)</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2019-10-22</Data></Cell>
+<Cell><Data ss:Type="String">250</Data></Cell>
+<Cell><Data ss:Type="String">travel expenses</Data></Cell>
+<Cell><Data ss:Type="String">transportation</Data></Cell>
+<Cell><Data ss:Type="String">Savings (RB)</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2020-02-03</Data></Cell>
+<Cell><Data ss:Type="String">500</Data></Cell>
+<Cell><Data ss:Type="String">shopping</Data></Cell>
+<Cell><Data ss:Type="String">groceries</Data></Cell>
+<Cell><Data ss:Type="String">Savings (RB)</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String">this was just required</Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2020-01-27</Data></Cell>
+<Cell><Data ss:Type="String">33.90</Data></Cell>
+<Cell><Data ss:Type="String">Medium</Data></Cell>
+<Cell><Data ss:Type="String">subscriptions</Data></Cell>
+<Cell><Data ss:Type="String">Primary RBC</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2020-01-20</Data></Cell>
+<Cell><Data ss:Type="String">50.38</Data></Cell>
+<Cell><Data ss:Type="String">phpstorm</Data></Cell>
+<Cell><Data ss:Type="String">subscriptions</Data></Cell>
+<Cell><Data ss:Type="String">Primary RBC</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2020-01-16</Data></Cell>
+<Cell><Data ss:Type="String">60.74</Data></Cell>
+<Cell><Data ss:Type="String">Netflix</Data></Cell>
+<Cell><Data ss:Type="String">subscriptions</Data></Cell>
+<Cell><Data ss:Type="String">Primary RBC</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2020-01-02</Data></Cell>
+<Cell><Data ss:Type="String">45</Data></Cell>
+<Cell><Data ss:Type="String">subway</Data></Cell>
+<Cell><Data ss:Type="String">food</Data></Cell>
+<Cell><Data ss:Type="String">Primary RBC</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2020-01-09</Data></Cell>
+<Cell><Data ss:Type="String">55</Data></Cell>
+<Cell><Data ss:Type="String">subway</Data></Cell>
+<Cell><Data ss:Type="String">food</Data></Cell>
+<Cell><Data ss:Type="String">Primary RBC</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2020-01-03</Data></Cell>
+<Cell><Data ss:Type="String">65</Data></Cell>
+<Cell><Data ss:Type="String">cloudways hosting</Data></Cell>
+<Cell><Data ss:Type="String">subscriptions</Data></Cell>
+<Cell><Data ss:Type="String">Primary RBC</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2020-01-02</Data></Cell>
+<Cell><Data ss:Type="String">120</Data></Cell>
+<Cell><Data ss:Type="String">Phone</Data></Cell>
+<Cell><Data ss:Type="String">bills</Data></Cell>
+<Cell><Data ss:Type="String">Primary RBC</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2020-01-02</Data></Cell>
+<Cell><Data ss:Type="String">33.86</Data></Cell>
+<Cell><Data ss:Type="String">Digital ocean</Data></Cell>
+<Cell><Data ss:Type="String">subscriptions</Data></Cell>
+<Cell><Data ss:Type="String">Primary RBC</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2019-12-31</Data></Cell>
+<Cell><Data ss:Type="String">40</Data></Cell>
+<Cell><Data ss:Type="String">kfc lunch</Data></Cell>
+<Cell><Data ss:Type="String">food</Data></Cell>
+<Cell><Data ss:Type="String">Primary RBC</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2019-12-31</Data></Cell>
+<Cell><Data ss:Type="String">159</Data></Cell>
+<Cell><Data ss:Type="String">udemy courses</Data></Cell>
+<Cell><Data ss:Type="String">education</Data></Cell>
+<Cell><Data ss:Type="String">Primary RBC</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2020-01-05</Data></Cell>
+<Cell><Data ss:Type="String">155.75</Data></Cell>
+<Cell><Data ss:Type="String">weekly groceries</Data></Cell>
+<Cell><Data ss:Type="String">groceries</Data></Cell>
+<Cell><Data ss:Type="String">Primary RBC</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2019-12-28</Data></Cell>
+<Cell><Data ss:Type="String">250</Data></Cell>
+<Cell><Data ss:Type="String">Website domain</Data></Cell>
+<Cell><Data ss:Type="String">hobbies</Data></Cell>
+<Cell><Data ss:Type="String">Primary RBC</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2019-12-26</Data></Cell>
+<Cell><Data ss:Type="String">1399.65</Data></Cell>
+<Cell><Data ss:Type="String">Opencv course</Data></Cell>
+<Cell><Data ss:Type="String">education</Data></Cell>
+<Cell><Data ss:Type="String">Primary RBC</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2020-01-17</Data></Cell>
+<Cell><Data ss:Type="String">348.09</Data></Cell>
+<Cell><Data ss:Type="String">Boostrap theme</Data></Cell>
+<Cell><Data ss:Type="String">hobbies</Data></Cell>
+<Cell><Data ss:Type="String">Primary RBC</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2019-12-15</Data></Cell>
+<Cell><Data ss:Type="String">15</Data></Cell>
+<Cell><Data ss:Type="String">Canva pictures for blog</Data></Cell>
+<Cell><Data ss:Type="String">hobbies</Data></Cell>
+<Cell><Data ss:Type="String">Primary RBC</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2019-12-03</Data></Cell>
+<Cell><Data ss:Type="String">11000</Data></Cell>
+<Cell><Data ss:Type="String">salaray for november 2019</Data></Cell>
+<Cell><Data ss:Type="String">salary</Data></Cell>
+<Cell><Data ss:Type="String">Primary RBC</Data></Cell>
+<Cell><Data ss:Type="String">income</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2020-01-09</Data></Cell>
+<Cell><Data ss:Type="String">100</Data></Cell>
+<Cell><Data ss:Type="String">car sterio</Data></Cell>
+<Cell><Data ss:Type="String">electronics</Data></Cell>
+<Cell><Data ss:Type="String">Primary RBC</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2020-01-10</Data></Cell>
+<Cell><Data ss:Type="String">20</Data></Cell>
+<Cell><Data ss:Type="String">gas</Data></Cell>
+<Cell><Data ss:Type="String">transportation</Data></Cell>
+<Cell><Data ss:Type="String">Primary RBC</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2020-01-13</Data></Cell>
+<Cell><Data ss:Type="String">20</Data></Cell>
+<Cell><Data ss:Type="String">gas</Data></Cell>
+<Cell><Data ss:Type="String">transportation</Data></Cell>
+<Cell><Data ss:Type="String">Primary RBC</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2020-01-13</Data></Cell>
+<Cell><Data ss:Type="String">250</Data></Cell>
+<Cell><Data ss:Type="String">travel expenses</Data></Cell>
+<Cell><Data ss:Type="String">transportation</Data></Cell>
+<Cell><Data ss:Type="String">Savings (RB)</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2020-01-13</Data></Cell>
+<Cell><Data ss:Type="String">250</Data></Cell>
+<Cell><Data ss:Type="String">travel expenses</Data></Cell>
+<Cell><Data ss:Type="String">transportation</Data></Cell>
+<Cell><Data ss:Type="String">Savings (RB)</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2020-01-13</Data></Cell>
+<Cell><Data ss:Type="String">33.90</Data></Cell>
+<Cell><Data ss:Type="String">Medium</Data></Cell>
+<Cell><Data ss:Type="String">subscriptions</Data></Cell>
+<Cell><Data ss:Type="String">Primary RBC</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2020-01-20</Data></Cell>
+<Cell><Data ss:Type="String">300</Data></Cell>
+<Cell><Data ss:Type="String">rent for apartment</Data></Cell>
+<Cell><Data ss:Type="String">rent</Data></Cell>
+<Cell><Data ss:Type="String">Primary RBC</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2020-01-01</Data></Cell>
+<Cell><Data ss:Type="String">400</Data></Cell>
+<Cell><Data ss:Type="String">My weekly book</Data></Cell>
+<Cell><Data ss:Type="String">book</Data></Cell>
+<Cell><Data ss:Type="String">Primary RBC</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2020-01-12</Data></Cell>
+<Cell><Data ss:Type="String">600</Data></Cell>
+<Cell><Data ss:Type="String">logo for the application</Data></Cell>
+<Cell><Data ss:Type="String">business</Data></Cell>
+<Cell><Data ss:Type="String">Secondary Account</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2020-01-18</Data></Cell>
+<Cell><Data ss:Type="String">400</Data></Cell>
+<Cell><Data ss:Type="String">jackets and a pants</Data></Cell>
+<Cell><Data ss:Type="String">clothes</Data></Cell>
+<Cell><Data ss:Type="String">Primary RBC</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2020-01-21</Data></Cell>
+<Cell><Data ss:Type="String">30</Data></Cell>
+<Cell><Data ss:Type="String">a call to the wild</Data></Cell>
+<Cell><Data ss:Type="String">book</Data></Cell>
+<Cell><Data ss:Type="String">Primary RBC</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2020-01-22</Data></Cell>
+<Cell><Data ss:Type="String">100</Data></Cell>
+<Cell><Data ss:Type="String">bar lime</Data></Cell>
+<Cell><Data ss:Type="String">social</Data></Cell>
+<Cell><Data ss:Type="String">Primary RBC</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2020-01-08</Data></Cell>
+<Cell><Data ss:Type="String">50</Data></Cell>
+<Cell><Data ss:Type="String">food</Data></Cell>
+<Cell><Data ss:Type="String">baby</Data></Cell>
+<Cell><Data ss:Type="String">Primary RBC</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2020-01-29</Data></Cell>
+<Cell><Data ss:Type="String">600</Data></Cell>
+<Cell><Data ss:Type="String">website</Data></Cell>
+<Cell><Data ss:Type="String">business</Data></Cell>
+<Cell><Data ss:Type="String">Primary RBC</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2020-01-22</Data></Cell>
+<Cell><Data ss:Type="String">300</Data></Cell>
+<Cell><Data ss:Type="String">subscriptions payment</Data></Cell>
+<Cell><Data ss:Type="String">Credit Card</Data></Cell>
+<Cell><Data ss:Type="String">Primary RBC</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2020-01-22</Data></Cell>
+<Cell><Data ss:Type="String">250</Data></Cell>
+<Cell><Data ss:Type="String">weekly groceries</Data></Cell>
+<Cell><Data ss:Type="String">groceries</Data></Cell>
+<Cell><Data ss:Type="String">Primary RBC</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2020-01-15</Data></Cell>
+<Cell><Data ss:Type="String">6000</Data></Cell>
+<Cell><Data ss:Type="String">Yearly insurance</Data></Cell>
+<Cell><Data ss:Type="String">insurance</Data></Cell>
+<Cell><Data ss:Type="String">Primary RBC</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2020-01-08</Data></Cell>
+<Cell><Data ss:Type="String">100</Data></Cell>
+<Cell><Data ss:Type="String">usb cord</Data></Cell>
+<Cell><Data ss:Type="String">electronics</Data></Cell>
+<Cell><Data ss:Type="String">Primary RBC</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2020-01-15</Data></Cell>
+<Cell><Data ss:Type="String">30</Data></Cell>
+<Cell><Data ss:Type="String">pen and pencils</Data></Cell>
+<Cell><Data ss:Type="String">office</Data></Cell>
+<Cell><Data ss:Type="String">Primary RBC</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2020-01-29</Data></Cell>
+<Cell><Data ss:Type="String">300</Data></Cell>
+<Cell><Data ss:Type="String">ecu shares</Data></Cell>
+<Cell><Data ss:Type="String">shares</Data></Cell>
+<Cell><Data ss:Type="String">Primary RBC</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2020-01-01</Data></Cell>
+<Cell><Data ss:Type="String">20000</Data></Cell>
+<Cell><Data ss:Type="String">salary for january 2020</Data></Cell>
+<Cell><Data ss:Type="String">salary</Data></Cell>
+<Cell><Data ss:Type="String">Savings (RB)</Data></Cell>
+<Cell><Data ss:Type="String">income</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2020-01-04</Data></Cell>
+<Cell><Data ss:Type="String">34</Data></Cell>
+<Cell><Data ss:Type="String">asdfasdfa</Data></Cell>
+<Cell><Data ss:Type="String">baby</Data></Cell>
+<Cell><Data ss:Type="String">Savings (RB)</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2020-01-22</Data></Cell>
+<Cell><Data ss:Type="String">400</Data></Cell>
+<Cell><Data ss:Type="String">books for school</Data></Cell>
+<Cell><Data ss:Type="String">education</Data></Cell>
+<Cell><Data ss:Type="String">The Bank of New York Mellon</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2020-01-16</Data></Cell>
+<Cell><Data ss:Type="String">300</Data></Cell>
+<Cell><Data ss:Type="String">wallet</Data></Cell>
+<Cell><Data ss:Type="String">business</Data></Cell>
+<Cell><Data ss:Type="String">Savings (RB)</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2020-01-23</Data></Cell>
+<Cell><Data ss:Type="String">300</Data></Cell>
+<Cell><Data ss:Type="String">jackets</Data></Cell>
+<Cell><Data ss:Type="String">clothing</Data></Cell>
+<Cell><Data ss:Type="String">Savings (RB)</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2020-01-23</Data></Cell>
+<Cell><Data ss:Type="String">40</Data></Cell>
+<Cell><Data ss:Type="String">netflix</Data></Cell>
+<Cell><Data ss:Type="String">subscriptions</Data></Cell>
+<Cell><Data ss:Type="String">Savings (RB)</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2020-01-23</Data></Cell>
+<Cell><Data ss:Type="String">100</Data></Cell>
+<Cell><Data ss:Type="String">gas</Data></Cell>
+<Cell><Data ss:Type="String">transportation</Data></Cell>
+<Cell><Data ss:Type="String">Savings (RB)</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2020-01-23</Data></Cell>
+<Cell><Data ss:Type="String">40</Data></Cell>
+<Cell><Data ss:Type="String">birthday gifts</Data></Cell>
+<Cell><Data ss:Type="String">gifts</Data></Cell>
+<Cell><Data ss:Type="String">Savings (RB)</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2020-01-27</Data></Cell>
+<Cell><Data ss:Type="String">400</Data></Cell>
+<Cell><Data ss:Type="String">teeth dentist appointment</Data></Cell>
+<Cell><Data ss:Type="String">health</Data></Cell>
+<Cell><Data ss:Type="String">Savings (RB)</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+<Row>
+<Cell><Data ss:Type="String">2020-01-23</Data></Cell>
+<Cell><Data ss:Type="String">30</Data></Cell>
+<Cell><Data ss:Type="String">groceries</Data></Cell>
+<Cell><Data ss:Type="String">shopping</Data></Cell>
+<Cell><Data ss:Type="String">Savings (RB)</Data></Cell>
+<Cell><Data ss:Type="String">expense</Data></Cell>
+<Cell><Data ss:Type="String"></Data></Cell>
+</Row>
+</Table>
+</Worksheet>
+</Workbook>

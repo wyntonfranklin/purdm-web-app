@@ -113,4 +113,12 @@ class SetupController extends Controller
         fwrite($fp, '23');
         fclose($fp);
     }
+
+    public function actionUpdate(){
+        $form = new SetupForm();
+        $form->update_tables();
+        if($form->errorMessage){
+            throw new CHttpException(404, $form->errorMessage);
+        }
+    }
 }

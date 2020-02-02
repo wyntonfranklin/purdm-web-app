@@ -5,10 +5,11 @@ class TaskCommand extends CConsoleCommand
 {
 
     public function actionIndex(){
-        echo "working \n";
+        echo "working \r\n";
     }
 
     public function actionRepeatTransactions(){
+
         $rTrans = RepeatTransaction::model()->findAllByAttributes(['upcoming_date'=>date('Y-m-d')]);
         foreach ($rTrans as $repeat){
             $transaction = Transaction::model()->findByPk($repeat->transaction_id);
@@ -24,8 +25,6 @@ class TaskCommand extends CConsoleCommand
                 $repeat->update();
             }
         }
-        $value = 'Ran at' . date('Y-m-d h:i:s');
-        Utils::dbLogger('cron test',$value);
     }
 
     public function actionUpdateUserPassword($id, $password){
@@ -34,7 +33,7 @@ class TaskCommand extends CConsoleCommand
             Yii::app()->params['phpass']['portable_hashes']);
         $user->password = $ph->HashPassword($password);
         if($user->update()){
-            echo "update successfully\n";
+            echo "update successfully\r\n";
         }else{
             echo $user->getHTMLErrorSummary();
         }

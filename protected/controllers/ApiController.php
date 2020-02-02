@@ -118,8 +118,9 @@ class ApiController extends QueriesController
     }
 
     public function createRepeatTransaction($transaction, $freq){
+        $frequencies = ["year","month","week","day"];
         $model = RepeatTransaction::model()->findByAttributes(['transaction_id'=>$transaction->id]);
-        if(!empty($freq)){
+        if(!empty($freq) && in_array($freq, $frequencies)){
             if($model == null ){
                 $model = new RepeatTransaction();
                 $model->created_date = $transaction->trans_date;

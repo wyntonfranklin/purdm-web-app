@@ -13,7 +13,7 @@ module.exports = function (grunt) {
                     src: ['pages/account.js','pages/calendar.js','pages/category.js','pages/dashboard.js',
                     'pages/insights.js','pages/reconciliation.js','pages/search.js','pages/settings.js',
                     'pages/transactions','accounts_selector.js','app.js','charts.js','create_transaction.js',
-                    'custom-datepicker.js'],
+                    'custom-datepicker.js','pages/users.js'],
                     dest: 'public/assets/js/'
                 }]
 
@@ -34,7 +34,7 @@ module.exports = function (grunt) {
                     'js/Chart.js','js/jquery.validate.min.js','js/jquery.easing.min.js',
                 'js/bootstrap-datepicker.min.js','js/moment.min.js','js/fullcalendar.bundle.js',
                 'js/jquery.dataTables.min.js','js/dataTables.bootstrap4.min.js','js/notify.min.js',
-                'js/jquery-confirm.min.js','js/select2.min.js','js/sb-admin-2.min.js'],
+                'js/jquery-confirm.min.js','js/select2.min.js'],
                 dest: 'public/assets/js/built.js',
             },
         },
@@ -58,6 +58,6 @@ module.exports = function (grunt) {
     grunt.registerTask('css', ['concat_css']);
     grunt.registerTask('js', ['concat','uglify']);
     grunt.registerTask('ugly',['uglify']);
-    //grunt.registerTask('default', ['concat','uglify','concat_css']);
+    grunt.registerTask('default', ['concat','uglify','concat_css']);
 
 }

@@ -19,9 +19,7 @@
     <?php Utils::renderCssAssets();?>
 
 </head>
-
-
-<body id="page-top">
+<body id="page-top" class="<?php echo Utils::isMenuOpen("body");?>">
     <div id="wrapper">
         <?php $this->renderPartial('//layouts/primary_menu');?>
 
@@ -45,7 +43,6 @@
     <?php Utils::registerCustomScripts(['app','charts','create_transaction','accounts_selector']);?>
 
     <?php $this->loadPageJsAssets();?>
-
     <!-- Page level plugins -->
 </body>
 

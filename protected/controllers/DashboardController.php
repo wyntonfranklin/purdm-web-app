@@ -29,6 +29,7 @@ class DashboardController extends Controller
     }
 
     public function actionIndex(){
+        Utils::runTasks();
         $this->render('index');
     }
 

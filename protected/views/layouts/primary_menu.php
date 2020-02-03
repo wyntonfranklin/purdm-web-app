@@ -64,12 +64,14 @@
         </a>
     </li>
 
+    <?php if(Utils::getCurrentUserRole() == "admin"):?>
     <li class="nav-item <?php echo $this->menuActive('users');?>">
         <a class="nav-link" href="<?php echo $this->createUrl('/users/');?>">
             <i class="fas fa-fw fa-users"></i>
             <span>Users</span>
         </a>
     </li>
+    <?php endif;?>
 
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">

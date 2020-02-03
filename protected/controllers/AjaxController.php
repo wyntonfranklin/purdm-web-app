@@ -627,7 +627,26 @@ class AjaxController extends QueriesController
     }
 
     public function actionAdminUpdateUser(){
-
+        $id = Utils::getPost("id");
+        if($id == null){
+            $user = new Users('create-user');
+        }else{
+            $user = Users::model()->findByPk($id);
+            $user->setScenario('create-user');
+        }
+        $user->username = Utils::getPost('username');
+        $user->email = Utils::getPost('email');
+        $user->assignUserType(Utils::getPost('usertype'));
+        if($user->isNewRecord && $user->save()){
+            echo Utils::jsonResponse(Utils::STATUS_GOOD,"User created",
+                ['id'=>$user->id]);
+        }else if(!$user->isNewRecord && $user->update()){
+            echo Utils::jsonResponse(Utils::STATUS_GOOD,"User updated",
+                ['id'=>$user->id]);
+        }else{
+            echo Utils::jsonResponse(Utils::STATUS_BAD,
+                Utils::getErrorSummaryAsText($user->getHTMLErrorSummary()));
+        }
     }
 
     public function actionAdminDeleteUser(){

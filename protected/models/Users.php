@@ -8,6 +8,7 @@
  * @property string $username
  * @property string $email
  * @property string $createdAt
+ * @property integer $userType
  */
 class Users extends Model
 {
@@ -28,7 +29,8 @@ class Users extends Model
 		// will receive user inputs.
 		return array(
 			array('username, email, password', 'length', 'max'=>125),
-			array('createdAt', 'safe'),
+			array('createdAt, userType', 'safe'),
+            array('username, email', 'required','on'=>'create-user'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, username, email, createdAt, password', 'safe', 'on'=>'search'),
@@ -58,6 +60,33 @@ class Users extends Model
 			'createdAt' => 'Created At',
 		);
 	}
+
+	public function getType(){
+	    if(isset($this->userType)){
+	        if($this->userType == null ){
+	            return 0;
+            }else{
+                return $this->userType;
+            }
+        }else{
+	        return 0;
+        }
+    }
+
+    public function getUserRole(){
+	    if($this->getType() == 0 || $this->getType() == null){
+	        return "normal";
+        }
+	    return "admin";
+    }
+
+    public function assignUserType($val){
+	    if($val){
+	        $this->userType = $val;
+        }else{
+	        $this->userType = 0;
+        }
+    }
 
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.

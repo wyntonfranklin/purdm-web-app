@@ -82,6 +82,14 @@ class Utils
         Yii::app()->user->userid = '1';
     }
 
+    public static function getCurrentUserRole(){
+        if(!empty(Yii::app()->user->role)){
+            return Yii::app()->user->role;
+        }else{
+            return "normal";
+        }
+    }
+
     public static function getUserName(){
         return Users::model()->findByPk(self::getCurrentUserId())->username;
     }

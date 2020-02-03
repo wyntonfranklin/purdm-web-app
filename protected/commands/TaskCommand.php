@@ -10,19 +10,26 @@ class TaskCommand extends CConsoleCommand
 
     public function actionRepeatTransactions(){
 
-        $rTrans = RepeatTransaction::model()->findAllByAttributes(['upcoming_date'=>date('Y-m-d')]);
+        echo "Running\r\n";
+        $criteria = new CDbCriteria();
+        $criteria->addCondition('upcoming_date <="'.date('Y-m-d').'"');
+        echo $criteria->condition. "\r\n";
+        $rTrans = RepeatTransaction::model()->findAll($criteria);
         foreach ($rTrans as $repeat){
             $transaction = Transaction::model()->findByPk($repeat->transaction_id);
-            $newTransaction = new Transaction();
-            $newTransaction->trans_date = $repeat->upcoming_date;
-            $newTransaction->amount = $transaction->amount;
-            $newTransaction->description = $transaction->description;
-            $newTransaction->category = $transaction->category;
-            $newTransaction->account_id = $transaction->account_id;
-            $newTransaction->type = $transaction->type;
-            if($newTransaction->save()){
-                $repeat->setCurrentUpComingDate();
-                $repeat->update();
+            if($transaction != null ){
+                $newTransaction = new Transaction();
+                $newTransaction->trans_date = $repeat->upcoming_date;
+                $newTransaction->amount = $transaction->amount;
+                $newTransaction->description = $transaction->description;
+                $newTransaction->category = $transaction->category;
+                $newTransaction->account_id = $transaction->account_id;
+                $newTransaction->type = $transaction->type;
+                if($newTransaction->save()){
+                    $repeat->setCurrentUpComingDate();
+                    $repeat->update();
+                    echo "Added \r\n";
+                }
             }
         }
     }
@@ -36,6 +43,20 @@ class TaskCommand extends CConsoleCommand
             echo "update successfully\r\n";
         }else{
             echo $user->getHTMLErrorSummary();
+        }
+    }
+
+    public function actionChangeUserAccess($id, $type){
+        $user = Users::model()->findByPk($id);
+        if($user !== null ){
+            $user->userType = $type;
+            if($user->update()){
+                echo "User updated \r\n";
+            }else{
+                echo "An error occurred \r\n";
+            }
+        }else{
+            echo "User not found \r\n";
         }
     }
 

@@ -108,7 +108,12 @@ class SiteController extends Controller
     }
 
 	public function actionTest(){
-        Utils::runTasks();;
+        $user = Users::model()->findByPk(1);
+        if(isset($user->happy)){
+            echo "good";
+        }else{
+            echo "basd";
+        }
     }
 
 }

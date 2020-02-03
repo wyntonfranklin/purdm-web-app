@@ -4,6 +4,7 @@
     <tr>
         <th>Username</th>
         <th>Email</th>
+        <th>Role</th>
         <th>Created At</th>
         <th>Actions</th>
     </tr>
@@ -15,15 +16,14 @@
                 <?php echo $user->username;?>
             </td>
             <td><?php echo $user->email;?></td>
+            <td>
+                <span class="badge badge-primary"><?php echo strtoupper($user->getUserRole());?></span>
+            </td>
             <td><?php echo $user->createdAt;?></td>
             <td>
                 <div data-id="<?php echo $user->id;?>">
                     <a href="javascript:void(0);" class="users-password"><i class="fa fa-key"></i></a>&nbsp;
                     <a href="javascript:void(0);" class="users-edit"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
-
-                    <?php if(Utils::getCurrentUserId() != $user->id) :?>
-                        <a href="javascript:void(0);" class="users-delete"><i class="fa fa-trash"></i></a>
-                    <?php endif;?>
                 </div>
             </td>
         </tr>

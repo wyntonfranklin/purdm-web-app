@@ -3,7 +3,7 @@ var UsersPage = (function() {
     var usersLay = $('#users-layout');
     var usernameEl = $("input[name=username]");
     var emailEl = $("input[name=email]");
-    var userTypeEl = $("input[name=usertype]");
+    var userTypeEl = $("select[name=usertype]");
     var passwordEl = $("input[name=usrpassword]");
     var currentUser = null;
 
@@ -13,9 +13,31 @@ var UsersPage = (function() {
     });
 
 
+    $('#create-user').on('click',function(){
+        currentUser = null;
+        clearUserInfoForm();
+        $('#users-edit-modal').modal("show");
+        return false;
+    });
+
+
     $('#usr-save-user').on('click',function(){
-        var data = $('#usr-user-form').serialize();
-       // console.log(data);
+        var data = {
+            "id" : currentUser,
+            "username" : usernameEl.val(),
+            "email" : emailEl.val(),
+            "usertype" : userTypeEl.val()
+        };
+        console.log(data);
+        $.post('/ajax/AdminUpdateUser',data,function(results){
+            var res = PDMApp.getJsonResponseObject(results);
+            if(res.status == "good"){
+                PDMApp.setAlert('success',res.message)
+                loadPageData();
+            }else{
+                PDMApp.setAlert('error', res.message);
+            }
+        });
         return false;
     });
 

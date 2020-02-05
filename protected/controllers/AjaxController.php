@@ -657,6 +657,20 @@ class AjaxController extends QueriesController
 
     }
 
+    public function actionDownloadUpdate($steps){
+        $updater = new PDMUpdater("https://wfspace.sfo2.digitaloceanspaces.com/wfexpenses0.0.1.tar");
+        if($steps == "validate"){
+            echo Utils::jsonResponse(Utils::STATUS_GOOD,'Valid url...');
+        }else if($steps == "download"){
+            $updater->createTempFolder();
+            $updater->downloadUpdatePackage();
+            echo Utils::jsonResponse(Utils::STATUS_GOOD,'Package downloaded...');
+        }else if($steps == "extract"){
+            $updater->extractContents();
+            echo Utils::jsonResponse(Utils::STATUS_GOOD,'Contents Extracted....');
+        }
+    }
+
     /** Private function */
 
     private function getTopExpenses(){

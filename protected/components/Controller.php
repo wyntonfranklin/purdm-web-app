@@ -152,6 +152,8 @@ class Controller extends CController
             Utils::registerPageJs('repeat_transactions');
         }else if( $page == "index" && $path=="users"){
             Utils::registerPageJs("users");
+        }else if( $page == "updates" && $path=="settings"){
+            Utils::registerPageJs("updates");
         }
     }
 }

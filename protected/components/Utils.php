@@ -240,6 +240,13 @@ class Utils
         exec($fullpath);
     }
 
+    public static function updateApp($source="", $destination=""){
+        $basePath = Yii::app()->basePath;
+        $params = $source . " " . $destination;
+        $fullCommand = $basePath . "/update.sh {$params}  > /dev/null 2> /dev/null &";
+        exec($fullCommand);
+    }
+
     public static function isMenuOpen($area="body"){
         if(isset($_COOKIE["menuopen"]) && $_COOKIE["menuopen"] == "no"){
             if($area == "body"){
@@ -249,5 +256,11 @@ class Utils
                 return  "toggled";
             }
         }
+    }
+
+    public static function getBaseName($url){
+        $file = file_get_contents($url); // to get file
+        $name = basename($url); // to get file name
+        return $name;
     }
 }

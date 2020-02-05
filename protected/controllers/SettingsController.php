@@ -20,7 +20,7 @@ class SettingsController extends Controller
             ),
             array('allow', // allow admin user to perform 'admin' and 'delete' actions
                 'actions'=>array('index','notifications','general',
-                    'profile','backups','help','repeat','categories','test','downloadtransactions'),
+                    'profile','backups','help','repeat','categories','test','downloadtransactions','updates'),
                 'users'=>array('@'),
             ),
             array('deny',  // deny all users
@@ -59,6 +59,10 @@ class SettingsController extends Controller
 
     public function actionHelp(){
         $this->render('help');
+    }
+
+    public function actionUpdates(){
+        $this->render('updates');
     }
 
     public function actionRepeat(){

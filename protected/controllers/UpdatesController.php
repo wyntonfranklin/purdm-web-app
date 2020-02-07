@@ -31,8 +31,16 @@ class UpdatesController extends Controller
 
 
     public function actionTest(){
-        $updater = new PDMUpdater("https://wfspace.sfo2.digitaloceanspaces.com/wfexpenses0.0.1.tar");
-        $updater->update();
+        $handle = fopen("http://www.igestdevelopment.com/updates_log", "r");
+        if ($handle) {
+            while (($line = fgets($handle)) !== false) {
+                echo $line ."<br>";
+            }
+
+            fclose($handle);
+        } else {
+            // error opening the file.
+        }
     }
 
 

@@ -259,8 +259,22 @@ class Utils
     }
 
     public static function getBaseName($url){
-        $file = file_get_contents($url); // to get file
         $name = basename($url); // to get file name
         return $name;
+    }
+
+    public static function getUpdatesAsArray($url){
+        $updates = array();
+        $handle = fopen($url, "r");
+        if ($handle) {
+            while (($line = fgets($handle)) !== false) {
+               $updates[] = $line;
+            }
+
+            fclose($handle);
+        } else {
+            // error opening the file.
+        }
+        return $updates;
     }
 }

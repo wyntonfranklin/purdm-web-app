@@ -25,13 +25,7 @@
 
 
                         <div class="col-12">
-                            <ul class="list-group">
-                                <li class="list-group-item">Purdm0.0.1 | updates to settings and stuff
-                                    <span class="float-right">
-                                        <a href="javascript:void(0);" class="btn btn-sm btn-primary up-btn">Download &amp; Update</a>
-                                    </span>
-                                </li>
-                            </ul>
+                            <div id="updates-lay"></div>
                         </div>
                     </div>
                 </div>
@@ -53,8 +47,9 @@
                 </button>
             </div>
             <div class="modal-body" style="min-height: 300px;">
-                <p><i class="fa fa-download fa-2x"></i>&nbsp; Update this application with this current version</p>
-                <p><strong>THIS MODAL WILL CLOSE WHEN THE UPDATE IS COMPLETE</strong></p>
+                <p><i class="fa fa-download fa-2x"></i>&nbsp; Update this application with this version
+                    <span id="download-version" class="badge badge-primary"></span></p>
+                <p><strong>PLEASE DONT CLOSE THIS MODAL UNTIL TOLD</strong></p>
                 <p style="color: green">Click start to begin updating
                 </p>
                 <p style="padding: 5px; color: black; font-weight: bold; background:#e2e5ec; border: 1px solid #000; min-height: 200px;" id="update-status"></p>

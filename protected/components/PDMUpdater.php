@@ -7,6 +7,7 @@ class PDMUpdater
     private $downloadUrl;
     private $basePath;
     const TEMP_FOLDER = "temp";
+    private $error;
 
     /**
      * PDMUpdater constructor.
@@ -26,7 +27,11 @@ class PDMUpdater
     }
 
     public function downloadUpdatePackage(){
-        $this->downloadFile();
+        return $this->downloadFile();
+    }
+
+    public function getErrorMessage(){
+        return $this->error;
     }
 
     public function update(){
@@ -39,8 +44,33 @@ class PDMUpdater
         }
     }
 
+    public function cleanUp(){
+        $tempPath = $this->getTarBasePath() . "/*";
+        exec("rm -rf ".$tempPath, $log);
+    }
+
     public function validateUpdate(){
-        return true;
+        $valid = true;
+        $url = $this->getDownloadUrl();
+        if (filter_var($url, FILTER_VALIDATE_URL) == false){
+            $valid = false;
+            $this->error = "Url is not valid (" . $url . ")";
+            return false;
+        }else{
+            $filename = $this->getFileName();
+            $file_parts = pathinfo($filename);
+            $info = parse_url($url);
+            if($info["host"] != "wfspace.sfo2.digitaloceanspaces.com"){
+                $valid = false;
+                $this->error = "Not a valid update path (".$info["host"]. ")";
+            }
+            if(isset($file_parts['extension']) &&  $file_parts['extension']!= "tar"){
+                $valid = false;
+                $this->error = "File is not tar. (". $filename . ")";
+            }
+        }
+
+        return $valid;
     }
 
 
@@ -50,7 +80,7 @@ class PDMUpdater
     }
 
     public function getDownloadUrl(){
-        return $this->downloadUrl;
+        return trim($this->downloadUrl);
     }
 
     private function getFileName(){
@@ -70,6 +100,7 @@ class PDMUpdater
 
     private function downloadFile(){
         file_put_contents($this->getTarPath(), fopen($this->getDownloadUrl(), 'r'));
+        return true;
     }
 
     public function extractContents(){

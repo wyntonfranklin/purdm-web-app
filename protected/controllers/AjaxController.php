@@ -658,16 +658,44 @@ class AjaxController extends QueriesController
     }
 
     public function actionDownloadUpdate($steps){
-        $updater = new PDMUpdater("https://wfspace.sfo2.digitaloceanspaces.com/wfexpenses0.0.1.tar");
-        if($steps == "validate"){
-            echo Utils::jsonResponse(Utils::STATUS_GOOD,'Valid url...');
-        }else if($steps == "download"){
-            $updater->createTempFolder();
-            $updater->downloadUpdatePackage();
-            echo Utils::jsonResponse(Utils::STATUS_GOOD,'Package downloaded...');
-        }else if($steps == "extract"){
-            $updater->extractContents();
-            echo Utils::jsonResponse(Utils::STATUS_GOOD,'Contents Extracted....');
+        $url =  Utils::getPost('url');
+        if(!$url){
+            echo Utils::jsonResponse(Utils::STATUS_BAD,'URL not valid...');
+        }else{
+            $updater = new PDMUpdater($url);
+            if($steps == "validate"){
+                if($updater->validateUpdate()){
+                    echo Utils::jsonResponse(Utils::STATUS_GOOD,'Valid url...');
+                }else{
+                    echo Utils::jsonResponse(Utils::STATUS_BAD,$updater->getErrorMessage()."...");
+                }
+            }else if($steps == "download"){
+                $updater->createTempFolder();
+                if($updater->downloadUpdatePackage()){
+                    echo Utils::jsonResponse(Utils::STATUS_GOOD,'Package downloaded...');
+                }else{
+                    echo Utils::jsonResponse(Utils::STATUS_BAD,'Package downloaded failed...');
+                }
+            }else if($steps == "extract"){
+                $updater->extractContents();
+                echo Utils::jsonResponse(Utils::STATUS_GOOD,'Contents Extracted....');
+            }else if($steps == "transfer"){
+                echo Utils::jsonResponse(Utils::STATUS_GOOD,'New updates copied....');
+            }else if($steps == "cleanup"){
+                $updater->cleanUp();
+                echo Utils::jsonResponse(Utils::STATUS_GOOD,'Clean up completed...');
+            }
+        }
+    }
+
+
+    public function actionGetUpdates(){
+        $url = Yii::app()->params["updates"];
+        $updates = array_reverse(Utils::getUpdatesAsArray($url));
+        if(empty($updates)){
+            echo 'No updates';
+        }else{
+            $this->renderPartial('updates_layout',['links'=>$updates]);
         }
     }
 

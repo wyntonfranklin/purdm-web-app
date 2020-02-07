@@ -84,10 +84,6 @@
             </a>
             <!-- Dropdown - User Information -->
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                <a class="dropdown-item pdm-open-trans-modal" href="javascript:void(0);">
-                    <i class="fas fa-coins fa-sm fa-fw mr-2 text-gray-400"></i>
-                    New Transaction
-                </a>
                 <a class="dropdown-item" href="<?php echo $this->createUrl('/account/create');?>">
                     <i class="fas fa-folder fa-sm fa-fw mr-2 text-gray-400"></i>
                     New Account
@@ -96,13 +92,13 @@
                     <i class="fas fa-chart-area fa-sm fa-fw mr-2 text-gray-400"></i>
                     View Insights
                 </a>
-                <a class="dropdown-item" href="<?php echo $this->createUrl('/settings/repeat');?>">
-                    <i class="fas fa-reply fa-sm fa-fw mr-2 text-gray-400"></i>
-                    Recurring Transactions
-                </a>
                 <a class="dropdown-item" href="<?php echo $this->createUrl('/settings/');?>">
                     <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                     Settings
+                </a>
+                <a class="dropdown-item" href="<?php echo $this->createUrl('/settings/updates');?>">
+                    <i class="fas fa-download fa-sm fa-fw mr-2 text-gray-400"></i>
+                    Check for updates
                 </a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="<?php echo Utils::createUrl('/site/logout');?>">

@@ -674,15 +674,31 @@ class AjaxController extends QueriesController
                 if($updater->downloadUpdatePackage()){
                     echo Utils::jsonResponse(Utils::STATUS_GOOD,'Package downloaded...');
                 }else{
-                    echo Utils::jsonResponse(Utils::STATUS_BAD,'Package downloaded failed...');
+                    echo Utils::jsonResponse(Utils::STATUS_BAD,$updater->getErrorMessage());
                 }
             }else if($steps == "extract"){
-                $updater->extractContents();
-                echo Utils::jsonResponse(Utils::STATUS_GOOD,'Contents Extracted....');
+                $log = $updater->extractContents();
+                if($log){
+                    echo Utils::jsonResponse(Utils::STATUS_GOOD,"Contents extracted");
+                }else{
+                    echo Utils::jsonResponse(Utils::STATUS_GOOD,$log);
+                }
             }else if($steps == "transfer"){
-                echo Utils::jsonResponse(Utils::STATUS_GOOD,'New updates copied....');
+                if(!YII_DEBUG){
+                    $msg = $updater->copyUpdatedFiles();
+                    echo Utils::jsonResponse(Utils::STATUS_GOOD,$msg);
+                }else{
+                    echo Utils::jsonResponse(Utils::STATUS_GOOD,'New updates copied(TEST)....');
+                }
+            }else if($steps == "tables"){
+                $form = new SetupForm();
+                if($form->update_tables()){
+                    echo Utils::jsonResponse(Utils::STATUS_GOOD,'Tables updated with no errors...');
+                }else{
+                    echo Utils::jsonResponse(Utils::STATUS_GOOD,$form->errorMessage . "\r\n Continuing...");
+                }
             }else if($steps == "cleanup"){
-                $updater->cleanUp();
+               // $updater->cleanUp();
                 echo Utils::jsonResponse(Utils::STATUS_GOOD,'Clean up completed...');
             }
         }
@@ -690,7 +706,7 @@ class AjaxController extends QueriesController
 
 
     public function actionGetUpdates(){
-        $url = Yii::app()->params["updates"];
+        $url = PDMUpdater::UPDATE_URL;
         $updates = array_reverse(Utils::getUpdatesAsArray($url));
         if(empty($updates)){
             echo 'No updates';

@@ -8,6 +8,7 @@ class PDMUpdater
     private $basePath;
     const TEMP_FOLDER = "temp";
     private $error;
+    const UPDATE_URL = "http://www.igestdevelopment.com/updates_log.txt";
 
     /**
      * PDMUpdater constructor.
@@ -64,9 +65,9 @@ class PDMUpdater
                 $valid = false;
                 $this->error = "Not a valid update path (".$info["host"]. ")";
             }
-            if(isset($file_parts['extension']) &&  $file_parts['extension']!= "tar"){
+            if(isset($file_parts['extension']) &&  $file_parts['extension']!= "gz"){
                 $valid = false;
-                $this->error = "File is not tar. (". $filename . ")";
+                $this->error = "File is not tar. (". $filename.")";
             }
         }
 
@@ -99,13 +100,13 @@ class PDMUpdater
     }
 
     private function downloadFile(){
-        file_put_contents($this->getTarPath(), fopen($this->getDownloadUrl(), 'r'));
+        file_put_contents($this->getTarPath(), fopen($this->getDownloadUrl(), 'r') );
         return true;
     }
 
     public function extractContents(){
-        $command = "tar -xvf ". $this->getTarPath() . " -C ". $this->getExtractDestination();
-        exec($command, $log);
+        $command = "tar -xzvf ". $this->getTarPath() . " -C ". $this->getExtractDestination();
+        return shell_exec($command);
     }
 
     private function getExtractDestination(){
@@ -119,13 +120,13 @@ class PDMUpdater
 
     private function updateSourcePath(){
         return $this->basePath . '/../'. self::TEMP_FOLDER .'/'
-            . pathinfo($this->getFileName(), PATHINFO_FILENAME) . "/";
+            . pathinfo(pathinfo($this->getFileName(), PATHINFO_FILENAME), PATHINFO_FILENAME) . "/";
     }
 
-    private function copyUpdatedFiles(){
+    public function copyUpdatedFiles(){
         $params = $this->updateSourcePath() . " " . $this->updatePath();
-        $fullCommand = $this->basePath . "/update.sh {$params}  > /dev/null 2> /dev/null &";
-        exec($fullCommand);
+        $fullCommand = $this->basePath . "/update.sh {$params}";
+        return shell_exec($fullCommand);
     }
 
 

@@ -25,6 +25,7 @@
 
 
                         <div class="col-12">
+                            <p>Current Application Version: <?php echo Utils::getAppVersion();?></p>
                             <div id="updates-lay"></div>
                         </div>
                     </div>

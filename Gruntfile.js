@@ -13,7 +13,7 @@ module.exports = function (grunt) {
                     src: ['pages/account.js','pages/calendar.js','pages/category.js','pages/dashboard.js',
                     'pages/insights.js','pages/reconciliation.js','pages/search.js','pages/settings.js',
                     'pages/transactions','accounts_selector.js','app.js','charts.js','create_transaction.js',
-                    'custom-datepicker.js','pages/users.js'],
+                    'custom-datepicker.js','pages/users.js','pages/updates.js'],
                     dest: 'public/assets/js/'
                 }]
 

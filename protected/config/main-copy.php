@@ -48,6 +48,7 @@ return array(
 	'params'=>array(
 		// this is used in contact page
 		'adminEmail'=>'webmaster@example.com',
-        'setup' => '{setup}'
+        'setup' => '{setup}',
+        'updates' => "http://www.igestdevelopment.com/updates_log"
 	),
 );

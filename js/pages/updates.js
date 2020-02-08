@@ -5,8 +5,9 @@ var UpdatesPage = (function() {
     var pgBar = $('#pb-bar');
     var startUpdateBtn = $('#start-update-btn');
     var downloadUrl = "";
-    var steps = ["validate","download","extract","transfer","cleanup"];
-    var preMessage = ["Validating Url...","Downloading update..","Extracting update...","Copy new files","Cleaning up..."];
+    var steps = ["validate","download","extract","transfer","tables","cleanup"];
+    var preMessage = ["Validating Url...","Downloading update..",
+        "Extracting update...","Copy new files","Updating tables...","Cleaning up..."];
     var currentStep = 0;
 
     function setStatus(message){
@@ -90,6 +91,11 @@ var UpdatesPage = (function() {
                 setStatus("Stopping update...");
                 closeUpdate();
             }
+        })
+        .fail(function(response) {
+            setStatus("Stopping update because of error...");
+            setStatus("ERROR: " + response.responseText);
+            closeUpdate();
         });
     }
 

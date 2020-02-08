@@ -277,4 +277,12 @@ class Utils
         }
         return $updates;
     }
+
+    public static function getAppVersion(){
+        if(!empty(PURDM_VERSION)){
+            echo PURDM_VERSION;
+        }else{
+            "unknown";
+        }
+    }
 }

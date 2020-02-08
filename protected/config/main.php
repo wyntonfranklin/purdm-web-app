@@ -49,6 +49,5 @@ return array(
 		// this is used in contact page
 		'adminEmail'=>'webmaster@example.com',
         'setup' => 'true',
-        'updates' => "http://www.igestdevelopment.com/updates_log"
 	),
 );

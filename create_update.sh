@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Version number
-version=0.0.4
+version=0.0.6u
 # Change these variables for your application
 
 # tempoary file location
@@ -13,16 +13,31 @@ zpath=~/.temp/wfexpenses
 output=~/Documents/websites/
 fname=wfexpenses${version}
 
+echo "Changing directory to "${path}
+cd ${path}
+echo "Running grunt"
+npm test
+
+echo "Create temp folder"
 mkdir -p ${temp}
+
+echo "Copy source to temp"
 cp -R ${path} ${temp}/${fname}
 
+echo "Change directory to "${temp}
 cd ${temp}
+
+
+echo "Prepare assets for update"
 cp -f ${fname}/index-production.php ${fname}/index.php
-rm -r ${fname}/assets/*
-rm -r ${fname}/protected/config/*
+rm -rf ${fname}/assets/*
+rm -rf ${fname}/protected/config/*
 
 cd ${temp} ..
-gzip -rf ${output}wfexpenses${version}.tar ${fname}/assets ${fname}/images ${fname}/protected ${fname}/public ${fname}/screenshots ${fname}/sql  ${fname}/yii ${fname}/index.php ${fname}/README.md ${fname}/.htaccess ${fname}/icon.ico
-
-rm -r ${temp}/${fname}/
-
+echo "Adding folders to tar"
+tar -rf ${output}wfexpenses${version}.tar ${fname}/assets ${fname}/images ${fname}/protected ${fname}/public ${fname}/sql ${fname}/index.php ${fname}/.htaccess ${fname}/icon.ico
+echo "Running gzip on tar"
+gzip -f ${output}wfexpenses${version}.tar
+echo "Cleaning up"
+rm -rf ${temp}/${fname}/
+echo "Output directory is "${output}

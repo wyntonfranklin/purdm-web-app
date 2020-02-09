@@ -79,7 +79,7 @@ class Utils
     }
 
     public static function setCurrentUserId($id){
-        Yii::app()->user->userid = '1';
+        Yii::app()->user->userid = $id;
     }
 
     public static function getCurrentUserRole(){
@@ -285,4 +285,20 @@ class Utils
             "unknown";
         }
     }
+
+    public static function isAppSetup(){
+        $sql = "SELECT setting_value FROM settings WHERE setting_name='setup'";
+        try{
+            $results = Yii::app()->db->createCommand($sql)->queryAll();
+            if(isset($results[0]['setting_value']) && $results[0]["setting_value"] == 'true'){
+                return true;
+            }else{
+                return false;
+            }
+        }catch (Exception $e){
+            return false;
+        }
+    }
+
+
 }

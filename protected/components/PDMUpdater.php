@@ -8,7 +8,9 @@ class PDMUpdater
     private $basePath;
     const TEMP_FOLDER = "temp";
     private $error;
-    const UPDATE_URL = "http://www.igestdevelopment.com/updates_log.txt";
+    const UPDATE_URL = "http://dev.codebook.com/api/updates";
+    const TEST_UPDATE_URL = "http://dev.codebook.com/api/updates";
+    public $response;
 
     /**
      * PDMUpdater constructor.
@@ -127,6 +129,41 @@ class PDMUpdater
         $params = $this->updateSourcePath() . " " . $this->updatePath();
         $fullCommand = $this->basePath . "/update.sh {$params}";
         return shell_exec($fullCommand);
+    }
+
+    public function getUpdateUrl(){
+        if(YII_DEBUG){
+            return self::TEST_UPDATE_URL;
+        }else{
+            return self::UPDATE_URL;
+        }
+    }
+
+    public function getUpdates(){
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => $this->getUpdateUrl(),
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "GET",
+            CURLOPT_HTTPHEADER => array(
+                "cache-control: no-cache"
+            ),
+        ));
+
+        $response = curl_exec($curl);
+        $this->response = $response;
+        $err = curl_error($curl);
+
+        curl_close($curl);
+        if($err){
+            $this->error = $err;
+            return false;
+        }else{
+            return true;
+        }
     }
 
 

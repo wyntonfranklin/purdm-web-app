@@ -60,3 +60,8 @@ CREATE TABLE IF NOT EXISTS `users` (
      `createdAt` datetime DEFAULT CURRENT_TIMESTAMP,
      PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+INSERT INTO `settings`
+(`setting_name`,`user_id`,`setting_value`)
+VALUES('setup',null,'true');

@@ -34,6 +34,10 @@
                             <button type="submit" class="btn btn-primary btn-user btn-block">
                                 Save user credentials
                             </button>
+
+                        <a href="/site/login" type="submit" class="btn btn-danger btn-user btn-block">
+                            Skip this step
+                        </a>
                             <hr>
                             <div class="text-center">
                                 <p>Next steps. Confirm user credentials and login.</p>

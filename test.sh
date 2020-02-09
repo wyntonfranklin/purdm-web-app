@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
-cd
-grunt
+cd /home/shady/Documents/websites/wfexpenses/
+npm test

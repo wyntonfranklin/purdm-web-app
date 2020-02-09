@@ -58,7 +58,7 @@ class SiteController extends Controller
 		if(isset($_GET['completed'])){
 		    $this->logout();
         }
-		if(Yii::app()->params["setup"] == "false"){
+		if(Utils::isAppSetup() == false){
             $this->redirect(array('/setup/'));
         }
         if(!Yii::app()->user->isGuest){
@@ -108,8 +108,8 @@ class SiteController extends Controller
     }
 
 	public function actionTest(){
-        $user = Users::model()->findByPk(1);
-        if(isset($user->happy)){
+        $user = Utils::isAppSetup();
+        if($user){
             echo "good";
         }else{
             echo "basd";

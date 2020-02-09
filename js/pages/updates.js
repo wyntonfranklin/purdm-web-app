@@ -16,7 +16,12 @@ var UpdatesPage = (function() {
 
     function loadPageData(){
         $.get('/ajax/GetUpdates',function(data){
-            $("#updates-lay").empty().append(data);
+            var res = PDMApp.getJsonResponseObject(data);
+            if(res.status == "good"){
+                $("#updates-lay").empty().append(res.data);
+            }else{
+
+            }
         });
     }
 

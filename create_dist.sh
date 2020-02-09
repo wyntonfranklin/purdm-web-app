@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Version number
-version=0.0.3
+version=0.0.6
 # Change these variables for your application
 
 # tempoary file location
@@ -13,16 +13,20 @@ zpath=~/.temp/wfexpenses
 output=~/Documents/websites/
 fname=wfexpenses${version}
 
+cd ${path}
+echo "Running grunt"
+npm test
+
 mkdir -p ${temp}
 cp -R ${path} ${temp}/${fname}
 
 cd ${temp}
 cp -f ${fname}/index-production.php ${fname}/index.php
-cp -f ${fname}/protected/config/main-install.php ${fname}/protected/config/main.php
-rm -r ${fname}/assets/*
+rm -rf ${fname}/assets/*
 
 cd ${temp} ..
 tar -rf ${output}wfexpenses${version}.tar ${fname}/assets ${fname}/images ${fname}/protected ${fname}/public ${fname}/screenshots ${fname}/sql  ${fname}/yii ${fname}/index.php ${fname}/README.md ${fname}/.htaccess ${fname}/icon.ico
+gzip -f ${output}wfexpenses${version}.tar
 
-rm -r ${temp}/${fname}/
+rm -rf ${temp}/${fname}/
 

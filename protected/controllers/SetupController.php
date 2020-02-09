@@ -6,7 +6,7 @@ class SetupController extends Controller
     public $layout = 'secondary';
 
     public function actionIndex(){
-        if(Yii::app()->params["setup"] == "true"){
+        if(Utils::isAppSetup() == true){
             $this->redirect(array('/site/login'));
         }
         $form = new SetupForm();
@@ -23,13 +23,33 @@ class SetupController extends Controller
 
     public function actionCreateTables(){
         $form = new SetupForm();
-        if(Yii::app()->params["setup"] == "true"){
-            $this->redirect(array('/site/login'));
-        }
         if($form->create_tables()){
-            $this->redirect('/setup/user');
+            $settings = new Settings();
+            $settings->setting_name ="setup";
+            $settings->user_id = null;
+            $settings->setting_value ="true";
+            if($this->setAppHasSetup()){
+                $this->redirect('/setup/user');
+            }
         }else{
             echo $form->errorMessage;
+        }
+    }
+
+    private function setAppHasSetup(){
+        $criteria = new CDbCriteria();
+        $criteria->addCondition('setting_name="setup"');
+        $setting = Settings::model()->find($criteria);
+        if($setting){
+            return true;
+        }else{
+            $settings = new Settings();
+            $settings->setting_name ="setup";
+            $settings->user_id = null;
+            $settings->setting_value ="true";
+            if($setting->save()){
+                return true;
+            }
         }
     }
 
@@ -64,9 +84,6 @@ class SetupController extends Controller
     }
 
     public function actionUser(){
-        if(Yii::app()->params["setup"] == "true"){
-            $this->redirect(array('/site/login'));
-        }
         $form = new SetupForm();
         $form->setScenario("user");
         if(isset($_POST['SetupForm'])){
@@ -76,7 +93,6 @@ class SetupController extends Controller
                 if($user->hasErrors()){
 
                 }else{
-                    $this->updateAppConfig($form);
                     $this->redirect('/setup/completed/'. $user->id);
                 }
             }

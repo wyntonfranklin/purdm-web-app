@@ -8,7 +8,7 @@ class PDMUpdater
     private $basePath;
     const TEMP_FOLDER = "temp";
     private $error;
-    const UPDATE_URL = "http://dev.codebook.com/api/updates";
+    const UPDATE_URL = "https://app.wftutorials.com/api/updates";
     const TEST_UPDATE_URL = "http://dev.codebook.com/api/updates";
     public $response;
 

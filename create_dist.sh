@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Version number
-version=0.0.6
+version=0.0.1-dist
 # Change these variables for your application
 
 # tempoary file location

@@ -32,7 +32,11 @@ class SetupController extends Controller
                 $this->redirect('/setup/user');
             }
         }else{
-            echo $form->errorMessage;
+            if($form->validateDatabaseConnnection()){
+                $this->redirect('/setup/user');
+            }else{
+                $this->redirect('/setup/');
+            }
         }
     }
 

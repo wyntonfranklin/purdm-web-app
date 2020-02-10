@@ -41,7 +41,6 @@ class SetupForm extends CFormModel
     public function create_tables(){
         $file =  Yii::app()->basePath.'/../sql/on_install.sql';
         $contents = file_get_contents($file);
-        //echo $contents;
         try{
             Yii::app()->db->createCommand($contents)->query();
             return true;
@@ -68,6 +67,18 @@ class SetupForm extends CFormModel
             return $this->dbhost;
         }
         return "127.0.0.1";
+    }
+
+    public function validateDatabaseConnnection(){
+        $sql = "SELECT * FROM settings";
+        try{
+            Yii::app()->db->createCommand($sql)->query();
+            return true;
+        }catch (Exception $e){
+            $this->errorMessage = $e->getMessage();
+            return false;
+        }
+        return false;
     }
 
 

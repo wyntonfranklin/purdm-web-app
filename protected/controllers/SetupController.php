@@ -35,6 +35,7 @@ class SetupController extends Controller
             if($form->validateDatabaseConnnection()){
                 $this->redirect('/setup/user');
             }else{
+                Utils::setAlert(Utils::ALERT_ERROR,"Database connection not valid");
                 $this->redirect('/setup/');
             }
         }
@@ -104,6 +105,7 @@ class SetupController extends Controller
         $this->render('user',['model'=>$form]);
     }
 
+    /* Todo: This user must be a admin user */
     public function createUser(SetupForm $form){
         $user = new Users();
         $user->username = $form->username;

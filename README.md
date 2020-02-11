@@ -1,31 +1,47 @@
-# wf Expenses
+# PURDM - Your Own Expense Manager (wfexpenses)
 
-Notes
+Purdm is a open source expense manager host it yourself solution.
 
-The database columns are
-* transaction_id
-* trans_date
-* amount
-* description
-* category
-* account_id
-* type
+![screenshot](./screenshots/screenshot_001.png)
+
+# Installation
+
+You can install Purdm on any web host. Head to the 
+[releases](https://github.com/wyntonfranklin/wfexpenses/releases) 
+section and download the latest release. Copy this file to your web server and 
+get started hosting your own expense manager.
+
+The following files must be writable by the server. Give the the 
+appropriate permissions
+* /assets
+* /protected/runtime
+* /protected/update.sh
+
+**Do this otherwise the application would not working correctly**
+
+# Server Requirements
+
+* Linux Server
+* PHP > 5.6
+* PHP Curl
+* MySQL
 
 
-Events
+# Features
 
-* wf.datetimepicker.onchange - on date picker changes
-* wf.transaction.created - on transaction created
+Purdm comes with some great features.
+
+* Dashboard showing net worth and month income vs expenses
+* Insights giving drill down of your expense. You can change the date ranges.
+* Calendar so you can see went you made certain purchases
+* Create as many accounts as you need
+* Recurring transactions
+* Insights on specific categories and expenses
+* Colourful graphs and charts
+* Mobile application
+* Add multiple users
+* Download/Upload Transactions any time you want
+* Get frequent updates
 
 
-Cron Commands
 
-Test task
-```bash
-*/1 * * * * php /home/shady/Documents/websites/wfexpenses/protected/yiic.php task crontest
-```
-
-Run every day at 3 30 to test this
-```bash
-30 3 * * * php /home/shady/Documents/websites/wfexpenses/protected/yiic.php task crontest
-```

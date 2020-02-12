@@ -32,6 +32,7 @@ echo "Prepare assets for update"
 cp -f ${fname}/index-production.php ${fname}/index.php
 rm -rf ${fname}/assets/*
 rm -rf ${fname}/protected/config/*
+rm -rf ${fname}/protected/runtime/*
 
 cd ${temp} ..
 echo "Adding folders to tar"

@@ -52,7 +52,7 @@ class SetupController extends Controller
             $settings->setting_name ="setup";
             $settings->user_id = null;
             $settings->setting_value ="true";
-            if($setting->save()){
+            if($settings->save()){
                 return true;
             }
         }

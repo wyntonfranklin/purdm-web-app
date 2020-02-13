@@ -111,6 +111,7 @@ class SetupController extends Controller
         $user->username = $form->username;
         $user->email = $form->email;
         $user->createdAt = date("Y-m-d h:i:s");
+        $user->userType = 1;
         $ph = new PasswordHash(Yii::app()->params['phpass']['iteration_count_log2'],
             Yii::app()->params['phpass']['portable_hashes']);
         $user->password = $ph->HashPassword($form->password);

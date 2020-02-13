@@ -119,10 +119,12 @@ class Controller extends CController
     function getErrorSummaryAsText($summary){
         $output = "";
         $dom = new domDocument;
-        $dom->loadHTML($summary);
-        $items = $dom->getElementsByTagName('li');
-        foreach ($items as $row) {
-            $output .= $row->nodeValue . "\r\n";
+        if(!empty($summary)){
+            $dom->loadHTML($summary);
+            $items = $dom->getElementsByTagName('li');
+            foreach ($items as $row) {
+                $output .= $row->nodeValue . "\r\n";
+            }
         }
         return $output;
     }

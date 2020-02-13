@@ -12,7 +12,7 @@
                         <div style="min-height: 300px;">
                             <div class="text-center">
                                 <p><i style="color:darkgreen;" class="fa fa-check-circle fa-5x"></i></p>
-                                <p>Your account was created</p>
+                                <p>Your admin account was created</p>
                                 <p><strong>Username:</strong> <?php echo $model->username;?></p>
                                 <p><strong>Email:</strong> <?php echo $model->email;?></p>
                                 <p><strong>Password:</strong> Your chosen password</p>

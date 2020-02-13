@@ -24,7 +24,7 @@
                             <form class="user">
                                 <div class="form-group">
                                     <?php echo $form->textField($model,'email', array('class'=>'form-control form-control-user',
-                                        'title'=>'e.g. someone@example.com','placeholder'=>'Enter Email Address...','required'=>'required')); ?>
+                                        'title'=>'e.g. someone@example.com','placeholder'=>'Enter username or email','required'=>'required')); ?>
                                 </div>
                                 <div class="form-group">
                                     <?php echo $form->passwordField($model,'password', array('class'=>'form-control form-control-user',

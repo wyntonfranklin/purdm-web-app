@@ -2,9 +2,10 @@
 
 # PURDM - Your Own Expense Manager (wfexpenses)
 
-PURDM is a open source expense manager host it yourself solution. It allows you 
-to host and expense manager that you can access via web and mobile application.
-This means you have full control of your data and not some other company.
+Purrrr...diem. PURDM is a open source expense manager/host it yourself solution web application. It allows you 
+to host your own expense manager that you can access via web and mobile application.
+This means you have full control of your data and not some other company. You can delete your application
+and all your data will be gone. Keep companies out of your business with PURDM.
 
 ![screenshot](./screenshots/screenshot_001.png)
 
@@ -26,15 +27,16 @@ appropriate permissions
 ### Your own PURDM Domain
 If you need a PURDM domain to point to your server we can point it for you.
 Use this form [here](https://forms.gle/qThfHMoKHAdgafKs8) to submit your application.
+So you can have john.purdm.com or mary.purdm.com. Or any sub domain you like.
 
 ### Support for the app
 If you need support or additional features added to your version of PURDM that is possible.
 Use this form [here](https://forms.gle/qThfHMoKHAdgafKs8) to submit a support request or feature upgrade.
 
 Some services offered
-* Setup and installation
-* Changes and updates
-* New features
+* Setup and installation (Digital Ocean, Linode)
+* Changes and updates (Request changes to your expense manger)
+* New features (Suggest and get sent you own updates)
 
 ## Server Requirements
 
@@ -42,6 +44,7 @@ Some services offered
 * PHP > 5.6
 * PHP Curl
 * MySQL
+* php-dom
 
 
 ## Features

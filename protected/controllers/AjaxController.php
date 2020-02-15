@@ -637,7 +637,7 @@ class AjaxController extends QueriesController
 
     public function actionAdminUpdateUser(){
         $id = Utils::getPost("id");
-        if($id == null){
+        if(empty($id)){
             $user = new Users('create-user');
         }else{
             $user = Users::model()->findByPk($id);

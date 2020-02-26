@@ -67,7 +67,7 @@ PURDM comes with some great features.
 
 Currently we have an android application for PURDM. All you need to 
 do is provide the domain and your user credentials an you are good
-to go.
+to go. Get it [here](https://play.google.com/store/apps/details?id=com.purdm.app&hl=en)
 
 ## Development 
 

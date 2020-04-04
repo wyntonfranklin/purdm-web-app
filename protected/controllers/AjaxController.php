@@ -189,7 +189,7 @@ class AjaxController extends QueriesController
         );
     }
 
-    public function actionSaveTransaction(){
+    private function save_general_transactions(){
         $model = new Transaction();
         $model->setScenario('save-trans');
         $model->trans_date = $_POST['transDate'];
@@ -210,6 +210,19 @@ class AjaxController extends QueriesController
             Utils::logger( CHtml::errorSummary($model));
             Utils::jsonResponse(Utils::STATUS_BAD,
                 $this->getErrorSummaryAsText($model->getHTMLErrorSummary()));
+        }
+    }
+
+    private function transfer_transaction(){
+
+    }
+
+    public function actionSaveTransaction(){
+        $transtype = isset($_POST['transType']) ? $_POST['transType'] : null;
+        if($transtype == "expense" || $transtype == "income"){
+            $this->save_general_transactions();
+        }else if($transtype == "transfer"){
+            $this->transfer_transaction();
         }
     }
 

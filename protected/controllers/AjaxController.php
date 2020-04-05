@@ -190,16 +190,8 @@ class AjaxController extends QueriesController
     }
 
     private function save_general_transactions(){
-        $model = new Transaction();
+        $model = $this->assign_transaction_attributes();
         $model->setScenario('save-trans');
-        $model->trans_date = $_POST['transDate'];
-        $model->assignAmount($_POST['amount']);
-        $model->amount = $_POST['amount'];
-        $model->category = $_POST['category'];
-        $model->description = $_POST['description'];
-        $model->account_id = $_POST['account'];
-        $model->type = $_POST['transType'];
-        $model->memo = $_POST['memo'];
         $frequency = isset($_POST['frequency']) ? $_POST['frequency'] : null;
         if($model->save()){
             if(!empty($frequency)){
@@ -213,8 +205,34 @@ class AjaxController extends QueriesController
         }
     }
 
-    private function transfer_transaction(){
+    private function assign_transaction_attributes(){
+        $model = new Transaction();
+        $model->trans_date = $_POST['transDate'];
+        $model->assignAmount($_POST['amount']);
+        $model->amount = $_POST['amount'];
+        $model->category = $_POST['category'];
+        $model->description = $_POST['description'];
+        $model->account_id = $_POST['account'];
+        $model->type = $_POST['transType'];
+        $model->memo = $_POST['memo'];
+        return $model;
+    }
 
+    private function transfer_transaction(){
+        $incomeModel = $this->assign_transaction_attributes();
+        $incomeModel->setScenario("save-trans");
+        $incomeModel->type = "income";
+        $incomeModel->account_id = $_POST["account_to"];
+        $expenseModel = $this->assign_transaction_attributes();
+        $expenseModel->setScenario('save-trans');
+        $expenseModel->type = "expense";
+        if($incomeModel->save() && $expenseModel->save()){
+            Utils::jsonResponse(Utils::STATUS_GOOD,'Transaction successfully saved');
+        }else{
+            //Utils::logger( CHtml::errorSummary($model));
+            //Utils::jsonResponse(Utils::STATUS_BAD,
+              //  $this->getErrorSummaryAsText($model->getHTMLErrorSummary()));
+        }
     }
 
     public function actionSaveTransaction(){

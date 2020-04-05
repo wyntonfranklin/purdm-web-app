@@ -9,6 +9,7 @@ var PDMCreateAccountModal = (function($){
     var addCatBtn = $('#add-trans-cat');
     var transCatContainer = $('#trans-cat-container');
     var transDatePicker = $('#transDate');
+    var transType = $('#transType');
 
     //$("#amount").maskMoney({thousands: ','});
 
@@ -26,6 +27,17 @@ var PDMCreateAccountModal = (function($){
     $('#category').select2({
         placeholder: 'Select an option',
     });
+
+    transType.on('change', function(){
+        if( this.value == "transfer"){
+            $('#show-account-to').show();
+            $('#repeat-layout').hide();
+        }else{
+            $('#show-account-to').hide();
+            $('#repeat-layout').show();
+        }
+    });
+
 
     $('#content').on('click','.open-trans-modal',function(){
         openEditTransactionModal($(this));

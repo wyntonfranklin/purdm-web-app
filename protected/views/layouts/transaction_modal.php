@@ -28,6 +28,7 @@
                                 <select name="transType" class="form-control" id="transType">
                                     <option value="expense">Expense</option>
                                     <option value="income">Income</option>
+                                    <option value="transfer">Transfer</option>
                                 </select>
                             </div>
                             <div class="col">
@@ -36,6 +37,18 @@
                                     array(
                                         'class'=>'form-control',
                                         'id'=>'account',
+                                    ));?>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group" id="show-account-to" style="display: none;">
+                        <div class="form-row">
+                            <div class="col">
+                                <label for="account"><i class="fa fa-folder"></i>&nbsp;Account To</label>
+                                <?php echo CHtml::dropDownList('account_to','', Accounts::model()->getListing(),
+                                    array(
+                                        'class'=>'form-control',
+                                        'id'=>'account_to',
                                     ));?>
                             </div>
                         </div>
@@ -79,7 +92,7 @@
                         </div>
                     </div>
                     <hr>
-                    <div class="form-group">
+                    <div class="form-group" id="repeat-layout">
                         <label><i class="fa fa-reply"></i>&nbsp;Repeat</label>
                         <select id="frequency" name="frequency" class="form-control">
                             <option value="">Do not repeat</option>

@@ -29,35 +29,6 @@ class ExcelAdapter
     );
   }
 
-  public function shipperColumns($cols){
-    return array(
-      "company_name" => $cols[0],
-      "company_address" => $cols[1],
-      "company_telephone" => $cols[2],
-      "contact_person" => $cols[3],
-      "contact_email" => $cols[4],
-      "contact_telephone" => $cols[5],
-    );
-  }
-
-  public function preferenceColumns($cols){
-    return array(
-      "country_group" => $cols[0],
-      "country_name" => $cols[1],
-      "air" => $cols[2],
-      "sea" => $cols[3],
-      "direct" => $cols[4],
-      "trans_ship" => $cols[5],
-      "fcl" => $cols[6],
-      "lcl" => $cols[7],
-      "reffer" => $cols[8],
-      "transit" => $cols[9],
-      "frequency" => $cols[10],
-      "restrict" => $cols[11],
-      "soc" => $cols[12],
-    );
-  }
-
 }
 
 ?>

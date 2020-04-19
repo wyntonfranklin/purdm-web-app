@@ -16,13 +16,13 @@ You can install PURDM on any web host that supports PHP. Head to the
 section and download the latest release. Copy this file to your web server and 
 get started hosting your own expense manager.
 
-The following files must be writable by the server. Give the the 
+The following files must be writable by the server. Give the 
 appropriate permissions
 * /assets
 * /protected/runtime
 * /protected/update.sh
 
-**Do the above otherwise the application would not working correctly**
+**Do the above otherwise the application would not work correctly**
 
 ### Your own PURDM Domain
 If you need a PURDM domain to point to your server we can point it for you.
@@ -66,7 +66,7 @@ PURDM comes with some great features.
 ## Mobile Application
 
 Currently we have an android application for PURDM. All you need to 
-do is provide the domain and your user credentials an you are good
+do is provide the domain and your user credentials and you are good
 to go. Get it [here](https://play.google.com/store/apps/details?id=com.purdm.app&hl=en)
 
 ## Development 
@@ -82,6 +82,40 @@ a copy of the Yii version I used [here](https://wfspace.sfo2.digitaloceanspaces.
 * Grunt
 * Node
 * Npm
+
+### Steps
+
+* First download the repo giving the link provided.
+* Insure you have in your PHP version the required server requirements listed above.
+* Download the Yii version via the link provided [here](https://wfspace.sfo2.digitaloceanspaces.com/yii.zip).
+Place the extracted version of yii in your base directory. The name of the folder should be yii.
+* Download the extensions required to run this application from [here](https://wfspace.sfo2.digitaloceanspaces.com/extensions.zip)
+These extensions you download will be required to run your application properly. Place the extensions in your protected folder under the folder name
+extensions.
+* In your database create a database to hold your application.
+* Setup your configuration path for your server or virtual host. An example can be found below.
+
+```html
+<VirtualHost *:80>
+    DocumentRoot "C:\Users\wfranklin\Documents\GitHub\wfexpenses"
+    ServerName demo.wfexpenses.com
+    ServerAlias demo.wfexpenses.com
+    <Directory "C:\Users\wfranklin\Documents\GitHub\wfexpenses"> 
+        RewriteEngine on
+        RewriteRule ^index.php/ - [L,R=404]
+        RewriteCond %{REQUEST_FILENAME} !-f
+        RewriteCond %{REQUEST_FILENAME} !-d
+        RewriteRule . index.php
+        AllowOverride All
+        Require all Granted        
+        AllowOverride All
+        Require all Granted
+    </Directory>
+</VirtualHost>
+```
+* Finally head to your base domain and run the setup.
+* If you need further directions on running a `yii 1.1` version app check out this tutorial [here](https://app.wftutorials.com/tutorial/111).
+You can look at the **directory structure** and **additional configurations** chapters for more insight.
 
 ## Acknowledgements
 

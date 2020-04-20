@@ -9,7 +9,7 @@ class Utils
     const ALERT_SUCCESS ="success";
     const ALERT_INFO = "info";
     const ALERT_ERROR = "error";
-    const APP_ASSETS_VERSION = '0.0.1';
+    const APP_ASSETS_VERSION = '0.0.2';
 
     public static function setAlert($type, $message)
     {

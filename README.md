@@ -87,12 +87,17 @@ a copy of the Yii version I used [here](https://wfspace.sfo2.digitaloceanspaces.
 
 * First download the repo giving the link provided.
 * Insure you have in your PHP version the required server requirements listed above.
+You also need to have node js installed on your computer.
 * Download the Yii version via the link provided [here](https://wfspace.sfo2.digitaloceanspaces.com/yii.zip).
 Place the extracted version of yii in your base directory. The name of the folder should be yii.
 * Download the extensions required to run this application from [here](https://wfspace.sfo2.digitaloceanspaces.com/extensions.zip)
 These extensions you download will be required to run your application properly. Place the extensions in your protected folder under the folder name
 extensions.
 * In your database create a database to hold your application.
+* Run `npm` install from your base directory to add the packages required to develop.
+* Once you do this you can run the `grunt` command in your base folder.
+* Create a folder called `assets` in your base directory.
+* Create a folder called `runtime` in your protected directory.
 * Setup your configuration path for your server or virtual host. An example can be found below.
 
 ```html
@@ -113,9 +118,14 @@ extensions.
     </Directory>
 </VirtualHost>
 ```
-* Finally head to your base domain and run the setup.
+* Head to your base domain and run the setup.
 * If you need further directions on running a `yii 1.1` version app check out this tutorial [here](https://app.wftutorials.com/tutorial/111).
 You can look at the **directory structure** and **additional configurations** chapters for more insight.
+
+### Know issues
+When running in a windows environment you might need to update the `create_dist.sh` code or make some changes to it.
+The `tar` command needs to be `tar --force-local -rf`. This is so that semicolons work.
+Learn more [here](http://www.gnu.org/software/tar/manual/html_section/tar_45.html#file)
 
 ## Acknowledgements
 

@@ -1,44 +1,69 @@
 #!/usr/bin/env bash
 
+# source repo
+SOURCEPATH=${1}
+
+# output folder no trailing slashes
+OUTPUT=${2}
+
 # Version number
-version=update-0.0.3
-# Change these variables for your application
+version=${3}
+
+if [ -z "$SOURCEPATH" ]
+then
+      echo "No source folder given"
+      exit 0
+fi
+
+
+if [ -z "$OUTPUT" ]
+then
+      echo "No output folder given"
+      exit 0
+fi
+
+if [ -z "$version" ]
+then
+      echo "Version number not given"
+      exit 0
+fi
 
 # tempoary file location
-temp=~/.temp
+temp=$(mktemp -d -t ci-XXXXXXXXXX)
 
-# source application
-path=~/Documents/websites/wfexpenses/
-zpath=~/.temp/wfexpenses
-output=~/Documents/websites/
+# get variables
+path=${SOURCEPATH}
+zpath=${temp}/wfexpenses
+output=${OUTPUT}/
 fname=wfexpenses${version}
 
-echo "Changing directory to "${path}
 cd ${path}
-echo "Running grunt"
+echo "Running grunt updating scripts"
 npm test
 
-echo "Create temp folder"
+echo "Creating temp project"
 mkdir -p ${temp}
-
-echo "Copy source to temp"
 cp -R ${path} ${temp}/${fname}
 
-echo "Change directory to "${temp}
-cd ${temp}
+cd "${temp}"
 
+echo "Coping files to temp"
 
-echo "Prepare assets for update"
 cp -f ${fname}/index-production.php ${fname}/index.php
 rm -rf ${fname}/assets/*
 rm -rf ${fname}/protected/config/*
 rm -rf ${fname}/protected/runtime/*
 
-cd ${temp} ..
-echo "Adding folders to tar"
-tar -rf ${output}wfexpenses${version}.tar ${fname}/assets ${fname}/images ${fname}/protected ${fname}/public ${fname}/sql ${fname}/index.php ${fname}/.htaccess ${fname}/icon.ico
-echo "Running gzip on tar"
+cd "${temp}" ..
+
+echo "Creating archive"
+
+tar --force-local -rf ${output}wfexpenses${version}.tar ${fname}/assets ${fname}/images ${fname}/protected ${fname}/public ${fname}/sql ${fname}/index.php ${fname}/.htaccess ${fname}/icon.ico
 gzip -f ${output}wfexpenses${version}.tar
-echo "Cleaning up"
+
+echo "Archive creation complete"
+echo "Cleaning up assets"
+
 rm -rf ${temp}/${fname}/
-echo "Output directory is "${output}
+echo "All done..."
+

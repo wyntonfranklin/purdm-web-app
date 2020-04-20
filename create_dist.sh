@@ -1,34 +1,69 @@
 #!/usr/bin/env bash
 
+# source repo
+SOURCEPATH=${1}
+
+# output folder no trailing slashes
+OUTPUT=${2}
+
 # Version number
-version=0.0.2-dist
-# Change these variables for your application
+version=${3}
+
+if [ -z "$SOURCEPATH" ]
+then
+      echo "No source folder given"
+      exit 0
+fi
+
+
+if [ -z "$OUTPUT" ]
+then
+      echo "No output folder given"
+      exit 0
+fi
+
+if [ -z "$version" ]
+then
+      echo "Version number not given"
+      exit 0
+fi
 
 # tempoary file location
-temp=~/.temp
+temp=$(mktemp -d -t ci-XXXXXXXXXX)
 
-# source application
-path=~/Documents/websites/wfexpenses/
-zpath=~/.temp/wfexpenses
-output=~/Documents/websites/
+# get variables
+path=${SOURCEPATH}
+zpath=${temp}/wfexpenses
+output=${OUTPUT}/
 fname=wfexpenses${version}
 
 cd ${path}
-echo "Running grunt"
+echo "Running grunt updating scripts"
 npm test
 
+echo "Creating temp project"
 mkdir -p ${temp}
 cp -R ${path} ${temp}/${fname}
 
-cd ${temp}
+cd "${temp}"
+
+echo "Coping files to temp"
+
 cp -f ${fname}/index-production.php ${fname}/index.php
 cp -f ${fname}/protected/config/database-copy.php ${fname}/protected/config/database.php
 rm -rf ${fname}/assets/*
 rm -rf ${fname}/protected/runtime/*
 
-cd ${temp} ..
-tar -rf ${output}wfexpenses${version}.tar ${fname}/assets ${fname}/images ${fname}/protected ${fname}/public ${fname}/screenshots ${fname}/sql  ${fname}/yii ${fname}/index.php ${fname}/README.md ${fname}/.htaccess ${fname}/icon.ico
+cd "${temp}" ..
+
+echo "Creating archive"
+
+tar --force-local -rf ${output}wfexpenses${version}.tar ${fname}/assets ${fname}/images ${fname}/protected ${fname}/public ${fname}/screenshots ${fname}/sql  ${fname}/yii ${fname}/index.php ${fname}/README.md ${fname}/.htaccess ${fname}/icon.ico
 gzip -f ${output}wfexpenses${version}.tar
 
+echo "Archive creation complete"
+echo "Cleaning up assets"
+
 rm -rf ${temp}/${fname}/
+echo "All done..."
 

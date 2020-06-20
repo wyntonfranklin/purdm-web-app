@@ -4,7 +4,7 @@
 // Any writable CConsoleApplication properties can be configured here.
 return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
-	'name'=>'My Console Application',
+	'name'=>'My Purdm Console',
 
 	// preloading 'log' component
 	'preload'=>array('log'),
@@ -32,4 +32,12 @@ return array(
 		),
 
 	),
+    'params'=>array(
+        // this is used in contact page
+        'adminEmail'=>'wfdevservices@gmail.com',
+        'phpass'=>array(
+            'iteration_count_log2'=>8,
+            'portable_hashes'=>false,
+        ),
+    ),
 );

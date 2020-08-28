@@ -122,7 +122,7 @@ extensions.
 * If you need further directions on running a `yii 1.1` version app check out this tutorial [here](https://app.wftutorials.com/tutorial/111).
 You can look at the **directory structure** and **additional configurations** chapters for more insight.
 
-### Know issues
+### Known issues
 When running in a windows environment you might need to update the `create_dist.sh` code or make some changes to it.
 The `tar` command needs to be `tar --force-local -rf`. This is so that semicolons work.
 Learn more [here](http://www.gnu.org/software/tar/manual/html_section/tar_45.html#file)

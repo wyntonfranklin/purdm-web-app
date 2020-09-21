@@ -201,7 +201,7 @@ class AjaxController extends QueriesController
         }else{
             Utils::logger( CHtml::errorSummary($model));
             Utils::jsonResponse(Utils::STATUS_BAD,
-                $this->getErrorSummaryAsText($model->getHTMLErrorSummary()));
+                $this->getModelErrorSummaryAsText($model));
         }
     }
 
@@ -282,7 +282,7 @@ class AjaxController extends QueriesController
             Utils::jsonResponse(Utils::STATUS_GOOD,'Transaction Updated', $model->id);
         }else{
             Utils::jsonResponse(Utils::STATUS_BAD,
-                $this->getErrorSummaryAsText($model->getHTMLErrorSummary()));
+                $this->getModelErrorSummaryAsText($model));
         }
     }
 
@@ -311,7 +311,7 @@ class AjaxController extends QueriesController
                 Utils::jsonResponse(Utils::STATUS_GOOD, 'Category Saved', $model->name);
             } else {
                 Utils::jsonResponse(Utils::STATUS_BAD,
-                    $this->getErrorSummaryAsText($model->getHTMLErrorSummary()));
+                    $this->getModelErrorSummaryAsText($model));
             }
         }
 

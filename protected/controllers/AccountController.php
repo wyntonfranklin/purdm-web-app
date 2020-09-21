@@ -48,9 +48,9 @@ class AccountController extends Controller
                 Utils::setAlert(Utils::ALERT_SUCCESS,"Account successfully created");
                 $this->redirect($account->getAccountViewUrl());
             }else{
-                Utils::logger($account->getHTMLErrorSummary());
+                Utils::logger($account->getErrorSummaryAsText());
                 Utils::setAlert(Utils::ALERT_ERROR,
-                    $this->getErrorSummaryAsText($account->getHTMLErrorSummary()));
+                    $this->getModelErrorSummaryAsText($account));
             }
         }
         $this->render('create');

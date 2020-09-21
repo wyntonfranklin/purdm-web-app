@@ -80,8 +80,8 @@ class SiteController extends Controller
                 $url =  $this->createUrl("/dashboard/");
                 $this->redirect($url);
             }else{
-                Utils::setAlert('error',$this->getErrorSummaryAsText(CHtml::errorSummary($model)));
-                Utils::logger($this->getErrorSummaryAsText(CHtml::errorSummary($model)));
+                Utils::setAlert('error',$this->getModelErrorSummaryAsText($model));
+                Utils::logger($this->getModelErrorSummaryAsText($model));
             }
 		}
 		// display the login form

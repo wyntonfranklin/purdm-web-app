@@ -24,6 +24,11 @@ appropriate permissions
 
 **Do the above otherwise the application would not work correctly**
 
+## Quick start
+
+You can easily get started by spinning up a droplet.
+To learn more click [here](https://marketplace.digitalocean.com/apps/purdm).
+
 ### Your own PURDM Domain
 If you need a PURDM domain to point to your server we can point it for you.
 Use this form [here](https://forms.gle/qThfHMoKHAdgafKs8) to submit your application.
@@ -68,6 +73,11 @@ PURDM comes with some great features.
 Currently we have an android application for PURDM. All you need to 
 do is provide the domain and your user credentials and you are good
 to go. Get it [here](https://play.google.com/store/apps/details?id=com.purdm.app&hl=en)
+
+## Android Development
+
+The android app is now open source. 
+You can check out the repo [here](https://github.com/wyntonfranklin/purdm-android).
 
 ## Development 
 

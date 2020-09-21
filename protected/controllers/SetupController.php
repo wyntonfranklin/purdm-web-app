@@ -35,6 +35,7 @@ class SetupController extends Controller
             if($form->validateDatabaseConnnection()){
                 $this->redirect('/setup/user');
             }else{
+                // todo: output the actual error here
                 Utils::setAlert(Utils::ALERT_ERROR,"Database connection not valid");
                 $this->redirect('/setup/');
             }
@@ -111,7 +112,7 @@ class SetupController extends Controller
         $user->username = $form->username;
         $user->email = $form->email;
         $user->createdAt = date("Y-m-d h:i:s");
-        $user->userType = 1;
+        $user->userType = 1; // set as admin
         $ph = new PasswordHash(Yii::app()->params['phpass']['iteration_count_log2'],
             Yii::app()->params['phpass']['portable_hashes']);
         $user->password = $ph->HashPassword($form->password);

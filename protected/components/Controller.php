@@ -116,6 +116,7 @@ class Controller extends CController
 
     }
 
+
     function getErrorSummaryAsText($summary){
         $output = "";
         $dom = new domDocument;
@@ -128,6 +129,21 @@ class Controller extends CController
         }
         return $output;
     }
+
+    public function getModelErrorSummaryAsText($m){
+        $content = "";
+        foreach($m->getErrors() as $errors)
+        {
+            foreach($errors as $error)
+            {
+                if($error!='')
+                    $content.= ''.CHtml::encode($error)."\r\n";
+            }
+        }
+        return trim($content);
+    }
+
+
 
     function loadPageJsAssets(){
         $page = Yii::app()->controller->action->id;

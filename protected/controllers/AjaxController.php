@@ -708,9 +708,10 @@ class AjaxController extends QueriesController
 
         $updater = new PDMUpdater();
         if($updater->getUpdates()){
-            $data = json_decode($updater->response);
+            $data = json_decode($updater->response, TRUE);
+            $links = $data["updates"];
             Utils::jsonResponse('good', 'good',
-                $this->renderPartial('updates_layout',['links'=>$data->updates], true)
+                $this->renderPartial('updates_layout',['links'=>$links], true)
             );
         }else{
             Utils::jsonResponse('bad',$updater->getErrorMessage());

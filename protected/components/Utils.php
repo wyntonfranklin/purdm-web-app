@@ -236,8 +236,9 @@ class Utils
         $params = "";
         $basePath = Yii::app()->basePath;
         $params .= $basePath;
-        $fullpath = $basePath . "/cron.sh {$params}  > /dev/null 2> /dev/null &";
-        exec($fullpath);
+        //$fullpath = $basePath . "/cron.sh {$params}  > /dev/null 2> /dev/null &";
+        $command = "php " . $params .  DIRECTORY_SEPARATOR ."yiic task RepeatTransactions > /dev/null 2> /dev/null &";
+        exec($command);
     }
 
     public static function updateApp($source="", $destination=""){
@@ -279,10 +280,16 @@ class Utils
     }
 
     public static function getAppVersion(){
-        if(!empty(PURDM_VERSION)){
-            echo PURDM_VERSION;
-        }else{
-            "unknown";
+        $sql = "SELECT setting_value FROM settings WHERE setting_name='app_version'";
+        try{
+            $results = Yii::app()->db->createCommand($sql)->queryAll();
+            if(isset($results[0]['setting_value']) && $results[0]["setting_value"]){
+                return $results[0]['setting_value'];
+            }else{
+                return "N/A";
+            }
+        }catch (Exception $e){
+            return "N/A";
         }
     }
 
@@ -296,6 +303,18 @@ class Utils
                 return false;
             }
         }catch (Exception $e){
+            return false;
+        }
+    }
+
+    public static function setAppVersion($val){
+        $settings = new Settings();
+        $settings->setting_name ="app_version";
+        $settings->user_id = null;
+        $settings->setting_value =$val;
+        if($settings->save()){
+            return true;
+        }else{
             return false;
         }
     }

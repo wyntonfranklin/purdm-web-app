@@ -79,7 +79,7 @@ var UpdatesPage = (function() {
     function rcallUpdaterSteps(step, callback){
         var currentStep = steps[step];
         setStatus(preMessage[step]);
-        $.post('/ajax/DownloadUpdate?steps='+currentStep,{url:downloadUrl, version:appVersion}, function(results){
+        $.post('/ajax/DownloadUpdate?steps='+currentStep,{url:downloadUrl},function(results){
             var res = PDMApp.getJsonResponseObject(results);
             if(res.status == "good"){
                 setStatus(res.message);
@@ -100,11 +100,11 @@ var UpdatesPage = (function() {
                 closeUpdate();
             }
         })
-            .fail(function(response) {
-                setStatus("Stopping update because of error...");
-                setStatus("ERROR: " + response.responseText);
-                closeUpdate();
-            });
+        .fail(function(response) {
+            setStatus("Stopping update because of error...");
+            setStatus("ERROR: " + response.responseText);
+            closeUpdate();
+        });
     }
 
     function closeUpdate(){

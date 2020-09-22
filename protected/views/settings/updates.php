@@ -2,7 +2,7 @@
 
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Updates</h1>
+        <h1 class="h3 mb-0 text-gray-800">Application Updates</h1>
     </div>
 
 
@@ -25,6 +25,7 @@
 
 
                         <div class="col-12">
+                            <p>Please be careful within this section. The updates you can make to your application is shown below.</p>
                             <p>Current Application Version: <?php echo Utils::getAppVersion();?></p>
                             <div id="updates-lay"></div>
                         </div>

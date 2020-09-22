@@ -7,8 +7,11 @@ class UpdateAction extends CAction
     public function run(){
         $steps = $_GET["steps"];
         $url =  Utils::getPost('url');
+        $updateVersion = Utils::getPost('version');
         if(!$url){
             echo Utils::jsonResponse(Utils::STATUS_BAD,'URL not valid...');
+        }else if(!$updateVersion){
+            echo Utils::jsonResponse(Utils::STATUS_BAD,'No version provided...');
         }else{
             $updater = new PDMUpdater($url);
             if($steps == "validate"){
@@ -46,6 +49,7 @@ class UpdateAction extends CAction
                     echo Utils::jsonResponse(Utils::STATUS_GOOD,$form->errorMessage . "\r\n Continuing...");
                 }
             }else if($steps == "cleanup"){
+                $updater->updateAppVersion($updateVersion);
                 $updater->cleanUp();
                 echo Utils::jsonResponse(Utils::STATUS_GOOD,'Clean up completed...');
             }

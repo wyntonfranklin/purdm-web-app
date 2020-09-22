@@ -91,13 +91,17 @@ class PDMUpdater
         return $name;
     }
 
+    private function getTwoDotsAndASlash(){
+        return DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR;
+    }
+
     private function getTarBasePath(){
         return $this->basePath
-            . '/../'.self::TEMP_FOLDER;
+            . $this->getTwoDotsAndASlash() .self::TEMP_FOLDER;
     }
 
     private function getTarPath(){
-        return $this->getTarBasePath().'/'
+        return $this->getTarBasePath(). DIRECTORY_SEPARATOR
             . $this->getFileName();
     }
 
@@ -112,23 +116,23 @@ class PDMUpdater
     }
 
     private function getExtractDestination(){
-        return $this->basePath . '/../'
-            . self::TEMP_FOLDER.'/';
+        return $this->basePath . $this->getTwoDotsAndASlash()
+            . self::TEMP_FOLDER. DIRECTORY_SEPARATOR;
     }
 
     private function updatePath(){
-        return $this->basePath . '/../';
+        return $this->basePath . $this->getTwoDotsAndASlash();
     }
 
     private function updateSourcePath(){
-        return $this->basePath . '/../'. self::TEMP_FOLDER .'/'
-            . pathinfo(pathinfo($this->getFileName(), PATHINFO_FILENAME), PATHINFO_FILENAME) . "/";
+        return $this->basePath . $this->getTwoDotsAndASlash(). self::TEMP_FOLDER . DIRECTORY_SEPARATOR
+            . pathinfo(pathinfo($this->getFileName(), PATHINFO_FILENAME), PATHINFO_FILENAME) . DIRECTORY_SEPARATOR;
     }
 
     public function copyUpdatedFiles(){
         $params = $this->updateSourcePath() . " " . $this->updatePath();
-        $fullCommand = $this->basePath . "/update.sh {$params}";
-        return shell_exec($fullCommand);
+        //$fullCommand = $this->basePath . "/update.sh {$params}";
+        return shell_exec("rsync -a " . $params);
     }
 
     public function getUpdateUrl(){
@@ -139,6 +143,18 @@ class PDMUpdater
         }
     }
 
+    public function getUpdates(){
+        $url = $this->getUpdateUrl();
+        $res = file_get_contents($url);
+        $this->response = $res;
+        return $res;
+    }
+
+    public function updateAppVersion($ver){
+        Utils::setAppVersion($ver);
+    }
+
+    /**
     public function getUpdates(){
         $curl = curl_init();
 
@@ -164,7 +180,7 @@ class PDMUpdater
         }else{
             return true;
         }
-    }
+    }**/
 
 
 }

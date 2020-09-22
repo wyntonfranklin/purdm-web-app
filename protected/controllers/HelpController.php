@@ -8,8 +8,5 @@ class HelpController extends Controller
         echo "This controller was added...";
     }
 
-    public function actionH(){
-        echo "adfasdf";
-    }
 
 }

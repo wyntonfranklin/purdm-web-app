@@ -280,16 +280,16 @@ class Utils
     }
 
     public static function getAppVersion(){
-        $sql = "SELECT setting_value FROM settings WHERE setting_name='app_version'";
+        $sql = "SELECT setting_value FROM settings WHERE setting_name='app_version' order by id desc LIMIT 1";
         try{
             $results = Yii::app()->db->createCommand($sql)->queryAll();
             if(isset($results[0]['setting_value']) && $results[0]["setting_value"]){
                 return $results[0]['setting_value'];
             }else{
-                return "N/A";
+                return "0.0.1";
             }
         }catch (Exception $e){
-            return "N/A";
+            return "0.0.1";
         }
     }
 
@@ -308,15 +308,7 @@ class Utils
     }
 
     public static function setAppVersion($val){
-        $settings = new Settings();
-        $settings->setting_name ="app_version";
-        $settings->user_id = null;
-        $settings->setting_value =$val;
-        if($settings->save()){
-            return true;
-        }else{
-            return false;
-        }
+        return self::updateSetting('app_version',$val,NULL);
     }
 
 

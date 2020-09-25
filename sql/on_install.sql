@@ -67,6 +67,10 @@ INSERT INTO `settings`
 (`setting_name`,`user_id`,`setting_value`)
 VALUES('setup',null,'true');
 
+INSERT INTO `settings`
+(`setting_name`, `user_id`,`setting_value`)
+VALUES
+('app_version',NULL,'0.0.7');
 
 INSERT INTO `categories` (`name`) VALUES
 ('food'),

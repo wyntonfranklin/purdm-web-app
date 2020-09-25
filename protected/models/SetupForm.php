@@ -53,11 +53,16 @@ class SetupForm extends CFormModel
     public function update_tables(){
         $file =  Yii::app()->basePath.'/../sql/on_update.sql';
         $contents = file_get_contents($file);
-        try{
-            Yii::app()->db->createCommand($contents)->query();
-            return true;
-        }catch (Exception $e){
-            $this->errorMessage = $e->getMessage();
+        if(!empty($contents)){
+            try{
+                Yii::app()->db->createCommand($contents)->query();
+                return true;
+            }catch (Exception $e){
+                $this->errorMessage = $e->getMessage();
+                return false;
+            }
+        }else{
+            $this->errorMessage = "No updates to the database required.";
             return false;
         }
     }

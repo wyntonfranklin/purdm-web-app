@@ -50,9 +50,11 @@ cd "${temp}"
 echo "Coping files to temp"
 
 cp -f ${fname}/index-production.php ${fname}/index.php
+
 rm -rf ${fname}/assets/*
-rm -rf ${fname}/protected/config/*
-rm -rf ${fname}/protected/runtime/*
+rm -r ${fname}/protected/config/*
+rm -r ${fname}/protected/migrations/*
+rm -r ${fname}/protected/runtime/*
 
 cd "${temp}" ..
 

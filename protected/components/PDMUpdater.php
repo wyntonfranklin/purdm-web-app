@@ -145,7 +145,8 @@ class PDMUpdater
 
     public function getUpdates(){
         $url = $this->getUpdateUrl();
-        $res = file_get_contents($url);
+        $rnd = Utils::randomString(3);
+        $res = file_get_contents($url . "?v=" . $rnd);
         $this->response = $res;
         return $res;
     }

@@ -50,6 +50,17 @@ var SettingsPage = (function() {
         return false;
     });
 
+    $('#backup-database').on('click', function(){
+        loadPreviousBackups();
+        $('#backup-database-modal').modal('show');
+        return false;
+    });
+
+    $('#refresh-backup-listing').on('click', function(){
+        loadPreviousBackups();
+        return false;
+    });
+
     $("#settings-cat-input").on("input", function(){
 
         if($(this).val() == ""){
@@ -57,6 +68,25 @@ var SettingsPage = (function() {
             console.log('set to null');
         }
     });
+
+    $('#backup-database-btn').on('click',function(){
+        var fname = $('#backup-filename-input').val();
+        $.post('/ajax/StartBackup', {filename:fname}, function(resp){
+            var res = PDMApp.getJsonResponseObject(resp);
+            if(res.status == 'good'){
+                PDMApp.setAlert('success',res.message);
+            }
+        });
+    });
+
+    function loadPreviousBackups(){
+        $.get('/ajax/GetPreviousBackups', function(resp){
+            var res = PDMApp.getJsonResponseObject(resp);
+            if(res.status == 'good'){
+                $('#backups-previous-layout').empty().append(res.data.html);
+            }
+        });
+    }
 
     $('#setting-save-category').on('click',function(){
         var newCat = $('#settings-cat-input').val();
@@ -140,7 +170,6 @@ var SettingsPage = (function() {
             processData: false,
             contentType: false,
             success:function(data, textStatus, jqXHR){
-                console.log(data);
                 try{
                     var res = PDMApp.getJsonResponseObject(data);
                     if(res.status == "good"){

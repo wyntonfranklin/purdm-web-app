@@ -51,16 +51,17 @@ echo "Coping files to temp"
 
 cp -f ${fname}/index-production.php ${fname}/index.php
 
-rm -rf ${fname}/assets/*
+rm -r ${fname}/assets/*
 rm -r ${fname}/protected/config/*
 rm -r ${fname}/protected/migrations/*
 rm -r ${fname}/protected/runtime/*
+rm -r ${fname}/protected/controllers/TestController.php # remove test controller
 
 cd "${temp}" ..
 
 echo "Creating archive"
 
-tar --force-local -rf ${output}wfexpenses${version}.tar ${fname}/assets ${fname}/images ${fname}/protected ${fname}/public ${fname}/sql ${fname}/index.php ${fname}/.htaccess ${fname}/icon.ico
+tar --force-local -rf ${output}wfexpenses${version}.tar ${fname}/assets ${fname}/images ${fname}/protected ${fname}/public ${fname}/sql ${fname}/index.php ${fname}/.htaccess ${fname}/icon.ico ${fname}/backup
 gzip -f ${output}wfexpenses${version}.tar
 
 echo "Archive creation complete"

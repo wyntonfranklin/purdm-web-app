@@ -160,7 +160,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Download your transactions as a csv file</h5>
+                <h5 class="modal-title">Download your transactions as a xls file</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -193,7 +193,8 @@
                 </button>
             </div>
             <div class="modal-body">
-                <p>Upload a correctly a csv file with transactions.</p>
+                <p>Upload a correctly formatted xls file with transactions. <a title="Learn more" target="_blank" href="https://youtu.be/RDa5t_4_tBI"><i class="fa fa-question-circle"></i></a></p>
+                <div class="alert alert-info">You might need to convert the downloaded xls file to 97-2003 xls version for this to work correctly.</div>
                 <form id="bu-form">
                 <div class="input-group mb-3">
                     <input id="uploader-placeholder" type="text" class="form-control" placeholder="Choose a file"/>
@@ -251,3 +252,38 @@
         </div>
     </div>
 </div>
+
+<div id="backup-database-modal" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Backup your database</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Press start to create you backup.</p>
+                <div class="input-group mb-3">
+                    <input id="backup-filename-input" type="text" class="form-control" placeholder="Filename">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-primary" type="button" id="backup-database-btn">Start Backup</button>
+                    </div>
+                </div>
+
+                <br>
+                <div>
+                    <p>Available Backups <span style="float:right;"><a id="refresh-backup-listing" href="javascript:void(0);">Refresh listing</a></span></p>
+                    <ul class="list-group" id="backups-previous-layout">
+                    </ul>
+                </div>
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+

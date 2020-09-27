@@ -76,9 +76,19 @@
                                         <a id="download-transactions" href="javascript:void(0);" class="btn btn-sm btn-primary">Download</a>
                                     </span>
                                 </li>
-                                <li class="list-group-item">Add transactions via csv file
+                                <li class="list-group-item">Add transactions via xls file
                                     <span class="float-right">
                                         <a id="upload-transactions" href="javascript:void(0);" class="btn btn-sm btn-primary">Upload</a>
+                                    </span>
+                                </li>
+                            </ul>
+
+                            <br>
+                            <h6 style="font-weight: bold">Backup the database</h6>
+                            <ul class="list-group">
+                                <li class="list-group-item">Backup your application database
+                                    <span class="float-right">
+                                        <a id="backup-database" href="javascript:void(0);" class="btn btn-sm btn-primary">Backup</a>
                                     </span>
                                 </li>
                             </ul>

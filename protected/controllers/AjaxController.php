@@ -438,7 +438,7 @@ class AjaxController extends QueriesController
             Utils::jsonResponse('good',"Reconciliation added");
         }else{
             Utils::jsonResponse('bad',
-                $this->getErrorSummaryAsText($model->getHTMLErrorSummary()));
+                $this->getModelErrorSummaryAsText($model));
         }
     }
 
@@ -477,8 +477,8 @@ class AjaxController extends QueriesController
         if($user->update()){
             Utils::jsonResponse('good','User profile updated');
         }else{
-            Utils::jsonResponse('bad',$this->getErrorSummaryAsText(
-                $user->getHTMLErrorSummary()));
+            Utils::jsonResponse('bad',$this->getModelErrorSummaryAsText(
+                $user));
         }
     }
 
@@ -543,7 +543,7 @@ class AjaxController extends QueriesController
                 Utils::jsonResponse('good','Update successful');
             }else{
                 Utils::jsonResponse('bad',
-                    $this->getErrorSummaryAsText($rt->getHTMLErrorSummary()));
+                    $this->getModelErrorSummaryAsText($rt));
             }
         }else{
             Utils::jsonResponse('bad',"Things are missing");
@@ -592,47 +592,52 @@ class AjaxController extends QueriesController
         if($file->type!='application/vnd.ms-excel'){
             echo Utils::jsonResponse('bad','File is wrong format',[]);
         }else{
-            $path = Yii::app()->basePath.'/../temp/'.$file->name;
-            $file->saveAs($path);
-            $excel = new ExcelAdapter();
-            $data = $excel->getRows($path);
-            $transactions = $data->sheets[0]['cells'];
-            for($i=2; $i<=count($transactions);$i++){
-                $cols = $excel->assignTransactionsCols($transactions[$i]);
-                $model = new Transaction();
-                $model->setScenario("save-trans");
-                $model->trans_date = $cols["transDate"];
-                $model->amount = $cols["amount"];
-                $model->description = $cols["description"];
-                $model->category = $cols["category"];
-                if($acc == "byname"){
-                    $aname = Accounts::model()->getAccountByName($cols["account"]);
-                    if($aname == null && $createAccount){
-                        $account = new Accounts();
-                        $account->name = $cols["account"];
-                        $account->user_id = Utils::getCurrentUserId();
-                        if($account->save()){
-                            $model->account_id = $account->id;
+            try{
+                $path = Yii::app()->basePath.  DIRECTORY_SEPARATOR .'..' . DIRECTORY_SEPARATOR .
+                    'temp'. DIRECTORY_SEPARATOR . $file->name;
+                $file->saveAs($path);
+                $excel = new ExcelAdapter();
+                $data = $excel->getRows($path);
+                $transactions = $data->sheets[0]['cells'];
+                for($i=2; $i<=count($transactions);$i++){
+                    $cols = $excel->assignTransactionsCols($transactions[$i]);
+                    $model = new Transaction();
+                    $model->setScenario("save-trans");
+                    $model->trans_date = $cols["transDate"];
+                    $model->amount = $cols["amount"];
+                    $model->description = $cols["description"];
+                    $model->category = $cols["category"];
+                    if($acc == "byname"){
+                        $aname = Accounts::model()->getAccountByName($cols["account"]);
+                        if($aname == null && $createAccount){
+                            $account = new Accounts();
+                            $account->name = $cols["account"];
+                            $account->user_id = Utils::getCurrentUserId();
+                            if($account->save()){
+                                $model->account_id = $account->id;
+                            }else{
+                                $log .= $this->getModelErrorSummaryAsText($account);
+                            }
                         }else{
-                            $log .= Utils::getErrorSummaryAsText($account->getHTMLErrorSummary());
+                            $model->account_id = "";
                         }
                     }else{
-                        $model->account_id = "";
+                        $model->account_id = $acc;
                     }
-                }else{
-                    $model->account_id = $acc;
+                    $model->type = $cols["type"];
+                    $model->memo = $cols["memo"];
+                    if($model->save()){
+                        $log .= "Transaction ".$model->description . "[" .$model->amount
+                            ."] saved as id:" .$model->transaction_id. ". to the account\r\n";
+                    }else{
+                        $log .= "Error saving transaction - ".$model->description."(".$model->amount."). Error is: " .
+                            $this->getModelErrorSummaryAsText($model) . "\r\n";
+                    }
                 }
-                $model->type = $cols["type"];
-                $model->memo = $cols["memo"];
-                if($model->save()){
-                    $log .= "Transaction ".$model->description . "[" .$model->amount
-                        ."] saved as id:" .$model->transaction_id. ". to the account\r\n";
-                }else{
-                    $log .= "Error saving transaction - ".$model->description."(".$model->amount."). Error is: " .
-                        Utils::getErrorSummaryAsText($model->getHTMLErrorSummary()) . "\r\n";
-                }
+                echo Utils::jsonResponse('good','good', ['post'=>$_POST,'log'=>$log]);
+            }catch (Exception $e){
+                echo Utils::jsonResponse('bad',$e->getMessage(),[]);
             }
-            echo Utils::jsonResponse('good','good', ['post'=>$_POST,'log'=>$log]);
         }
     }
 
@@ -659,7 +664,7 @@ class AjaxController extends QueriesController
                 Utils::jsonResponse('good','Password updated',[]);
             }else{
                 Utils::jsonResponse('bad',
-                    Utils::getErrorSummaryAsText($user->getHTMLErrorSummary()));
+                    $this->getModelErrorSummaryAsText($user));
             }
         }else{
             Utils::jsonResponse('bad','All values not submitted correctly');
@@ -685,21 +690,7 @@ class AjaxController extends QueriesController
                 ['id'=>$user->id]);
         }else{
             echo Utils::jsonResponse(Utils::STATUS_BAD,
-                Utils::getErrorSummaryAsText($user->getHTMLErrorSummary()));
-        }
-    }
-
-    public function actionAdminDeleteUser(){
-
-    }
-
-    public function actionTest(){
-        $updater = new PDMUpdater();
-        $updater->getUpdates();
-        $updates = json_decode($updater->updates);
-        foreach ($updates->updates as $update){
-            echo $update->name;
-            echo $update->version;
+                $this->getModelErrorSummaryAsText($user));
         }
     }
 
@@ -716,6 +707,57 @@ class AjaxController extends QueriesController
         }else{
             Utils::jsonResponse('bad',$updater->getErrorMessage());
         }
+    }
+
+    public function actionGetPreviousBackups(){
+        $path = Yii::app()->basePath.'/../backup';
+        $baseUrl = Yii::app()->baseUrl;
+        $files = $this->getBackups($path);
+        $o = "";
+        foreach($files as $file){
+            $o.= "<li class=\"list-group-item\"><a href='" . $baseUrl . "/backup/$file".  "'>$file</a></li>";
+        }
+        echo Utils::jsonResponse(Utils::STATUS_GOOD,"good",
+            ['html'=>$o]);
+
+    }
+
+    public function actionStartBackup(){
+        if(Yii::app()->request->isPostRequest){
+            try{
+                $name = Utils::getPost("filename");
+
+                $basePath = Yii::app()->basePath;
+                $params = "";
+                if($name){
+                    $params.= "--name=".$name;
+                }
+                $command = "php " . $basePath .  DIRECTORY_SEPARATOR ."yiic backup db $params";
+                exec($command);
+                Utils::jsonResponse('good','Backup successfully started. Refresh listing',[]);
+            }catch (Exception $e){
+                Utils::jsonResponse('bad',$e->getMessage());
+            }
+        }else{
+            Utils::jsonResponse('bad',"Request is invalid");
+        }
+    }
+
+    private function getBackups($path){
+        $files = array();
+        if ($handle = opendir($path)) {
+
+            while (false !== ($entry = readdir($handle))) {
+
+                if ($entry != "." && $entry != "..") {
+                    $files[] = $entry;
+                    //   echo "$entry\n";
+                }
+            }
+
+            closedir($handle);
+        }
+        return $files;
     }
 
     /** Private function */

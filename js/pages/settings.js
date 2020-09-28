@@ -84,6 +84,20 @@ var SettingsPage = (function() {
             var res = PDMApp.getJsonResponseObject(resp);
             if(res.status == 'good'){
                 $('#backups-previous-layout').empty().append(res.data.html);
+                $('.remove-backup').on("click",function(){
+                    var path = $(this).data('path');
+                    var el = $(this);
+                    $.post('/ajax/removebackupfile', {path:path}, function(response){
+                        var res = PDMApp.getJsonResponseObject(response);
+                        if(res.status == 'good'){
+                            el.closest('li').remove();
+                            PDMApp.setAlert('success',res.message);
+                        }else if(res.status == 'bad'){
+                            PDMApp.setAlert('error',res.message);
+                        }
+                    })
+                    return false;
+                });
             }
         });
     }
@@ -151,6 +165,12 @@ var SettingsPage = (function() {
         var fileInput = document.getElementById('uploader');
         var filename = fileInput.files[0].name;
         $('#uploader-placeholder').val(filename);
+    });
+
+    $('#generate-random-name-btn').on('click', function(){
+        var rdm =  "transactions_" + Math. round((new Date()). getTime() / 1000);
+        $('#file-name-input').val(rdm);
+        return false;
     });
 
     $('#upload-import-btn').on('click',function(){

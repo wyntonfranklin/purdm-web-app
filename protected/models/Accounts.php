@@ -30,7 +30,7 @@ class Accounts extends Model
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('name', 'length', 'max'=>125,'min'=>5),
+			array('name', 'length', 'max'=>125,'min'=>1),
 			array('type', 'length', 'max'=>45),
             array('user_id', 'numerical', 'integerOnly'=>true),
             array('currentBalance', 'match', 'pattern'=>'/^[0-9]+(\.[0-9]{1,2})?$/'),

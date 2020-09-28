@@ -9,7 +9,8 @@ class Utils
     const ALERT_SUCCESS ="success";
     const ALERT_INFO = "info";
     const ALERT_ERROR = "error";
-    const APP_ASSETS_VERSION = '0.0.2';
+    const APP_ASSETS_VERSION = '0.0.3';
+    const APP_VERSION = '0.1.2';
 
     public static function setAlert($type, $message)
     {
@@ -237,7 +238,7 @@ class Utils
         $basePath = Yii::app()->basePath;
         $params .= $basePath;
         //$fullpath = $basePath . "/cron.sh {$params}  > /dev/null 2> /dev/null &";
-        $command = "php " . $params .  DIRECTORY_SEPARATOR ."yiic task RepeatTransactions > /dev/null 2> /dev/null &";
+        $command = "php " . $params .  DIRECTORY_SEPARATOR ."yiic task RepeatTransactions";
         exec($command);
     }
 
@@ -280,17 +281,7 @@ class Utils
     }
 
     public static function getAppVersion(){
-        $sql = "SELECT setting_value FROM settings WHERE setting_name='app_version' order by id desc LIMIT 1";
-        try{
-            $results = Yii::app()->db->createCommand($sql)->queryAll();
-            if(isset($results[0]['setting_value']) && $results[0]["setting_value"]){
-                return $results[0]['setting_value'];
-            }else{
-                return "0.0.1";
-            }
-        }catch (Exception $e){
-            return "0.0.1";
-        }
+        return self::APP_VERSION;
     }
 
     public static function isAppSetup(){

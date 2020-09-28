@@ -52,6 +52,8 @@ echo "Coping files to temp"
 cp -f ${fname}/index-production.php ${fname}/index.php
 
 rm -r ${fname}/assets/*
+rm -r ${fname}/backup/*
+rm -r ${fname}/temp/*
 rm -r ${fname}/protected/config/*
 rm -r ${fname}/protected/migrations/*
 rm -r ${fname}/protected/runtime/*
@@ -61,12 +63,15 @@ cd "${temp}" ..
 
 echo "Creating archive"
 
-tar --force-local -rf ${output}wfexpenses${version}.tar ${fname}/assets ${fname}/images ${fname}/protected ${fname}/public ${fname}/sql ${fname}/index.php ${fname}/.htaccess ${fname}/icon.ico ${fname}/backup
+tar --force-local -rf ${output}wfexpenses${version}.tar ${fname}/assets
+tar --force-local -rf ${output}wfexpenses${version}.tar ${fname}/images ${fname}/protected ${fname}/public ${fname}/sql
+tar --force-local -rf ${output}wfexpenses${version}.tar ${fname}/index.php ${fname}/.htaccess ${fname}/icon.ico
+tar --force-local -rf ${output}wfexpenses${version}.tar ${fname}/backup ${fname}/temp
 gzip -f ${output}wfexpenses${version}.tar
 
 echo "Archive creation complete"
 echo "Cleaning up assets"
 
 rm -rf ${temp}/${fname}/
-echo "All done..."
+echo "All done... You can close this window."
 

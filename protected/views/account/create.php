@@ -21,7 +21,7 @@
                         <div class="form-group">
                             <div class="form-label">
                                 <label>Account Name</label>
-                                <input minlength="5" maxlength="25" name="accountName" type="text" id="accountName" class="form-control" placeholder="Account name" required="required" >
+                                <input minlength="1" maxlength="25" name="accountName" type="text" id="accountName" class="form-control" placeholder="Account name" required="required" >
                             </div>
                         </div>
                         <div class="form-group">

@@ -137,7 +137,7 @@ class PDMUpdater
 
     public function getUpdateUrl(){
         if(YII_DEBUG){
-            return self::TEST_UPDATE_URL;
+            return self::UPDATE_URL;
         }else{
             return self::UPDATE_URL;
         }
@@ -152,7 +152,7 @@ class PDMUpdater
     }
 
     public function updateAppVersion($ver){
-        Utils::setAppVersion($ver);
+        //Utils::setAppVersion($ver);
     }
 
     /**

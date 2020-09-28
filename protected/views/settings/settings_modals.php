@@ -170,7 +170,7 @@
                 <div class="input-group mb-3">
                     <input id="file-name-input" value="mytransactions" type="text" class="form-control" placeholder="Save File as">
                     <div class="input-group-append">
-                        <button title="Generate random name" class="btn btn-outline-primary" type="button">Generate</button>
+                        <button id="generate-random-name-btn" title="Generate random name" class="btn btn-outline-primary" type="button">Generate</button>
                     </div>
                 </div>
             </div>
@@ -265,7 +265,7 @@
             <div class="modal-body">
                 <p>Press start to create you backup.</p>
                 <div class="input-group mb-3">
-                    <input id="backup-filename-input" type="text" class="form-control" placeholder="Filename">
+                    <input id="backup-filename-input" type="text" class="form-control" placeholder="Choose you file name (optional)">
                     <div class="input-group-append">
                         <button class="btn btn-outline-primary" type="button" id="backup-database-btn">Start Backup</button>
                     </div>

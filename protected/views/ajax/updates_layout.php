@@ -1,6 +1,6 @@
 <ul class="list-group">
-    <?php $appVersion = Utils::getAppVersion(); foreach($links as $link): ?>
-        <?php if($link['version'] >= $appVersion):?>
+    <?php $appVersion = Utils::getAppVersion(); $count = 0; foreach($links as $link): ?>
+        <?php if($link['version'] >= $appVersion): $count++ ?>
         <li class="list-group-item">
             <i class="fa fa-upload"></i> &nbsp;<?php echo $link['name'];?>
             <span class="badge badge-primary">Ver <?php echo $link['version'];?></span>
@@ -16,5 +16,11 @@
         </li>
     <?php endif;?>
 
+
     <?php endforeach; ?>
+    <?php
+    if($count <= 0){
+        echo "<li class='list-group-item'>No updates found</li>";
+    }
+    ?>
 </ul>

@@ -23,7 +23,7 @@
                         <div class="form-group">
                             <div class="form-label">
                                 <label>Account Name</label>
-                                <input maxlength="65" minlength="5" value="<?php echo $model->name;?>" name="accountName" type="text" id="accountName" class="form-control" placeholder="Account name" required="required">
+                                <input maxlength="65" minlength="1" value="<?php echo $model->name;?>" name="accountName" type="text" id="accountName" class="form-control" placeholder="Account name" required="required">
                             </div>
                         </div>
                         <input class="btn btn-primary btn-block"  value="Save Changes" type="submit"/>

@@ -715,11 +715,30 @@ class AjaxController extends QueriesController
         $files = $this->getBackups($path);
         $o = "";
         foreach($files as $file){
-            $o.= "<li class=\"list-group-item\"><a href='" . $baseUrl . "/backup/$file".  "'>$file</a></li>";
+            $fullpath = $path . DIRECTORY_SEPARATOR .  $file;
+            $o.= "<li class=\"list-group-item d-flex justify-content-between align-items-center\">
+            <a href='" . $baseUrl . "/backup/$file".  "'>$file</a>
+            <span><a data-path='$fullpath' class='remove-backup' href='javascript:void(0);'><i class='fa fa-trash'></i></a></span>
+            </li>";
+        }
+        if(count($files) <=0){
+            $o .= '<li class="list-group-item">No backups found</li>';
         }
         echo Utils::jsonResponse(Utils::STATUS_GOOD,"good",
             ['html'=>$o]);
 
+    }
+
+    public function actionRemoveBackupFile(){
+        if(Yii::app()->request->isPostRequest){
+            $path = Utils::getPost('path');
+            if($path){
+                unlink($path);
+                Utils::jsonResponse(Utils::STATUS_GOOD,'Backup deleted');
+            }else{
+                Utils::jsonResponse('bad','No path given');
+            }
+        }
     }
 
     public function actionStartBackup(){
